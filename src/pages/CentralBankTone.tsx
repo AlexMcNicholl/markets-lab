@@ -146,6 +146,12 @@ export default function CentralBankTone() {
             ),
           )}
         </p>
+        <p className="note">
+          Verbatim excerpt of a public-domain press release.{" "}
+          <a href={active.source} target="_blank" rel="noreferrer">
+            Read the full {BANK_NAME[bank]} statement ({active.date}) ↗
+          </a>
+        </p>
 
         <table className="data" style={{ marginTop: 22 }}>
           <thead>
