@@ -1,16 +1,27 @@
 // Single source of truth for the tools on the site.
 //
-// Routes (main.tsx), the header nav (Layout.tsx), the home-page cards
-// (Home.tsx), and each tool's page header (ToolPage.tsx) all read from this
-// list. Adding a tool means: (1) add an entry here, (2) write its page
-// component, (3) map the slug to that component in main.tsx. The nav, home
-// grid, and page chrome update automatically and stay in sync.
+// Routes (main.tsx), the header nav (Layout.tsx), the home-page cards and
+// filter (Home.tsx), and each tool's page header (ToolPage.tsx) all read from
+// this list. Adding a tool means: (1) add an entry here with a category,
+// (2) write its page component, (3) map the slug to that component in
+// main.tsx. Numbering, nav, the home grid, and the category filter all update
+// automatically.
+
+// Ordered list of project areas. Add a category here, then tag tools with it;
+// the home-page filter shows a category only once at least one tool uses it.
+export const CATEGORIES = [
+  "Performance & Attribution",
+  "Manager & Skill",
+  "Rates & Fixed Income",
+] as const;
+
+export type Category = (typeof CATEGORIES)[number];
 
 export interface ToolMeta {
   /** URL slug, e.g. "yield-curve" → /yield-curve */
   slug: string;
-  /** Two-digit index shown on the home card. */
-  idx: string;
+  /** Project area, used for the home-page filter and card tag. */
+  category: Category;
   /** Full title used on the tool page and home card. */
   title: string;
   /** Short label used in the header nav. */
@@ -24,7 +35,7 @@ export interface ToolMeta {
 export const TOOLS: ToolMeta[] = [
   {
     slug: "attribution",
-    idx: "01",
+    category: "Performance & Attribution",
     title: "Attribution Playground",
     nav: "Attribution",
     blurb:
@@ -33,7 +44,7 @@ export const TOOLS: ToolMeta[] = [
   },
   {
     slug: "manager-luck",
-    idx: "02",
+    category: "Manager & Skill",
     title: "Skill vs. Luck",
     nav: "Skill vs. Luck",
     blurb:
@@ -42,7 +53,7 @@ export const TOOLS: ToolMeta[] = [
   },
   {
     slug: "yield-curve",
-    idx: "03",
+    category: "Rates & Fixed Income",
     title: "Yield Curve Sandbox",
     nav: "Yield Curve",
     blurb:
@@ -53,4 +64,10 @@ export const TOOLS: ToolMeta[] = [
 
 export function getTool(slug: string): ToolMeta | undefined {
   return TOOLS.find((t) => t.slug === slug);
+}
+
+/** Two-digit display number derived from list position (1-based). */
+export function toolIndex(slug: string): string {
+  const i = TOOLS.findIndex((t) => t.slug === slug);
+  return String(i + 1).padStart(2, "0");
 }

@@ -119,6 +119,32 @@ function YieldCurvePreview() {
   );
 }
 
+// Shown for projects that don't yet have a bespoke illustration, so a new
+// entry in the registry never renders an empty preview band. A quiet plotting
+// grid with a single accent point — clearly a placeholder for a figure.
+function GenericPreview() {
+  const cols = 6;
+  const rows = 3;
+  const dots = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const idx = r * cols + c;
+      dots.push(
+        <circle
+          key={idx}
+          className="mp-dot"
+          cx={18 + c * 21}
+          cy={20 + r * 16}
+          r="2.2"
+          fill={r === rows - 1 && c === cols - 1 ? GOLD : RULE}
+          style={{ animationDelay: `${idx * 28}ms` }}
+        />,
+      );
+    }
+  }
+  return <Frame>{dots}</Frame>;
+}
+
 export default function ToolPreview({ slug }: { slug: string }) {
   switch (slug) {
     case "attribution":
@@ -128,6 +154,6 @@ export default function ToolPreview({ slug }: { slug: string }) {
     case "yield-curve":
       return <YieldCurvePreview />;
     default:
-      return null;
+      return <GenericPreview />;
   }
 }
