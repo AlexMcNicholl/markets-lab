@@ -9,7 +9,6 @@ import {
   toolIndex,
 } from "../lib/registry";
 import { useInView } from "../lib/useInView";
-import ToolPreview from "../components/ToolPreview";
 
 type Filter = Category | "All";
 
@@ -117,27 +116,19 @@ function ToolCard({ tool, index }: { tool: ToolMeta; index: number }) {
     <Link
       to={`/${tool.slug}`}
       className={`tool-card${planned ? " is-planned" : ""}`}
-      style={{ animationDelay: `${index * 70}ms` }}
+      style={{ animationDelay: `${index * 55}ms` }}
     >
-      <div className="preview-band">
-        <ToolPreview slug={tool.slug} />
+      <div className="card-top">
+        <span className="idx">{toolIndex(tool.slug)}</span>
+        <span className={`status-pill ${planned ? "planned" : "live"}`}>
+          {planned ? "Planned" : "Live"}
+        </span>
       </div>
-      <div className="card-body">
-        <div className="card-meta">
-          <span className="idx">{toolIndex(tool.slug)}</span>
-          <span className={`status-pill ${planned ? "planned" : "live"}`}>
-            {planned ? "Planned" : "Live"}
-          </span>
-        </div>
-        <h3>{tool.title}</h3>
-        <p>{tool.blurb}</p>
-        <div className="card-foot">
-          <span className="takeaway">{tool.takeaway}</span>
-          <span className="open" aria-hidden="true">
-            {planned ? "Preview →" : "Open →"}
-          </span>
-        </div>
-      </div>
+      <h3>{tool.title}</h3>
+      <p className="takeaway">{tool.takeaway}</p>
+      <span className="open" aria-hidden="true">
+        {planned ? "Preview →" : "Open →"}
+      </span>
     </Link>
   );
 }

@@ -1,6 +1,5 @@
 import { NavLink, Outlet, Link } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
-import { TOOLS } from "../lib/registry";
 
 export default function Layout() {
   return (
@@ -12,14 +11,16 @@ export default function Layout() {
           </Link>
           <nav className="nav">
             <NavLink to="/" end>
-              Tools
+              Projects
             </NavLink>
-            {TOOLS.filter((t) => t.status === "live").map((t) => (
-              <NavLink key={t.slug} to={`/${t.slug}`}>
-                {t.nav}
-              </NavLink>
-            ))}
             <NavLink to="/about">About</NavLink>
+            <a
+              href="https://github.com/AlexMcNicholl/markets-lab"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
           </nav>
         </div>
       </header>
