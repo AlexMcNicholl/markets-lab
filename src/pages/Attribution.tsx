@@ -9,28 +9,21 @@ import {
 import { pct, signed, signClass } from "../lib/format";
 import { useSharedState } from "../lib/useSharedState";
 import ToolPage from "../components/ToolPage";
-import SectorCard from "../components/SectorCard";
 import EffectChart from "../components/EffectChart";
 import EffectTable from "../components/EffectTable";
-import MultiPeriodPanel from "../components/MultiPeriodPanel";
 import CopyLinkButton from "../components/CopyLinkButton";
 
 export default function Attribution() {
-  const [sectors, setSectors, reset] = useSharedState<Sector[]>(DEFAULT_SECTORS);
+  const [sectors, setSectors] = useSharedState<Sector[]>(DEFAULT_SECTORS);
   const [fold, setFold] = useState(false);
 
   const result = useMemo(() => attribute(sectors, fold), [sectors, fold]);
-  const wpSum = sectors.reduce((s, x) => s + x.wp, 0);
-  const wbSum = sectors.reduce((s, x) => s + x.wb, 0);
   const activeScenario = matchScenario(sectors);
 
-  // Largest absolute contributor, surfaced in the card grid and the table.
+  // Largest absolute contributor, highlighted in the chart's table.
   const leader = result.effects.reduce((a, b) =>
     Math.abs(b.total) > Math.abs(a.total) ? b : a,
   ).name;
-
-  const update = (i: number, key: keyof Sector, v: number) =>
-    setSectors(sectors.map((s, idx) => (idx === i ? { ...s, [key]: v } : s)));
 
   return (
     <ToolPage
@@ -40,16 +33,15 @@ export default function Attribution() {
         <>
           A single-period Brinson-Fachler decomposition across the eleven{" "}
           <abbr title="Global Industry Classification Standard">GICS</abbr>{" "}
-          sectors. Change what the portfolio owns relative to its benchmark, and
-          watch active return split into the bet on <em>where</em> to be
-          (allocation) and the bet on <em>what</em> to hold within each sector
-          (selection).
+          sectors. Pick a positioning below and watch active return split into the
+          bet on <em>where</em> to be (allocation) and the bet on <em>what</em> to
+          hold within each sector (selection).
         </>
       }
     >
       <div className="toolbar">
         <div className="scenario-row">
-          <span className="toolbar-label">Scenario</span>
+          <span className="toolbar-label">Positioning</span>
           {SCENARIOS.map((s) => (
             <button
               key={s.id}
@@ -60,9 +52,6 @@ export default function Attribution() {
               {s.label}
             </button>
           ))}
-          <button className="preset ghost" onClick={reset}>
-            Reset
-          </button>
         </div>
         <label className="toggle" title="Roll the interaction cross-term into selection">
           <input
@@ -112,35 +101,12 @@ export default function Attribution() {
       <div className="output" style={{ border: "1px solid var(--rule)", marginTop: 0 }}>
         <h4>Active return by sector</h4>
         <EffectChart result={result} foldInteraction={fold} />
-        <EffectTable result={result} foldInteraction={fold} leader={leader} />
-      </div>
-
-      <div className="section-label">
-        <h4>Sector inputs</h4>
-        <span className="note inline">
-          Portfolio weights sum to{" "}
-          <span className={Math.abs(wpSum - 100) < 0.5 ? "pos" : "neg"}>
-            {wpSum.toFixed(1)}%
-          </span>{" "}
-          · benchmark{" "}
-          <span className={Math.abs(wbSum - 100) < 0.5 ? "pos" : "neg"}>
-            {wbSum.toFixed(1)}%
-          </span>
-          . Returns are normalised by total weight, so the decomposition always
-          reconciles to active return.
-        </span>
-      </div>
-
-      <div className="sector-grid">
-        {sectors.map((s, i) => (
-          <SectorCard
-            key={s.name}
-            sector={s}
-            effect={result.effects[i]}
-            isLeader={s.name === leader}
-            onChange={(key, v) => update(i, key, v)}
-          />
-        ))}
+        <EffectTable
+          result={result}
+          sectors={sectors}
+          foldInteraction={fold}
+          leader={leader}
+        />
       </div>
 
       <div className="prose">
@@ -171,14 +137,16 @@ export default function Attribution() {
 
         <h3>The catch nobody mentions in the pitch book</h3>
         <p>
-          These effects are clean for one period. They do <em>not</em> add up
-          across periods, because returns compound while attribution effects are
-          arithmetic. Drag the quarterly returns below and watch the naive sum
-          pull away from the compounded truth:
+          These effects are clean for one period, but they do <em>not</em> add up
+          across periods — returns compound while attribution effects are
+          arithmetic. So four quarters of active return won't sum to the realised
+          annual active return; the gap is the linking residual. Linking
+          algorithms — Carino, Menchero, GRAP — distribute exactly that residual
+          back onto each period's effects so a multi-period attribution still
+          reconciles to performance. Getting it wrong is the most common error in
+          home-grown attribution.
         </p>
       </div>
-
-      <MultiPeriodPanel />
     </ToolPage>
   );
 }
