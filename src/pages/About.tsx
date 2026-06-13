@@ -14,10 +14,11 @@ export default function About() {
 
       <div className="prose">
         <p>
-          I'm Alexandre McNicholl, based in Toronto. This is where I put the
-          interactive tools I build in my own time — each one an attempt to take
-          an idea that usually lives in a textbook or a spreadsheet and turn it
-          into something you can move with your hands.
+          I'm Alexandre McNicholl, based in Toronto, and a CFA Level II
+          candidate. This is where I put the interactive tools I build in my own
+          time — each one an attempt to take an idea that usually lives in a
+          textbook or a spreadsheet and turn it into something you can move with
+          your hands.
         </p>
         <p>
           Everything is built from scratch, the underlying math is documented on
