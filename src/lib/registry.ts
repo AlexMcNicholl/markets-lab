@@ -147,11 +147,11 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "central-bank-tone",
     category: "AI & Markets",
-    status: "planned",
+    status: "live",
     title: "Central-Bank Tone Scoring",
     nav: "CB Tone",
     blurb:
-      "Score central-bank statements on a hawkish-to-dovish scale and track how the tone shifts meeting to meeting — turning policy language into a number you can chart.",
+      "Score real Bank of Canada and Federal Reserve statements on a hawkish-to-dovish scale with a transparent term lexicon, and track how the tone turns across the hike-and-cut cycle.",
     takeaway: "Turning policy language into a signal.",
   },
   {

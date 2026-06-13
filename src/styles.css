@@ -620,6 +620,33 @@ button.preset.ghost {
   font-family: var(--serif);
   color: var(--ink);
 }
+/* ---------- central-bank tone: scored statement ---------- */
+.statement-quote {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 70ch;
+  margin: 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--rule-2);
+}
+.statement-quote mark {
+  background: none;
+  padding: 0 1px;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.statement-quote mark.tone-hawkish {
+  background: rgba(31, 74, 92, 0.14);
+  color: var(--accent);
+}
+.statement-quote mark.tone-dovish {
+  background: rgba(176, 132, 51, 0.18);
+  color: #7a5a16;
+}
+
 .section-label {
   display: flex;
   align-items: baseline;
