@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   LineChart,
   Line,
@@ -15,56 +15,90 @@ import {
   TENORS,
   Tenor,
 } from "../lib/bonds";
+import { pct, signed, signClass } from "../lib/format";
 import { useSharedState } from "../lib/useSharedState";
 import ToolPage from "../components/ToolPage";
-import Slider from "../components/Slider";
 import CopyLinkButton from "../components/CopyLinkButton";
 
 const MV = 100_000_000; // $100mm book
 
 type Curve = Record<Tenor, number>;
 
-const PRESETS: Record<string, (b: Curve) => Curve> = {
-  "Parallel +50bp": (b) => mapCurve(b, () => 0.5),
-  "Bull steepener": (b) => mapCurve(b, (t) => (t <= 2 ? -0.6 : t >= 30 ? 0.1 : -0.25)),
-  "Bear flattener": (b) => mapCurve(b, (t) => (t <= 2 ? 0.6 : t >= 30 ? 0.05 : 0.3)),
-  Butterfly: (b) => mapCurve(b, (t) => (t === 5 || t === 10 ? 0.4 : -0.25)),
-};
+// A named, non-parallel shock is the whole control surface here: each scenario
+// is a set of key-rate moves (in basis points) that the reader applies with one
+// click. Shifts are illustrative, not a forecast of any real curve.
+interface CurveShock {
+  id: string;
+  label: string;
+  blurb: string;
+  shift: Record<Tenor, number>; // basis points at each key rate
+}
 
-function mapCurve(base: Curve, shift: (t: Tenor) => number): Curve {
-  const out = { ...base };
-  for (const t of TENORS) out[t] = base[t] + shift(t);
+const SHOCKS: CurveShock[] = [
+  {
+    id: "parallel-up",
+    label: "Parallel +50bp",
+    blurb: "The naive view: the whole curve sells off 50bp in lockstep.",
+    shift: { 2: 50, 5: 50, 10: 50, 30: 50 },
+  },
+  {
+    id: "bull-steepener",
+    label: "Bull steepener",
+    blurb: "Front end rallies hard, long end barely moves — the curve steepens.",
+    shift: { 2: -60, 5: -35, 10: -15, 30: 5 },
+  },
+  {
+    id: "bear-flattener",
+    label: "Bear flattener",
+    blurb: "Front end sells off faster than the long end — the curve flattens.",
+    shift: { 2: 60, 5: 40, 10: 20, 30: 5 },
+  },
+  {
+    id: "belly-selloff",
+    label: "Belly cheapens",
+    blurb: "A negative butterfly: 5s and 10s back up while the wings hold.",
+    shift: { 2: -10, 5: 45, 10: 40, 30: -10 },
+  },
+  {
+    id: "rally",
+    label: "Parallel −50bp",
+    blurb: "The mirror image: the whole curve rallies 50bp.",
+    shift: { 2: -50, 5: -50, 10: -50, 30: -50 },
+  },
+];
+
+const DEFAULT_SHOCK = SHOCKS[0].id;
+
+function shockedCurve(shock: CurveShock): Curve {
+  const out = { ...BASE_CURVE };
+  for (const t of TENORS) out[t] = BASE_CURVE[t] + shock.shift[t] / 100;
   return out;
 }
 
 export default function YieldCurve() {
-  const [curve, setCurve, resetCurve] = useSharedState<Curve>(BASE_CURVE);
-  const [active, setActive] = useState<string | null>(null);
+  const [shockId, setShockId] = useSharedState<string>(DEFAULT_SHOCK);
+  const shock = SHOCKS.find((s) => s.id === shockId) ?? SHOCKS[0];
 
+  const curve = useMemo(() => shockedCurve(shock), [shock]);
   const result = useMemo(
     () => reprice(DEFAULT_PORTFOLIO, BASE_CURVE, curve, MV),
     [curve],
   );
 
-  const setTenor = (t: Tenor, v: number) => {
-    setActive(null);
-    setCurve({ ...curve, [t]: v });
-  };
+  // Mean key-rate move, in bp — the "level" the eye reaches for, set against the
+  // P&L it fails to explain on a shape move.
+  const avgShift =
+    TENORS.reduce((s, t) => s + shock.shift[t], 0) / TENORS.length;
 
-  const applyPreset = (name: string) => {
-    setActive(name);
-    setCurve(PRESETS[name]({ ...BASE_CURVE }));
-  };
-
-  const reset = () => {
-    setActive(null);
-    resetCurve();
-  };
+  // The key rate carrying the most P&L: where KRD met the biggest yield move.
+  const leader = result.byTenor.reduce((a, b) =>
+    Math.abs(b.contribPct) > Math.abs(a.contribPct) ? b : a,
+  );
 
   const chartData = TENORS.map((t) => ({
     tenor: `${t}y`,
     Base: BASE_CURVE[t],
-    Current: curve[t],
+    Shocked: curve[t],
   }));
 
   return (
@@ -75,163 +109,148 @@ export default function YieldCurve() {
         <>
           Reshape the Government of Canada curve and reprice a $100mm bond book
           through its key-rate durations. The point: a parallel-shift mental
-          model hides most of the risk — the shape of the move is what drives
-          the P&L.
+          model hides most of the risk — the <em>shape</em> of the move is what
+          drives the P&amp;L.
         </>
       }
     >
-      <div className="panel">
-        <div className="controls">
-          <h4>Curve shape</h4>
-          <div className="btn-row">
-            {Object.keys(PRESETS).map((name) => (
-              <button
-                key={name}
-                className={`preset ${active === name ? "active" : ""}`}
-                onClick={() => applyPreset(name)}
-              >
-                {name}
-              </button>
-            ))}
-            <button className="preset" onClick={reset}>
-              Reset
+      <div className="toolbar">
+        <div className="scenario-row">
+          <span className="toolbar-label">Curve shock</span>
+          {SHOCKS.map((s) => (
+            <button
+              key={s.id}
+              className={`preset${shockId === s.id ? " active" : ""}`}
+              title={s.blurb}
+              onClick={() => setShockId(s.id)}
+            >
+              {s.label}
             </button>
-          </div>
-          {TENORS.map((t) => {
-            const delta = curve[t] - BASE_CURVE[t];
-            return (
-              <Slider
-                key={t}
-                name={`${t}-year`}
-                value={curve[t]}
-                min={1}
-                max={6}
-                step={0.05}
-                suffix="%"
-                display={(v) => v.toFixed(2)}
-                meta={
-                  <span
-                    className={delta >= 0 ? "pos" : "neg"}
-                    style={{ marginLeft: 8, fontSize: 11 }}
-                  >
-                    {delta >= 0 ? "+" : "−"}
-                    {Math.abs(delta * 100).toFixed(0)}bp
-                  </span>
-                }
-                onChange={(v) => setTenor(t, v)}
-              />
-            );
-          })}
-          <div className="note">
-            Portfolio key-rate durations:{" "}
-            {DEFAULT_PORTFOLIO.map((p) => `${p.tenor}y ${p.krd.toFixed(1)}`).join(
-              " · ",
-            )}
-            . Effective duration {result.effectiveDuration.toFixed(1)} years.
+          ))}
+        </div>
+      </div>
+
+      <div className="stats hero-stats">
+        <div className="stat">
+          <div className="k">Total return</div>
+          <div className={`v ${signClass(result.totalReturnPct)}`}>
+            {pct(result.totalReturnPct)}%
           </div>
         </div>
-
-        <div className="output">
-          <h4>Repriced book</h4>
-          <div className="stats">
-            <div className="stat">
-              <div className="k">Total return</div>
-              <div className={`v ${result.totalReturnPct >= 0 ? "pos" : "neg"}`}>
-                {result.totalReturnPct >= 0 ? "+" : "−"}
-                {Math.abs(result.totalReturnPct).toFixed(2)}%
-              </div>
-            </div>
-            <div className="stat">
-              <div className="k">P&amp;L on $100mm</div>
-              <div className={`v ${result.pnl >= 0 ? "pos" : "neg"}`}>
-                {result.pnl >= 0 ? "+" : "−"}$
-                {(Math.abs(result.pnl) / 1e6).toFixed(2)}m
-              </div>
-            </div>
+        <div className="stat">
+          <div className="k">P&amp;L on $100mm</div>
+          <div className={`v ${signClass(result.pnl)}`}>
+            {result.pnl >= 0 ? "+" : "−"}${(Math.abs(result.pnl) / 1e6).toFixed(2)}m
           </div>
+        </div>
+        <div className="stat">
+          <div className="k">Avg curve shift</div>
+          <div className="v">{signed(avgShift, 0)}bp</div>
+        </div>
+      </div>
 
-          <div className="chart-wrap" style={{ height: 240 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData} margin={{ top: 8, right: 12, left: -8, bottom: 0 }}>
-                <XAxis
-                  dataKey="tenor"
-                  tick={{ fontSize: 11, fill: "#80848a" }}
-                  axisLine={{ stroke: "#d2ccbe" }}
-                  tickLine={false}
-                />
-                <YAxis
-                  domain={[2.5, 4.5]}
-                  tick={{ fontSize: 11, fill: "#80848a" }}
-                  axisLine={false}
-                  tickLine={false}
-                  width={44}
-                  tickFormatter={(v) => `${v.toFixed(1)}%`}
-                />
-                <Tooltip
-                  formatter={(v: number) => `${v.toFixed(2)}%`}
-                  contentStyle={{
-                    fontFamily: "var(--mono)",
-                    fontSize: 12,
-                    border: "1px solid #d2ccbe",
-                    borderRadius: 2,
-                  }}
-                />
-                <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Line
-                  type="monotone"
-                  dataKey="Base"
-                  stroke="#b9b2a3"
-                  strokeWidth={1.5}
-                  dot={{ r: 2 }}
-                  strokeDasharray="4 3"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="Current"
-                  stroke="#1f4a5c"
-                  strokeWidth={2}
-                  dot={{ r: 3 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+      <div className="verdict">
+        The curve shifted{" "}
+        <strong className={signClass(avgShift)}>{signed(avgShift, 0)}bp</strong>{" "}
+        on average, and the book{" "}
+        {result.totalReturnPct >= 0 ? "gained" : "lost"}{" "}
+        <strong className={signClass(result.totalReturnPct)}>
+          {pct(Math.abs(result.totalReturnPct))}%
+        </strong>
+        . Most of it came from the <strong>{leader.tenor}-year</strong> point,
+        where {leader.krd.toFixed(1)} years of key-rate duration met a{" "}
+        <strong className={signClass(-leader.dy)}>
+          {signed(leader.dy * 100, 0)}bp
+        </strong>{" "}
+        move.
+      </div>
 
-          <table className="data" style={{ marginTop: 18 }}>
-            <thead>
-              <tr>
-                <th>Key rate</th>
-                <th className="num">KRD</th>
-                <th className="num">Δ yield</th>
-                <th className="num">Return contrib.</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.byTenor.map((r) => (
-                <tr key={r.tenor}>
-                  <td>{r.tenor}-year</td>
-                  <td className="num">{r.krd.toFixed(1)}</td>
-                  <td className={`num ${r.dy >= 0 ? "neg" : "pos"}`}>
-                    {r.dy >= 0 ? "+" : "−"}
-                    {Math.abs(r.dy * 100).toFixed(0)}bp
-                  </td>
-                  <td className={`num ${r.contribPct >= 0 ? "pos" : "neg"}`}>
-                    {r.contribPct >= 0 ? "+" : "−"}
-                    {Math.abs(r.contribPct).toFixed(3)}%
-                  </td>
-                </tr>
-              ))}
-              <tr className="total">
-                <td>Total</td>
-                <td className="num"></td>
-                <td className="num"></td>
-                <td className={`num ${result.totalReturnPct >= 0 ? "pos" : "neg"}`}>
-                  {result.totalReturnPct >= 0 ? "+" : "−"}
-                  {Math.abs(result.totalReturnPct).toFixed(3)}%
+      <div className="output" style={{ border: "1px solid var(--rule)", marginTop: 0 }}>
+        <h4>Curve shift and repriced book</h4>
+        <div className="chart-wrap" style={{ height: 240 }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={chartData} margin={{ top: 8, right: 12, left: -8, bottom: 0 }}>
+              <XAxis
+                dataKey="tenor"
+                tick={{ fontSize: 11, fill: "#80848a" }}
+                axisLine={{ stroke: "#d2ccbe" }}
+                tickLine={false}
+              />
+              <YAxis
+                domain={[2.5, 4.5]}
+                tick={{ fontSize: 11, fill: "#80848a" }}
+                axisLine={false}
+                tickLine={false}
+                width={44}
+                tickFormatter={(v) => `${v.toFixed(1)}%`}
+              />
+              <Tooltip
+                formatter={(v: number) => `${v.toFixed(2)}%`}
+                contentStyle={{
+                  fontFamily: "var(--mono)",
+                  fontSize: 12,
+                  border: "1px solid #d2ccbe",
+                  borderRadius: 2,
+                }}
+              />
+              <Legend wrapperStyle={{ fontSize: 12 }} />
+              <Line
+                type="monotone"
+                dataKey="Base"
+                stroke="#b9b2a3"
+                strokeWidth={1.5}
+                dot={{ r: 2 }}
+                strokeDasharray="4 3"
+              />
+              <Line
+                type="monotone"
+                dataKey="Shocked"
+                stroke="#1f4a5c"
+                strokeWidth={2}
+                dot={{ r: 3 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        <table className="data" style={{ marginTop: 18 }}>
+          <thead>
+            <tr>
+              <th>Key rate</th>
+              <th className="num">KRD</th>
+              <th className="num">Δ yield</th>
+              <th className="num">Return contrib.</th>
+            </tr>
+          </thead>
+          <tbody>
+            {result.byTenor.map((r) => (
+              <tr key={r.tenor}>
+                <td>
+                  {r.tenor === leader.tenor ? (
+                    <strong>{r.tenor}-year</strong>
+                  ) : (
+                    `${r.tenor}-year`
+                  )}
+                </td>
+                <td className="num">{r.krd.toFixed(1)}</td>
+                <td className={`num ${signClass(-r.dy)}`}>
+                  {signed(r.dy * 100, 0)}bp
+                </td>
+                <td className={`num ${signClass(r.contribPct)}`}>
+                  {signed(r.contribPct, 3)}%
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
+            ))}
+            <tr className="total">
+              <td>Total</td>
+              <td className="num"></td>
+              <td className="num"></td>
+              <td className={`num ${signClass(result.totalReturnPct)}`}>
+                {signed(result.totalReturnPct, 3)}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div className="prose">
@@ -243,10 +262,16 @@ export default function YieldCurve() {
         </p>
         <div className="formula">ΔP / P ≈ − Σ KRD<sub>i</sub> × Δy<sub>i</sub></div>
         <p>
-          Key-rate durations decompose interest-rate risk by maturity, so a
-          steepener and a flattener of the same magnitude can produce opposite
-          P&amp;L even though a single "duration" number looks unchanged. That's
-          the whole reason desks watch curve <em>shape</em>, not just level.
+          The book runs key-rate durations of{" "}
+          {DEFAULT_PORTFOLIO.map((p) => `${p.tenor}y ${p.krd.toFixed(1)}`).join(
+            " · ",
+          )}{" "}
+          — an effective duration of {result.effectiveDuration.toFixed(1)} years
+          concentrated in the belly. Because that risk is decomposed by maturity,
+          a steepener and a flattener of the same average size can produce
+          opposite P&amp;L even though a single "duration" number looks unchanged.
+          That is the whole reason desks watch curve <em>shape</em>, not just
+          level.
         </p>
         <div className="callout">
           <strong>A note on precision:</strong> duration is a first-order
