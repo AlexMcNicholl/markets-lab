@@ -1,24 +1,30 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { CATEGORIES, Category, TOOLS, toolIndex } from "../lib/registry";
+import {
+  CATEGORIES,
+  CATEGORY_BLURBS,
+  Category,
+  TOOLS,
+  ToolMeta,
+  toolIndex,
+} from "../lib/registry";
 import { useInView } from "../lib/useInView";
 import ToolPreview from "../components/ToolPreview";
 
 type Filter = Category | "All";
 
 export default function Home() {
-  const grid = useInView<HTMLDivElement>();
   const [filter, setFilter] = useState<Filter>("All");
 
-  // Categories that actually have tools, in registry order.
+  // Domains that actually have projects, in registry order.
   const activeCategories = CATEGORIES.filter((c) =>
     TOOLS.some((t) => t.category === c),
   );
-  const counts = (c: Filter) =>
+  const count = (c: Filter) =>
     c === "All" ? TOOLS.length : TOOLS.filter((t) => t.category === c).length;
 
-  const shown =
-    filter === "All" ? TOOLS : TOOLS.filter((t) => t.category === filter);
+  const shownCategories =
+    filter === "All" ? activeCategories : activeCategories.filter((c) => c === filter);
 
   return (
     <>
@@ -51,59 +57,88 @@ export default function Home() {
           <span className="count num">{TOOLS.length}</span>
         </div>
 
-        {activeCategories.length > 1 && (
-          <div className="filter" role="tablist" aria-label="Filter projects by area">
+        <div className="filter" role="tablist" aria-label="Filter projects by domain">
+          <FilterPill
+            label="All"
+            count={count("All")}
+            active={filter === "All"}
+            onClick={() => setFilter("All")}
+          />
+          {activeCategories.map((c) => (
             <FilterPill
-              label="All"
-              count={counts("All")}
-              active={filter === "All"}
-              onClick={() => setFilter("All")}
+              key={c}
+              label={c}
+              count={count(c)}
+              active={filter === c}
+              onClick={() => setFilter(c)}
             />
-            {activeCategories.map((c) => (
-              <FilterPill
-                key={c}
-                label={c}
-                count={counts(c)}
-                active={filter === c}
-                onClick={() => setFilter(c)}
-              />
-            ))}
-          </div>
-        )}
-
-        <div
-          ref={grid.ref}
-          className={`tools${grid.inView ? " is-visible" : ""}`}
-        >
-          {shown.map((t, i) => (
-            <Link
-              key={t.slug}
-              to={`/${t.slug}`}
-              className="tool-card"
-              style={{ animationDelay: `${i * 70}ms` }}
-            >
-              <div className="preview-band">
-                <ToolPreview slug={t.slug} />
-              </div>
-              <div className="card-body">
-                <div className="card-meta">
-                  <span className="idx">{toolIndex(t.slug)}</span>
-                  <span className="cat-tag">{t.category}</span>
-                </div>
-                <h3>{t.title}</h3>
-                <p>{t.blurb}</p>
-                <div className="card-foot">
-                  <span className="takeaway">{t.takeaway}</span>
-                  <span className="open" aria-hidden="true">
-                    Open →
-                  </span>
-                </div>
-              </div>
-            </Link>
           ))}
         </div>
+
+        {shownCategories.map((c) => (
+          <DomainSection
+            key={c}
+            category={c}
+            tools={TOOLS.filter((t) => t.category === c)}
+          />
+        ))}
       </div>
     </>
+  );
+}
+
+function DomainSection({
+  category,
+  tools,
+}: {
+  category: Category;
+  tools: ToolMeta[];
+}) {
+  const grid = useInView<HTMLDivElement>();
+  return (
+    <section className="domain">
+      <div className="domain-head">
+        <h3 id={`domain-${category}`}>{category}</h3>
+        <span className="domain-desc">{CATEGORY_BLURBS[category]}</span>
+        <span className="domain-count num">{tools.length}</span>
+      </div>
+      <div ref={grid.ref} className={`tools${grid.inView ? " is-visible" : ""}`}>
+        {tools.map((t, i) => (
+          <ToolCard key={t.slug} tool={t} index={i} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ToolCard({ tool, index }: { tool: ToolMeta; index: number }) {
+  const planned = tool.status === "planned";
+  return (
+    <Link
+      to={`/${tool.slug}`}
+      className={`tool-card${planned ? " is-planned" : ""}`}
+      style={{ animationDelay: `${index * 70}ms` }}
+    >
+      <div className="preview-band">
+        <ToolPreview slug={tool.slug} />
+      </div>
+      <div className="card-body">
+        <div className="card-meta">
+          <span className="idx">{toolIndex(tool.slug)}</span>
+          <span className={`status-pill ${planned ? "planned" : "live"}`}>
+            {planned ? "Planned" : "Live"}
+          </span>
+        </div>
+        <h3>{tool.title}</h3>
+        <p>{tool.blurb}</p>
+        <div className="card-foot">
+          <span className="takeaway">{tool.takeaway}</span>
+          <span className="open" aria-hidden="true">
+            {planned ? "Preview →" : "Open →"}
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
 

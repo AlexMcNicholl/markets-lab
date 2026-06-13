@@ -4,13 +4,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import ComingSoon from "./components/ComingSoon";
 import { TOOLS } from "./lib/registry";
 import "./styles.css";
 
-// Tool pages are code-split: each (and the heavy charting library it pulls in)
-// loads only when its route is visited, so the initial bundle stays small and
-// adding tools doesn't grow it. The only place a new tool's component needs to
-// be referenced — routes themselves are generated from the registry below.
+// Live tool pages are code-split: each (and the heavy charting library it pulls
+// in) loads only when its route is visited, so the initial bundle stays small
+// and adding tools doesn't grow it. Map every "live" registry slug to its page
+// component here; "planned" slugs route to the shared ComingSoon stub instead.
 const TOOL_PAGES: Record<string, React.LazyExoticComponent<React.FC>> = {
   attribution: lazy(() => import("./pages/Attribution")),
   "manager-luck": lazy(() => import("./pages/ManagerLuck")),
@@ -32,7 +33,15 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      ...TOOLS.map((t) => ({ path: t.slug, element: lazyElement(t.slug) })),
+      ...TOOLS.map((t) => ({
+        path: t.slug,
+        element:
+          t.status === "live" ? (
+            lazyElement(t.slug)
+          ) : (
+            <ComingSoon slug={t.slug} />
+          ),
+      })),
       { path: "about", element: <About /> },
     ],
   },

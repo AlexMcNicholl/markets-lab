@@ -14,7 +14,7 @@ export default function Layout() {
             <NavLink to="/" end>
               Tools
             </NavLink>
-            {TOOLS.map((t) => (
+            {TOOLS.filter((t) => t.status === "live").map((t) => (
               <NavLink key={t.slug} to={`/${t.slug}`}>
                 {t.nav}
               </NavLink>

@@ -726,6 +726,94 @@ table.data tr.total td {
   opacity: 0.85;
 }
 
+/* Domain sections on the home page */
+.domain-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 46px 0 0;
+}
+.domain-head h3 {
+  font-size: 19px;
+  color: var(--ink);
+}
+.domain-desc {
+  flex: 1;
+  min-width: 180px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+.domain-count {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* Live / planned status pill on cards and the stub page */
+.status-pill {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  line-height: 1;
+}
+.status-pill.live {
+  color: var(--pos);
+  background: #eaf3ee;
+  border: 1px solid #cfe3d7;
+}
+.status-pill.planned {
+  color: var(--gold);
+  background: #fbf6ea;
+  border: 1px solid #ecdcbb;
+}
+
+/* Planned cards: present but clearly not yet interactive */
+.tool-card.is-planned .preview {
+  opacity: 0.5;
+}
+.tool-card.is-planned:hover .preview {
+  opacity: 0.8;
+}
+.tool-card.is-planned::after {
+  background: var(--gold);
+}
+.tool-card.is-planned .open {
+  color: var(--gold);
+}
+
+/* ComingSoon stub page */
+.cs-callout {
+  margin-top: 8px;
+}
+.cs-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+a.preset {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  background: var(--paper);
+  border: 1px solid var(--rule-2);
+  color: var(--ink-2);
+  border-radius: 2px;
+}
+a.preset:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
 /* Animated nav underline */
 .nav a {
   position: relative;
