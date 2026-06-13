@@ -32,29 +32,29 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="wrap">
-          <div className="eyebrow label">
-            Portfolio analytics · Capital markets
-          </div>
-          <h1>Interactive tools for the questions allocators actually argue about.</h1>
+          <div className="eyebrow label">Markets Lab</div>
+          <h1>Interactive tools for ideas worth taking apart.</h1>
           <p>
-            A small set of hand-built instruments for thinking about
-            performance attribution, manager selection, and interest-rate risk.
-            Each one is meant to make a single idea tangible — drag something,
-            and watch the intuition fall out.
+            A set of small, hand-built tools — each one made to take a single
+            idea and turn it into something you can move with your hands. Drag
+            something, and watch the intuition fall out.
           </p>
           <div className="meta">
-            <span>By Alexandre McNicholl, CFA Level II candidate</span>
+            <span>Alexandre McNicholl · Toronto</span>
             <a href="https://www.linkedin.com/in/amcnicholl/" target="_blank" rel="noreferrer">
               LinkedIn
             </a>
-            <Link to="/about">About this project</Link>
+            <a href="https://github.com/AlexMcNicholl/markets-lab" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <Link to="/about">About</Link>
           </div>
         </div>
       </section>
 
       <div className="wrap">
         <div className="section-head">
-          <h2>The tools</h2>
+          <h2>Projects</h2>
         </div>
         <div className="tools">
           {tools.map((t) => (

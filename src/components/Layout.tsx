@@ -7,7 +7,7 @@ export default function Layout() {
       <header className="site-header">
         <div className="wrap">
           <Link to="/" className="brand">
-            Markets<span>Lab</span>
+            Alexandre&nbsp;McNicholl <span>Markets&nbsp;Lab</span>
           </Link>
           <nav className="nav">
             <NavLink to="/" end>

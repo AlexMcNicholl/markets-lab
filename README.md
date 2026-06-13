@@ -1,14 +1,14 @@
 # Markets Lab
 
-Interactive tools for portfolio attribution, manager selection, and fixed
-income — built to make a handful of portfolio-management ideas tangible rather
-than to explain them in prose.
+A set of interactive tools I build in my own time — each one made to take a
+single idea and turn it into something you can move with your hands rather than
+explain in prose.
 
-**Live site:** https://markets-lab-sand.vercel.app
+**Live site:** https://www.alexmcnicholl.site
 
-## Tools
+## Projects
 
-| Tool | Idea it makes tangible |
+| Project | Idea it makes tangible |
 | --- | --- |
 | **Attribution Playground** | Brinson-Fachler decomposition of active return into allocation, selection, and interaction — and why single-period effects don't sum across periods (Carino linking). |
 | **Skill vs. Luck** | A Monte Carlo universe of managers showing how much of a track record is noise, and how long a record must be to distinguish skill from chance. |

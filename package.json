@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Interactive tools for portfolio attribution, manager selection, and rates.",
+  "description": "Markets Lab — interactive tools by Alexandre McNicholl.",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
