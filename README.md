@@ -4,7 +4,7 @@ Interactive tools for portfolio attribution, manager selection, and fixed
 income — built to make a handful of portfolio-management ideas tangible rather
 than to explain them in prose.
 
-**Live site:** _add your Vercel URL here after the first deploy_
+**Live site:** https://markets-lab-sand.vercel.app
 
 ## Tools
 
