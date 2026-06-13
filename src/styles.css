@@ -202,26 +202,69 @@ a:hover {
   margin-top: 24px;
 }
 .tool-card {
+  position: relative;
   background: var(--paper);
-  padding: 30px 28px 28px;
   display: flex;
   flex-direction: column;
-  min-height: 240px;
-  transition: background 0.15s ease;
+  min-height: 280px;
+  overflow: hidden;
+  opacity: 0;
+  transition: background 0.18s ease;
+}
+.tools.is-visible .tool-card {
+  animation-name: cardIn;
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+.tool-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s ease;
 }
 .tool-card:hover {
   background: #fff;
   text-decoration: none;
 }
+.tool-card:hover::after {
+  transform: scaleX(1);
+}
+.preview-band {
+  padding: 20px 24px 12px;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.18s ease;
+}
+.tool-card:hover .preview-band {
+  background: #fbf9f3;
+}
+.preview {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 22px 26px 24px;
+}
 .tool-card .idx {
   font-family: var(--mono);
   font-size: 12px;
   color: var(--accent);
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 .tool-card h3 {
-  font-size: 24px;
-  margin-bottom: 12px;
+  font-size: 23px;
+  margin-bottom: 10px;
   color: var(--ink);
 }
 .tool-card p {
@@ -229,13 +272,32 @@ a:hover {
   color: var(--ink-2);
   font-size: 15px;
 }
-.tool-card .takeaway {
+.card-foot {
   margin-top: auto;
   padding-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tool-card .takeaway {
   font-size: 13px;
   color: var(--ink-3);
   font-style: italic;
   font-family: var(--serif);
+}
+.tool-card .open {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.tool-card:hover .open {
+  opacity: 1;
+  transform: none;
 }
 
 /* ---------- tool pages ---------- */
@@ -518,4 +580,165 @@ table.data tr.total td {
   padding: 96px 0;
   color: var(--ink-3);
   font-size: 14px;
+}
+
+/* ---------- motion & polish ---------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes barGrow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Page entrances */
+.hero {
+  animation: fadeUp 0.6s ease both;
+}
+.tool-page {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* Home-card preview drawing, triggered when the grid scrolls into view */
+.mp-bar {
+  transform: scaleY(0);
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.tools.is-visible .mp-bar {
+  animation-name: barGrow;
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+.mp-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.tools.is-visible .mp-line {
+  animation: drawLine 0.9s ease forwards 0.1s;
+}
+.mp-dot {
+  opacity: 0;
+}
+.tools.is-visible .mp-dot {
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+}
+
+/* Editorial rule trailing the section heading */
+.section-head .hr {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  margin-left: 18px;
+  align-self: center;
+}
+
+/* Animated nav underline */
+.nav a {
+  position: relative;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+.nav a:hover::after,
+.nav a.active::after {
+  transform: scaleX(1);
+}
+
+/* Tactile press on buttons */
+button.preset:active {
+  transform: translateY(1px);
+}
+
+/* Built-with chips on the About page */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 8px;
+}
+.chip {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  background: var(--paper-2);
+  border: 1px solid var(--rule-2);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+
+/* Keyboard focus visibility */
+a:focus-visible,
+button:focus-visible,
+input[type="range"]:focus-visible,
+.tool-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .tool-card {
+    opacity: 1 !important;
+  }
+  .mp-bar {
+    transform: none !important;
+  }
+  .mp-line {
+    stroke-dashoffset: 0 !important;
+  }
+  .mp-dot {
+    opacity: 1 !important;
+  }
 }

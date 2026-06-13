@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { TOOLS } from "../lib/registry";
+import { useInView } from "../lib/useInView";
+import ToolPreview from "../components/ToolPreview";
 
 export default function Home() {
+  const grid = useInView<HTMLDivElement>();
+
   return (
     <>
       <section className="hero">
@@ -29,14 +33,33 @@ export default function Home() {
       <div className="wrap">
         <div className="section-head">
           <h2>Projects</h2>
+          <span className="hr" />
         </div>
-        <div className="tools">
-          {TOOLS.map((t) => (
-            <Link key={t.slug} to={`/${t.slug}`} className="tool-card">
-              <span className="idx">{t.idx}</span>
-              <h3>{t.title}</h3>
-              <p>{t.blurb}</p>
-              <span className="takeaway">{t.takeaway}</span>
+        <div
+          ref={grid.ref}
+          className={`tools${grid.inView ? " is-visible" : ""}`}
+        >
+          {TOOLS.map((t, i) => (
+            <Link
+              key={t.slug}
+              to={`/${t.slug}`}
+              className="tool-card"
+              style={{ animationDelay: `${i * 90}ms` }}
+            >
+              <div className="preview-band">
+                <ToolPreview slug={t.slug} />
+              </div>
+              <div className="card-body">
+                <span className="idx">{t.idx}</span>
+                <h3>{t.title}</h3>
+                <p>{t.blurb}</p>
+                <div className="card-foot">
+                  <span className="takeaway">{t.takeaway}</span>
+                  <span className="open" aria-hidden="true">
+                    Open →
+                  </span>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
