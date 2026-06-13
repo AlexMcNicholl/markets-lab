@@ -103,7 +103,7 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "efficient-frontier",
     category: "Portfolio Construction",
-    status: "planned",
+    status: "live",
     title: "Resampled Efficient Frontier",
     nav: "Frontier",
     blurb:

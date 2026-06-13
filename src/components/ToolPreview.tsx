@@ -119,6 +119,57 @@ function YieldCurvePreview() {
   );
 }
 
+function EfficientFrontierPreview() {
+  // A frontier curve with a scatter of "plausible optimal" portfolios below it,
+  // plus the resampled point — the tool's whole argument in miniature.
+  const cloud = [
+    [40, 50],
+    [50, 44],
+    [56, 52],
+    [62, 42],
+    [70, 48],
+    [76, 40],
+    [84, 46],
+    [90, 38],
+    [66, 54],
+    [80, 51],
+  ];
+  return (
+    <Frame>
+      <line x1="10" y1="62" x2="132" y2="62" stroke={RULE} strokeWidth="1" />
+      <path
+        className="mp-line"
+        pathLength={1}
+        d="M16 58 C 48 32 90 22 128 16"
+        fill="none"
+        stroke={INK}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {cloud.map(([x, y], i) => (
+        <circle
+          key={i}
+          className="mp-dot"
+          cx={x}
+          cy={y}
+          r="2"
+          fill={RULE}
+          style={{ animationDelay: `${300 + i * 35}ms` }}
+        />
+      ))}
+      {/* Resampled portfolio: the steady answer the cloud averages back to. */}
+      <circle
+        className="mp-dot"
+        cx={70}
+        cy={44}
+        r="3"
+        fill={GOLD}
+        style={{ animationDelay: "760ms" }}
+      />
+    </Frame>
+  );
+}
+
 // Shown for projects that don't yet have a bespoke illustration, so a new
 // entry in the registry never renders an empty preview band. A quiet plotting
 // grid with a single accent point — clearly a placeholder for a figure.
@@ -153,6 +204,8 @@ export default function ToolPreview({ slug }: { slug: string }) {
       return <ManagerLuckPreview />;
     case "yield-curve":
       return <YieldCurvePreview />;
+    case "efficient-frontier":
+      return <EfficientFrontierPreview />;
     default:
       return <GenericPreview />;
   }

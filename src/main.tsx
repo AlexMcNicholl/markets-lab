@@ -16,6 +16,7 @@ const TOOL_PAGES: Record<string, React.LazyExoticComponent<React.FC>> = {
   attribution: lazy(() => import("./pages/Attribution")),
   "manager-luck": lazy(() => import("./pages/ManagerLuck")),
   "yield-curve": lazy(() => import("./pages/YieldCurve")),
+  "efficient-frontier": lazy(() => import("./pages/EfficientFrontier")),
 };
 
 function lazyElement(slug: string): JSX.Element {
