@@ -11,28 +11,35 @@ import {
   ReferenceLine,
 } from "recharts";
 import {
-  COMPANY,
-  DEFAULT_SCENARIO,
+  COMPANIES,
+  DEFAULT_STATE,
+  HORIZON,
+  LENSES,
+  State,
+  closestLens,
+  edgarLink,
   footballField,
-  getScenario,
-  SCENARIOS,
+  getCompany,
+  getLens,
   value,
 } from "../lib/dcf";
+import { signClass } from "../lib/format";
 import { useSharedState } from "../lib/useSharedState";
 import ToolPage from "../components/ToolPage";
 import CopyLinkButton from "../components/CopyLinkButton";
 
-// $m with thousands separators; whole dollars per share.
-const m = (n: number) => n.toLocaleString("en-US", { maximumFractionDigits: 0 });
-const usd0 = (n: number) => `$${n.toFixed(0)}`;
+// $m with thousands separators; whole and 2-dp dollars per share.
+const m = (n: number) => Math.round(n).toLocaleString("en-US");
+const usd0 = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 const usd2 = (n: number) => `$${n.toFixed(2)}`;
 const wpct = (d: number) => `${(d * 100).toFixed(1)}%`;
+const sgnpct = (f: number) =>
+  `${f > 0 ? "+" : f < 0 ? "−" : ""}${Math.abs(f * 100).toFixed(0)}%`;
 
 interface TipProps {
   active?: boolean;
-  payload?: { payload: { short: string; lo: number; band: number; central: number } }[];
+  payload?: { payload: { short: string; price: number } }[];
 }
-
 function FieldTooltip({ active, payload }: TipProps) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
@@ -44,49 +51,47 @@ function FieldTooltip({ active, payload }: TipProps) {
         background: "var(--paper)",
         border: "1px solid #d2ccbe",
         borderRadius: 2,
-        padding: "6px 9px",
-        lineHeight: 1.5,
+        padding: "5px 9px",
       }}
     >
-      <div style={{ color: "var(--ink)" }}>{d.short}</div>
-      <div style={{ color: "var(--ink-3)" }}>
-        {usd0(d.lo)} – {usd0(d.lo + d.band)} range
-      </div>
-      <div style={{ color: "var(--ink-3)" }}>central {usd0(d.central)}</div>
+      <span style={{ color: "var(--ink)" }}>{d.short}: </span>
+      <span style={{ color: "var(--ink-3)" }}>{usd2(d.price)}</span>
     </div>
   );
 }
 
 export default function DcfSensitivity() {
-  const [scenarioId, setScenarioId] = useSharedState<string>(DEFAULT_SCENARIO);
-  const scenario = getScenario(scenarioId);
+  const [state, setState] = useSharedState<State>(DEFAULT_STATE);
+  const company = getCompany(state.company);
+  const lens = getLens(state.lens);
 
-  const val = useMemo(() => value(scenario.wacc, scenario.g), [scenario]);
-  const field = useMemo(() => footballField(scenarioId), [scenarioId]);
-
-  const centrals = field.map((b) => b.central);
-  const minP = Math.min(...centrals);
-  const maxP = Math.max(...centrals);
-  const maxHi = Math.max(...field.map((b) => b.hi));
-  const axisMax = Math.ceil((maxHi + 6) / 10) * 10;
-
-  // The scenario whose fair value sits furthest from the active one — the
-  // honest "and yet" the verdict points at.
-  const activeBar = field.find((b) => b.active) ?? field[0];
-  const farthest = field.reduce((a, b) =>
-    Math.abs(b.central - activeBar.central) > Math.abs(a.central - activeBar.central)
-      ? b
-      : a,
+  const val = useMemo(() => value(company, lens.wacc, lens.g), [company, lens]);
+  const field = useMemo(
+    () => footballField(company, lens.id),
+    [company, lens.id],
   );
-  const farScenario = getScenario(farthest.id);
 
-  const baseCentral = field.find((b) => b.id === "base")?.central ?? val.perShare;
+  const prices = field.map((b) => b.price);
+  const minP = Math.min(...prices);
+  const maxP = Math.max(...prices);
+  const hasPrice = company.price != null;
+  const market = company.price ?? 0;
+  const vsMarket = hasPrice ? val.perShare / market - 1 : 0;
+  const closest = closestLens(company);
+  const axisMax = Math.max(maxP, market) * 1.14;
+  const link = edgarLink(company);
+
+  // The word for the gap between this lens's value and the market price.
+  const gapWord =
+    Math.abs(vsMarket) < 0.03
+      ? "in line with"
+      : vsMarket < 0
+        ? `a ${sgnpct(Math.abs(vsMarket))} discount to`
+        : `a ${sgnpct(vsMarket)} premium to`;
 
   const chartData = field.map((b) => ({
     short: b.short,
-    lo: b.lo,
-    band: b.hi - b.lo,
-    central: b.central,
+    price: b.price,
     active: b.active,
   }));
 
@@ -96,24 +101,38 @@ export default function DcfSensitivity() {
       actions={<CopyLinkButton />}
       lede={
         <>
-          One company, one set of cash flows — valued through four different
-          views of the discount rate and terminal growth. Pick a lens below and
-          watch the implied share price, and the whole <em>football field</em>,
-          swing on two assumptions you can barely justify to a decimal.
+          A ten-year discounted-cash-flow model on real companies, with the cash
+          flow, debt, and share count pulled from their latest 10-K. Pick a
+          company and a valuation <em>lens</em>, and watch fair value — and the
+          whole football field — swing on the discount rate and terminal growth,
+          then land it against the price the market actually paid.
         </>
       }
     >
       <div className="toolbar">
         <div className="scenario-row">
-          <span className="toolbar-label">Valuation lens</span>
-          {SCENARIOS.map((s) => (
+          <span className="toolbar-label">Company</span>
+          {COMPANIES.map((c) => (
             <button
-              key={s.id}
-              className={`preset${scenarioId === s.id ? " active" : ""}`}
-              title={s.blurb}
-              onClick={() => setScenarioId(s.id)}
+              key={c.id}
+              className={`preset${state.company === c.id ? " active" : ""}`}
+              title={c.synthetic ? "A clean illustrative baseline" : c.name}
+              onClick={() => setState({ ...state, company: c.id })}
             >
-              {s.label}
+              {c.short}
+            </button>
+          ))}
+        </div>
+        <div className="scenario-row">
+          <span className="toolbar-label">Valuation lens</span>
+          {LENSES.map((l) => (
+            <button
+              key={l.id}
+              className={`preset${state.lens === l.id ? " active" : ""}`}
+              title={l.blurb}
+              onClick={() => setState({ ...state, lens: l.id })}
+            >
+              {l.label}
             </button>
           ))}
         </div>
@@ -121,30 +140,66 @@ export default function DcfSensitivity() {
 
       <div className="stats hero-stats">
         <div className="stat">
-          <div className="k">Implied price — {scenario.short}</div>
+          <div className="k">Implied value — {lens.short}</div>
           <div className="v">{usd2(val.perShare)}</div>
         </div>
-        <div className="stat">
-          <div className="k">Value past the forecast</div>
-          <div className="v">{(val.tvShare * 100).toFixed(0)}%</div>
-        </div>
-        <div className="stat">
-          <div className="k">Fair value across lenses</div>
-          <div className="v">
-            {usd0(minP)}–{usd0(maxP)}
-          </div>
-        </div>
+        {hasPrice ? (
+          <>
+            <div className="stat">
+              <div className="k">Market — {company.asOf}</div>
+              <div className="v">{usd2(market)}</div>
+            </div>
+            <div className="stat">
+              <div className="k">Implied vs market</div>
+              <div className={`v ${signClass(vsMarket)}`}>{sgnpct(vsMarket)}</div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="stat">
+              <div className="k">Value past the forecast</div>
+              <div className="v">{(val.tvShare * 100).toFixed(0)}%</div>
+            </div>
+            <div className="stat">
+              <div className="k">Range across lenses</div>
+              <div className="v">
+                {usd0(minP)}–{usd0(maxP)}
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="verdict">
-        The <strong>{scenario.label.toLowerCase()}</strong> lens — a{" "}
-        {wpct(scenario.wacc)} discount rate against {wpct(scenario.g)} terminal
-        growth — values the same cash flows at{" "}
-        <strong>{usd2(val.perShare)}</strong> a share.{" "}
-        <strong>{(val.tvShare * 100).toFixed(0)}%</strong> of that rests on the
-        terminal value, a single figure past year {COMPANY.horizon}. Swing to the{" "}
-        <strong>{farScenario.label.toLowerCase()}</strong> view and fair value
-        moves to <strong>{usd2(farthest.central)}</strong> — same business.
+        {hasPrice ? (
+          <>
+            A ten-year DCF of <strong>{company.name}</strong>, discounted through
+            the <strong>{lens.label.toLowerCase()}</strong> lens (
+            {wpct(lens.wacc)} WACC, {wpct(lens.g)} terminal growth), is worth{" "}
+            <strong>{usd2(val.perShare)}</strong> a share —{" "}
+            <strong className={signClass(vsMarket)}>{gapWord}</strong> the{" "}
+            {usd2(market)} the market paid on {company.asOf}.{" "}
+            <strong>{(val.tvShare * 100).toFixed(0)}%</strong> of that value sits
+            in the terminal figure past year {HORIZON}
+            {closest && (
+              <>
+                , and the market is pricing something close to the{" "}
+                <strong>{closest.label.toLowerCase()}</strong> lens
+              </>
+            )}
+            .
+          </>
+        ) : (
+          <>
+            The <strong>{lens.label.toLowerCase()}</strong> lens values the
+            illustrative company at <strong>{usd2(val.perShare)}</strong> a
+            share, with <strong>{(val.tvShare * 100).toFixed(0)}%</strong> of
+            that resting on the terminal value past year {HORIZON}. Swap lenses
+            and fair value swings from <strong>{usd0(minP)}</strong> to{" "}
+            <strong>{usd0(maxP)}</strong> on the discount rate and terminal
+            growth alone.
+          </>
+        )}
       </div>
 
       <div className="output" style={{ border: "1px solid var(--rule)", marginTop: 0 }}>
@@ -154,7 +209,7 @@ export default function DcfSensitivity() {
             <BarChart
               layout="vertical"
               data={chartData}
-              margin={{ top: 8, right: 44, left: 8, bottom: 4 }}
+              margin={{ top: 8, right: 48, left: 16, bottom: 4 }}
             >
               <XAxis
                 type="number"
@@ -170,27 +225,28 @@ export default function DcfSensitivity() {
                 tick={{ fontSize: 11, fill: "#4a4d51" }}
                 axisLine={false}
                 tickLine={false}
-                width={72}
+                width={78}
               />
               <Tooltip cursor={{ fill: "rgba(31,74,92,0.05)" }} content={<FieldTooltip />} />
-              <ReferenceLine
-                x={baseCentral}
-                stroke="#b9b2a3"
-                strokeDasharray="4 3"
-                label={{
-                  value: "base",
-                  position: "top",
-                  fontSize: 10,
-                  fill: "#80848a",
-                }}
-              />
-              <Bar dataKey="lo" stackId="a" fill="transparent" />
-              <Bar dataKey="band" stackId="a" radius={1}>
+              {hasPrice && (
+                <ReferenceLine
+                  x={market}
+                  stroke="#b08433"
+                  strokeWidth={1.5}
+                  label={{
+                    value: `market ${usd0(market)}`,
+                    position: "top",
+                    fontSize: 10,
+                    fill: "#b08433",
+                  }}
+                />
+              )}
+              <Bar dataKey="price" radius={1}>
                 {chartData.map((d, i) => (
                   <Cell key={i} fill={d.active ? "#1f4a5c" : "#c4bdac"} />
                 ))}
                 <LabelList
-                  dataKey="central"
+                  dataKey="price"
                   position="right"
                   formatter={(v: number) => usd0(v)}
                   style={{ fontFamily: "var(--mono)", fontSize: 11, fill: "#4a4d51" }}
@@ -199,11 +255,13 @@ export default function DcfSensitivity() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="note">
-          Each bar spans the price when that lens's assumptions flex by ±50bp on
-          the discount rate and ±25bp on terminal growth; the label marks the
-          central estimate. The dashed line is the base case.
-        </div>
+        {hasPrice && (
+          <div className="note">
+            The gold line is {company.name}'s closing price on the 10-K filing
+            date. Where it falls among the bars is the assumption set the market
+            is implicitly making.
+          </div>
+        )}
 
         <table className="data" style={{ marginTop: 18 }}>
           <thead>
@@ -243,7 +301,9 @@ export default function DcfSensitivity() {
               <td>less: Net debt</td>
               <td className="num"></td>
               <td className="num"></td>
-              <td className="num">−{m(val.netDebt)}</td>
+              <td className="num">
+                {val.netDebt < 0 ? `+${m(-val.netDebt)}` : `−${m(val.netDebt)}`}
+              </td>
             </tr>
             <tr className="total">
               <td>Equity value</td>
@@ -254,8 +314,26 @@ export default function DcfSensitivity() {
           </tbody>
         </table>
         <div className="note">
-          ÷ {m(COMPANY.shares)}m shares ={" "}
-          <strong>{usd2(val.perShare)}</strong> a share.
+          ÷ {m(company.shares)}m shares = <strong>{usd2(val.perShare)}</strong> a
+          share.{" "}
+          {company.synthetic ? (
+            "Illustrative figures — not a real company."
+          ) : (
+            <>
+              Source: {company.name} {company.fy} Form 10-K via{" "}
+              {link ? (
+                <a href={link} target="_blank" rel="noopener noreferrer">
+                  SEC EDGAR
+                </a>
+              ) : (
+                "SEC EDGAR"
+              )}
+              . Free cash flow is a 3-year average of operating cash flow minus
+              capex; net debt is total debt less cash and marketable securities;
+              price is the close on {company.asOf}. Near-term FCF growth of{" "}
+              {wpct(company.nearGrowth)} is an assumption, not a reported figure.
+            </>
+          )}
         </div>
       </div>
 
@@ -263,10 +341,10 @@ export default function DcfSensitivity() {
         <h3>How it's calculated</h3>
         <p>
           A standard two-stage DCF. Free cash flow is forecast explicitly for{" "}
-          {COMPANY.horizon} years, growing at {wpct(COMPANY.nearTermGrowth)} a
-          year; everything beyond the horizon is captured by a Gordon-growth
-          terminal value. Each piece is discounted to today at the weighted
-          average cost of capital:
+          {HORIZON} years, growing at the company's assumed near-term rate;
+          everything beyond the horizon is captured by a Gordon-growth terminal
+          value. Each piece is discounted to today at the weighted average cost
+          of capital:
         </p>
         <div className="formula">
           EV = Σ FCF<sub>t</sub> / (1 + WACC)<sup>t</sup> &nbsp; + &nbsp; TV /
@@ -276,25 +354,29 @@ export default function DcfSensitivity() {
         </div>
         <p>
           Subtract net debt from enterprise value to get equity value, divide by
-          shares, and you have an implied price. The cash flows, debt, and share
-          count never change between lenses — only WACC and g do.
+          shares, and you have an implied price. Only WACC and terminal growth
+          change between lenses — the cash flows, debt, and share count are fixed
+          and sourced from the filing.
         </p>
 
         <h3>Why the valuation is mostly the discount rate</h3>
         <p>
-          Notice how much of enterprise value lives in the terminal-value row:
-          the explicit five-year forecast — the part with actual analysis behind
-          it — is the minority of the answer. The rest is a single fraction,{" "}
-          (WACC − g), in the denominator. Because that gap is small, a 50bp move
-          in either input moves the quotient by a large percentage, which is why
-          the football-field bars are as wide as they are.
+          More than half of enterprise value typically lives in the
+          terminal-value row — the part with the least analysis behind it, a
+          single fraction (WACC − g) in the denominator. Because that gap is
+          small, a half-point move in either input moves the quotient by a large
+          percentage, which is why the football-field bars are as wide as they
+          are. The gold line shows the rest of the story: for a richly valued
+          name the market can sit beyond even the bull lens, while a steadier
+          business lands inside the range.
         </p>
         <div className="callout">
           <strong>The honest read:</strong> a DCF doesn't tell you what a company
-          is worth so much as what you'd have to believe for it to be worth a
-          given price. The football field is the candid version of the model —
-          present the range and the assumptions behind each end, not a single
-          false-precision number to the penny.
+          is worth so much as what you'd have to believe for it to be worth its
+          price. Read the football field that way — the spread and the
+          assumptions behind each end, not a single number to the penny. This is
+          an educational tool on public data, not investment advice or a price
+          target.
         </div>
       </div>
     </ToolPage>
