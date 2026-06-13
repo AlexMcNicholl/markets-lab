@@ -1,56 +1,36 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { attribute, Sector } from "../lib/attribution";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Cell,
-  ReferenceLine,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
-import { attribute, carinoCheck, Sector } from "../lib/attribution";
+  buildScenario,
+  DEFAULT_SECTORS,
+  matchScenario,
+  SCENARIOS,
+} from "../lib/scenarios";
+import { pct, signed, signClass } from "../lib/format";
 import { useSharedState } from "../lib/useSharedState";
 import ToolPage from "../components/ToolPage";
-import Slider from "../components/Slider";
+import SectorCard from "../components/SectorCard";
+import EffectChart from "../components/EffectChart";
+import EffectTable from "../components/EffectTable";
+import MultiPeriodPanel from "../components/MultiPeriodPanel";
 import CopyLinkButton from "../components/CopyLinkButton";
 
-const INITIAL: Sector[] = [
-  { name: "Financials", wp: 32, wb: 28, rp: 4.1, rb: 3.2 },
-  { name: "Energy", wp: 14, wb: 18, rp: -2.0, rb: -1.4 },
-  { name: "Materials", wp: 10, wb: 11, rp: 6.5, rb: 5.0 },
-  { name: "Industrials", wp: 16, wb: 14, rp: 2.2, rb: 2.6 },
-  { name: "Technology", wp: 20, wb: 17, rp: 8.0, rb: 7.1 },
-  { name: "Utilities", wp: 8, wb: 12, rp: 1.0, rb: 1.3 },
-];
-
-const pct = (v: number, d = 2) => `${v >= 0 ? "" : "−"}${Math.abs(v).toFixed(d)}`;
-const cls = (v: number) => (v >= 0 ? "pos" : "neg");
-
 export default function Attribution() {
-  const [sectors, setSectors, reset] = useSharedState<Sector[]>(INITIAL);
+  const [sectors, setSectors, reset] = useSharedState<Sector[]>(DEFAULT_SECTORS);
+  const [fold, setFold] = useState(false);
 
-  const result = useMemo(() => attribute(sectors), [sectors]);
+  const result = useMemo(() => attribute(sectors, fold), [sectors, fold]);
   const wpSum = sectors.reduce((s, x) => s + x.wp, 0);
   const wbSum = sectors.reduce((s, x) => s + x.wb, 0);
+  const activeScenario = matchScenario(sectors);
 
-  const update = (i: number, key: keyof Sector, v: number) => {
+  // Largest absolute contributor, surfaced in the card grid and the table.
+  const leader = result.effects.reduce((a, b) =>
+    Math.abs(b.total) > Math.abs(a.total) ? b : a,
+  ).name;
+
+  const update = (i: number, key: keyof Sector, v: number) =>
     setSectors(sectors.map((s, idx) => (idx === i ? { ...s, [key]: v } : s)));
-  };
-
-  const chartData = result.effects.map((e) => ({
-    name: e.name,
-    Allocation: e.allocation,
-    Selection: e.selection,
-    Interaction: e.interaction,
-  }));
-
-  // Multi-period illustration: the same active return repeated over four
-  // periods, summed arithmetically vs. linked geometrically.
-  const periodRp = [3.0, -2.0, 4.0, 1.5];
-  const periodRb = [2.2, -2.6, 3.1, 1.2];
-  const periodActive = periodRp.map((r, i) => r - periodRb[i]);
-  const carino = carinoCheck(periodActive, periodRp, periodRb);
 
   return (
     <ToolPage
@@ -58,185 +38,109 @@ export default function Attribution() {
       actions={<CopyLinkButton />}
       lede={
         <>
-          A single-period Brinson-Fachler decomposition. Change what the
-          portfolio owns relative to its benchmark, and watch active return
-          split into the bet on <em>where</em> to be (allocation) and the bet on{" "}
-          <em>what</em> to hold within each sector (selection).
+          A single-period Brinson-Fachler decomposition across the eleven{" "}
+          <abbr title="Global Industry Classification Standard">GICS</abbr>{" "}
+          sectors. Change what the portfolio owns relative to its benchmark, and
+          watch active return split into the bet on <em>where</em> to be
+          (allocation) and the bet on <em>what</em> to hold within each sector
+          (selection).
         </>
       }
     >
-      <div className="panel">
-        <div className="controls">
-          <div className="controls-head">
-            <h4>Sector inputs</h4>
-            <button className="preset" onClick={reset}>
-              Reset
+      <div className="toolbar">
+        <div className="scenario-row">
+          <span className="toolbar-label">Scenario</span>
+          {SCENARIOS.map((s) => (
+            <button
+              key={s.id}
+              className={`preset${activeScenario === s.id ? " active" : ""}`}
+              title={s.blurb}
+              onClick={() => setSectors(buildScenario(s))}
+            >
+              {s.label}
             </button>
-          </div>
-          {sectors.map((s, i) => (
-            <div key={s.name} style={{ marginBottom: 18 }}>
-              <div
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "var(--ink)",
-                  marginBottom: 8,
-                }}
-              >
-                {s.name}
-              </div>
-              <Slider
-                dense
-                name="Port. weight"
-                value={s.wp}
-                onChange={(v) => update(i, "wp", v)}
-                min={0}
-                max={50}
-                step={1}
-                suffix="%"
-                display={(v) => v.toFixed(0)}
-              />
-              <Slider
-                dense
-                name="Bench. weight"
-                value={s.wb}
-                onChange={(v) => update(i, "wb", v)}
-                min={0}
-                max={50}
-                step={1}
-                suffix="%"
-                display={(v) => v.toFixed(0)}
-              />
-              <Slider
-                dense
-                name="Port. return"
-                value={s.rp}
-                onChange={(v) => update(i, "rp", v)}
-                min={-15}
-                max={15}
-                step={0.1}
-                suffix="%"
-                display={(v) => v.toFixed(1)}
-              />
-              <Slider
-                dense
-                name="Bench. return"
-                value={s.rb}
-                onChange={(v) => update(i, "rb", v)}
-                min={-15}
-                max={15}
-                step={0.1}
-                suffix="%"
-                display={(v) => v.toFixed(1)}
-              />
-            </div>
           ))}
-          <div className="note">
-            Portfolio weights sum to{" "}
-            <span className={Math.abs(wpSum - 100) < 0.5 ? "pos" : "neg"}>
-              {wpSum.toFixed(0)}%
-            </span>{" "}
-            · benchmark{" "}
-            <span className={Math.abs(wbSum - 100) < 0.5 ? "pos" : "neg"}>
-              {wbSum.toFixed(0)}%
-            </span>
-            . Returns are normalised by total weight, so effects stay coherent
-            while you drag.
-          </div>
+          <button className="preset ghost" onClick={reset}>
+            Reset
+          </button>
         </div>
+        <label className="toggle" title="Roll the interaction cross-term into selection">
+          <input
+            type="checkbox"
+            checked={fold}
+            onChange={(e) => setFold(e.target.checked)}
+          />
+          <span>Fold interaction into selection</span>
+        </label>
+      </div>
 
-        <div className="output">
-          <h4>Active return decomposition</h4>
-          <div className="stats">
-            <div className="stat">
-              <div className="k">Portfolio</div>
-              <div className="v">{pct(result.Rp)}%</div>
-            </div>
-            <div className="stat">
-              <div className="k">Benchmark</div>
-              <div className="v">{pct(result.Rb)}%</div>
-            </div>
-            <div className="stat">
-              <div className="k">Active</div>
-              <div className={`v ${cls(result.active)}`}>
-                {pct(result.active)}%
-              </div>
-            </div>
-          </div>
-
-          <div className="chart-wrap" style={{ height: 240 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} margin={{ top: 8, right: 8, left: -8, bottom: 0 }}>
-                <XAxis
-                  dataKey="name"
-                  tick={{ fontSize: 11, fill: "#80848a" }}
-                  axisLine={{ stroke: "#d2ccbe" }}
-                  tickLine={false}
-                />
-                <YAxis
-                  tick={{ fontSize: 11, fill: "#80848a" }}
-                  axisLine={false}
-                  tickLine={false}
-                  width={44}
-                  tickFormatter={(v) => `${v.toFixed(1)}%`}
-                />
-                <Tooltip
-                  formatter={(v: number) => `${v.toFixed(3)}%`}
-                  contentStyle={{
-                    fontFamily: "var(--mono)",
-                    fontSize: 12,
-                    border: "1px solid #d2ccbe",
-                    borderRadius: 2,
-                  }}
-                />
-                <ReferenceLine y={0} stroke="#80848a" />
-                <Bar dataKey="Allocation" stackId="a" fill="#1f4a5c" />
-                <Bar dataKey="Selection" stackId="a" fill="#2f6b80" />
-                <Bar dataKey="Interaction" stackId="a" fill="#b08433">
-                  {chartData.map((_, i) => (
-                    <Cell key={i} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-
-          <table className="data" style={{ marginTop: 18 }}>
-            <thead>
-              <tr>
-                <th>Sector</th>
-                <th className="num">Allocation</th>
-                <th className="num">Selection</th>
-                <th className="num">Interaction</th>
-                <th className="num">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.effects.map((e) => (
-                <tr key={e.name}>
-                  <td>{e.name}</td>
-                  <td className={`num ${cls(e.allocation)}`}>{pct(e.allocation, 3)}</td>
-                  <td className={`num ${cls(e.selection)}`}>{pct(e.selection, 3)}</td>
-                  <td className={`num ${cls(e.interaction)}`}>{pct(e.interaction, 3)}</td>
-                  <td className={`num ${cls(e.total)}`}>{pct(e.total, 3)}</td>
-                </tr>
-              ))}
-              <tr className="total">
-                <td>Total</td>
-                <td className={`num ${cls(result.totals.allocation)}`}>
-                  {pct(result.totals.allocation, 3)}
-                </td>
-                <td className={`num ${cls(result.totals.selection)}`}>
-                  {pct(result.totals.selection, 3)}
-                </td>
-                <td className={`num ${cls(result.totals.interaction)}`}>
-                  {pct(result.totals.interaction, 3)}
-                </td>
-                <td className={`num ${cls(result.active)}`}>{pct(result.active, 3)}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="stats hero-stats">
+        <div className="stat">
+          <div className="k">Portfolio</div>
+          <div className="v">{pct(result.Rp)}%</div>
         </div>
+        <div className="stat">
+          <div className="k">Benchmark</div>
+          <div className="v">{pct(result.Rb)}%</div>
+        </div>
+        <div className="stat">
+          <div className="k">Active</div>
+          <div className={`v ${signClass(result.active)}`}>{pct(result.active)}%</div>
+        </div>
+      </div>
+
+      <div className="verdict">
+        Allocation contributed{" "}
+        <strong className={signClass(result.totals.allocation)}>
+          {signed(result.totals.allocation, 2)}%
+        </strong>
+        , selection{" "}
+        <strong className={signClass(result.totals.selection)}>
+          {signed(result.totals.selection, 2)}%
+        </strong>
+        {!fold && (
+          <>
+            , interaction{" "}
+            <strong className={signClass(result.totals.interaction)}>
+              {signed(result.totals.interaction, 2)}%
+            </strong>
+          </>
+        )}
+        . The biggest single driver is <strong>{leader}</strong>.
+      </div>
+
+      <div className="output" style={{ border: "1px solid var(--rule)", marginTop: 0 }}>
+        <h4>Active return by sector</h4>
+        <EffectChart result={result} foldInteraction={fold} />
+        <EffectTable result={result} foldInteraction={fold} leader={leader} />
+      </div>
+
+      <div className="section-label">
+        <h4>Sector inputs</h4>
+        <span className="note inline">
+          Portfolio weights sum to{" "}
+          <span className={Math.abs(wpSum - 100) < 0.5 ? "pos" : "neg"}>
+            {wpSum.toFixed(1)}%
+          </span>{" "}
+          · benchmark{" "}
+          <span className={Math.abs(wbSum - 100) < 0.5 ? "pos" : "neg"}>
+            {wbSum.toFixed(1)}%
+          </span>
+          . Returns are normalised by total weight, so the decomposition always
+          reconciles to active return.
+        </span>
+      </div>
+
+      <div className="sector-grid">
+        {sectors.map((s, i) => (
+          <SectorCard
+            key={s.name}
+            sector={s}
+            effect={result.effects[i]}
+            isLeader={s.name === leader}
+            onChange={(key, v) => update(i, key, v)}
+          />
+        ))}
       </div>
 
       <div className="prose">
@@ -259,8 +163,9 @@ export default function Attribution() {
           Allocation rewards overweighting sectors that beat the overall
           benchmark; selection rewards picking the right names inside a sector;
           interaction is the cross-term, and it is the one most commentaries
-          quietly fold into selection. Summed across sectors, the three equal
-          total active return exactly — a useful check that the decomposition is
+          quietly fold into selection — toggle <em>Fold interaction</em> above to
+          see the two-factor view. Summed across sectors, the effects equal total
+          active return exactly — a useful check that the decomposition is
           complete.
         </p>
 
@@ -268,37 +173,12 @@ export default function Attribution() {
         <p>
           These effects are clean for one period. They do <em>not</em> add up
           across periods, because returns compound while attribution effects are
-          arithmetic. Take a portfolio that runs the same active return for four
-          quarters:
+          arithmetic. Drag the quarterly returns below and watch the naive sum
+          pull away from the compounded truth:
         </p>
-        <div className="stats">
-          <div className="stat">
-            <div className="k">Σ quarterly active</div>
-            <div className="v">{pct(carino.naiveSum)}%</div>
-          </div>
-          <div className="stat">
-            <div className="k">Geometric active</div>
-            <div className="v">{pct(carino.linkedActive)}%</div>
-          </div>
-          <div className="stat">
-            <div className="k">Compounded port.</div>
-            <div className="v">{pct(carino.geometricRp)}%</div>
-          </div>
-          <div className="stat">
-            <div className="k">Compounded bench.</div>
-            <div className="v">{pct(carino.geometricRb)}%</div>
-          </div>
-        </div>
-        <div className="callout">
-          <strong>Why they differ:</strong> naively adding the four quarterly
-          active returns gives {pct(carino.naiveSum)}%, but the actual
-          compounded active return is {pct(carino.linkedActive)}%. Linking
-          algorithms — Carino, Menchero, GRAP — exist precisely to distribute
-          this compounding residual back onto each period's effects so a
-          multi-period attribution still reconciles to realised performance.
-          Getting this wrong is the most common error in home-grown attribution.
-        </div>
       </div>
+
+      <MultiPeriodPanel />
     </ToolPage>
   );
 }

@@ -38,7 +38,19 @@ export interface AttributionResult {
   };
 }
 
-export function attribute(sectors: Sector[]): AttributionResult {
+/**
+ * Single-period Brinson-Fachler decomposition.
+ *
+ * Weights need not sum to 100: portfolio and benchmark returns are each
+ * normalised by their own total weight, so the effects stay coherent while a
+ * user drags sliders. When `foldInteraction` is true the cross-term is rolled
+ * into selection (interaction reported as zero) — the two-factor convention
+ * many manager commentaries quietly use.
+ */
+export function attribute(
+  sectors: Sector[],
+  foldInteraction = false,
+): AttributionResult {
   const wpSum = sectors.reduce((s, x) => s + x.wp, 0) / 100;
   const wbSum = sectors.reduce((s, x) => s + x.wb, 0) / 100;
 
@@ -54,8 +66,12 @@ export function attribute(sectors: Sector[]): AttributionResult {
   const effects: SectorEffect[] = sectors.map((x) => {
     const dw = (x.wp - x.wb) / 100;
     const allocation = dw * (x.rb - Rb);
-    const selection = (x.wb / 100) * (x.rp - x.rb);
-    const interaction = dw * (x.rp - x.rb);
+    let selection = (x.wb / 100) * (x.rp - x.rb);
+    let interaction = dw * (x.rp - x.rb);
+    if (foldInteraction) {
+      selection += interaction;
+      interaction = 0;
+    }
     aT += allocation;
     sT += selection;
     iT += interaction;
@@ -77,26 +93,45 @@ export function attribute(sectors: Sector[]): AttributionResult {
   };
 }
 
-// Illustration of why arithmetic single-period effects do not compound to
-// the multi-period active return, and how Carino logarithmic linking corrects
-// it. Given period active returns and total returns, return the naive sum vs.
-// the geometrically-correct linked total.
-export function carinoCheck(
-  periodActive: number[],
-  periodRp: number[],
-  periodRb: number[],
-): { naiveSum: number; linkedActive: number; geometricRp: number; geometricRb: number } {
-  const naiveSum = periodActive.reduce((s, x) => s + x, 0);
+// ── Multi-period linking ───────────────────────────────────────────────────
+//
+// Single-period effects are arithmetic, but returns compound. So the four
+// quarterly active returns do not add up to the realised annual active return.
+// linkPeriods quantifies that gap: the naive sum vs. the geometric truth.
 
+export interface Period {
+  label: string;
+  rp: number; // portfolio return for the period, %
+  rb: number; // benchmark return for the period, %
+}
+
+export interface LinkResult {
+  naiveSum: number; // Σ (rp - rb), the arithmetic shortcut
+  linkedActive: number; // compounded Rp − compounded Rb
+  geometricRp: number; // compounded portfolio return
+  geometricRb: number; // compounded benchmark return
+  rows: { label: string; rp: number; rb: number; active: number }[];
+}
+
+export function linkPeriods(periods: Period[]): LinkResult {
+  const rows = periods.map((p) => ({
+    label: p.label,
+    rp: p.rp,
+    rb: p.rb,
+    active: p.rp - p.rb,
+  }));
+
+  const naiveSum = rows.reduce((s, r) => s + r.active, 0);
   const geomRp =
-    (periodRp.reduce((p, r) => p * (1 + r / 100), 1) - 1) * 100;
+    (periods.reduce((p, r) => p * (1 + r.rp / 100), 1) - 1) * 100;
   const geomRb =
-    (periodRb.reduce((p, r) => p * (1 + r / 100), 1) - 1) * 100;
+    (periods.reduce((p, r) => p * (1 + r.rb / 100), 1) - 1) * 100;
 
   return {
     naiveSum,
     linkedActive: geomRp - geomRb,
     geometricRp: geomRp,
     geometricRb: geomRb,
+    rows,
   };
 }
