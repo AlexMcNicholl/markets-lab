@@ -18,6 +18,7 @@ const TOOL_PAGES: Record<string, React.LazyExoticComponent<React.FC>> = {
   "yield-curve": lazy(() => import("./pages/YieldCurve")),
   "efficient-frontier": lazy(() => import("./pages/EfficientFrontier")),
   "central-bank-tone": lazy(() => import("./pages/CentralBankTone")),
+  "dcf-sensitivity": lazy(() => import("./pages/DcfSensitivity")),
 };
 
 function lazyElement(slug: string): JSX.Element {

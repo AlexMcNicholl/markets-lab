@@ -169,7 +169,7 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "dcf-sensitivity",
     category: "Investment Banking",
-    status: "planned",
+    status: "live",
     title: "DCF Sensitivity Explorer",
     nav: "DCF",
     blurb:
