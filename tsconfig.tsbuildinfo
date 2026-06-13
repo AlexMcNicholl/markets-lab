@@ -1,1 +1,0 @@
-{"root":["./src/main.tsx","./src/components/layout.tsx","./src/components/slider.tsx","./src/lib/attribution.ts","./src/lib/bonds.ts","./src/lib/stats.ts","./src/pages/about.tsx","./src/pages/attribution.tsx","./src/pages/home.tsx","./src/pages/managerluck.tsx","./src/pages/yieldcurve.tsx"],"errors":true,"version":"5.9.3"}
