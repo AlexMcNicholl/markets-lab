@@ -1,4 +1,5 @@
 import { NavLink, Outlet, Link } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function Layout() {
   return (
@@ -32,6 +33,7 @@ export default function Layout() {
           </span>
         </div>
       </footer>
+      <Analytics />
     </>
   );
 }
