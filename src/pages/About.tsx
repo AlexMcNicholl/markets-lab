@@ -21,11 +21,11 @@ export default function About() {
           your hands.
         </p>
         <p>
-          Everything is built from scratch, the underlying math is documented on
-          each page, and the code is open. The tools run on synthetic examples
-          and generic, public assumptions only — nothing here uses or derives
-          from any employer's data, holdings, or proprietary models. It exists
-          purely to explore ideas and to keep my own tooling sharp.
+          The underlying math is documented on each page, and the code is open.
+          The tools run on synthetic examples and generic, public assumptions
+          only — nothing here uses or derives from any employer's data,
+          holdings, or proprietary models. It exists purely to explore ideas and
+          to keep my own tooling sharp.
         </p>
 
         <h3>Built with</h3>

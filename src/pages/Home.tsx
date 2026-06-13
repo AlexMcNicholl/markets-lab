@@ -32,8 +32,8 @@ export default function Home() {
           <div className="eyebrow label">Markets Lab</div>
           <h1>Interactive tools for ideas worth taking apart.</h1>
           <p>
-            A set of small, hand-built tools — each one made to take a single
-            idea and turn it into something you can move with your hands. Drag
+            A set of small, focused tools — each one made to take a single idea
+            and turn it into something you can move with your hands. Drag
             something, and watch the intuition fall out.
           </p>
           <div className="meta">

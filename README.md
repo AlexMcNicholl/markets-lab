@@ -1,36 +1,33 @@
 # Markets Lab
 
-A set of interactive tools I build in my own time — each one made to take a
-single idea and turn it into something you can move with your hands rather than
-explain in prose.
+A collection of interactive tools that turn finance and markets concepts into
+something you can explore directly — adjust the inputs and watch the intuition
+fall out.
 
 **Live site:** https://www.alexmcnicholl.site
 
-## Projects
+## Overview
 
-| Project | Idea it makes tangible |
-| --- | --- |
-| **Attribution Playground** | Brinson-Fachler decomposition of active return into allocation, selection, and interaction — and why single-period effects don't sum across periods (Carino linking). |
-| **Skill vs. Luck** | A Monte Carlo universe of managers showing how much of a track record is noise, and how long a record must be to distinguish skill from chance. |
-| **Yield Curve Sandbox** | Repricing a bond book through key-rate durations under steepener / flattener / butterfly moves, instead of a single parallel-shift duration number. |
+Each tool takes a single idea and makes it tangible: a focused interface, a
+clear set of controls, and a visualization that responds in real time. The
+underlying methodology is documented on each tool's page.
 
-## Methodology
+## Architecture
 
-The finance is documented inline on each tool page and in the source under
-[`src/lib`](src/lib):
+The project is organized as a registry-driven set of independent tools, so new
+tools can be added without touching existing ones:
 
-- `attribution.ts` — Brinson-Fachler effects and a multi-period linking check.
-- `stats.ts` — seeded PRNG, Box-Muller normals, and the information-ratio
-  significance arithmetic (`years = (z / IR)²`).
-- `bonds.ts` — first-order key-rate-duration repricing (`ΔP/P ≈ −Σ KRD·Δy`).
+- **Tools** — each lives in its own page module with a self-contained interface.
+- **Library** — shared computation and utilities, kept separate from the UI.
+- **Components** — reusable layout and input primitives.
 
-All inputs are synthetic or generic public-market assumptions. Nothing here
+All inputs are synthetic or generic, public-market assumptions. Nothing here
 uses or derives from any employer data, holdings, or proprietary models.
 
 ## Stack
 
 React · TypeScript · Vite · Recharts. No backend — everything computes in the
-browser, so the simulations are reproducible from a fixed seed.
+browser, and simulations are reproducible from a fixed seed.
 
 ## Develop
 
@@ -50,3 +47,5 @@ rewrites all routes to `index.html` so client-side routing works on refresh.
 
 Built by [Alexandre McNicholl](https://www.linkedin.com/in/amcnicholl/) ·
 Toronto. Not investment advice.
+</content>
+</invoke>
