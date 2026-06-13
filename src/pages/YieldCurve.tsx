@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -16,6 +15,10 @@ import {
   TENORS,
   Tenor,
 } from "../lib/bonds";
+import { useSharedState } from "../lib/useSharedState";
+import ToolPage from "../components/ToolPage";
+import Slider from "../components/Slider";
+import CopyLinkButton from "../components/CopyLinkButton";
 
 const MV = 100_000_000; // $100mm book
 
@@ -35,7 +38,7 @@ function mapCurve(base: Curve, shift: (t: Tenor) => number): Curve {
 }
 
 export default function YieldCurve() {
-  const [curve, setCurve] = useState<Curve>({ ...BASE_CURVE });
+  const [curve, setCurve, resetCurve] = useSharedState<Curve>(BASE_CURVE);
   const [active, setActive] = useState<string | null>(null);
 
   const result = useMemo(
@@ -45,7 +48,7 @@ export default function YieldCurve() {
 
   const setTenor = (t: Tenor, v: number) => {
     setActive(null);
-    setCurve((c) => ({ ...c, [t]: v }));
+    setCurve({ ...curve, [t]: v });
   };
 
   const applyPreset = (name: string) => {
@@ -55,7 +58,7 @@ export default function YieldCurve() {
 
   const reset = () => {
     setActive(null);
-    setCurve({ ...BASE_CURVE });
+    resetCurve();
   };
 
   const chartData = TENORS.map((t) => ({
@@ -65,17 +68,18 @@ export default function YieldCurve() {
   }));
 
   return (
-    <div className="wrap tool-page">
-      <Link to="/" className="back">
-        ← All tools
-      </Link>
-      <h1>Yield Curve Sandbox</h1>
-      <p className="lede">
-        Reshape the Government of Canada curve and reprice a $100mm bond book
-        through its key-rate durations. The point: a parallel-shift mental model
-        hides most of the risk — the shape of the move is what drives the P&L.
-      </p>
-
+    <ToolPage
+      slug="yield-curve"
+      actions={<CopyLinkButton />}
+      lede={
+        <>
+          Reshape the Government of Canada curve and reprice a $100mm bond book
+          through its key-rate durations. The point: a parallel-shift mental
+          model hides most of the risk — the shape of the move is what drives
+          the P&L.
+        </>
+      }
+    >
       <div className="panel">
         <div className="controls">
           <h4>Curve shape</h4>
@@ -93,33 +97,31 @@ export default function YieldCurve() {
               Reset
             </button>
           </div>
-          {TENORS.map((t) => (
-            <div className="control" key={t}>
-              <div className="row">
-                <span className="name">{t}-year</span>
-                <span className="val">
-                  {curve[t].toFixed(2)}%
-                  <span
-                    className={
-                      curve[t] - BASE_CURVE[t] >= 0 ? "pos" : "neg"
-                    }
-                    style={{ marginLeft: 8, fontSize: 11 }}
-                  >
-                    {curve[t] - BASE_CURVE[t] >= 0 ? "+" : "−"}
-                    {Math.abs((curve[t] - BASE_CURVE[t]) * 100).toFixed(0)}bp
-                  </span>
-                </span>
-              </div>
-              <input
-                type="range"
+          {TENORS.map((t) => {
+            const delta = curve[t] - BASE_CURVE[t];
+            return (
+              <Slider
+                key={t}
+                name={`${t}-year`}
+                value={curve[t]}
                 min={1}
                 max={6}
                 step={0.05}
-                value={curve[t]}
-                onChange={(e) => setTenor(t, parseFloat(e.target.value))}
+                suffix="%"
+                display={(v) => v.toFixed(2)}
+                meta={
+                  <span
+                    className={delta >= 0 ? "pos" : "neg"}
+                    style={{ marginLeft: 8, fontSize: 11 }}
+                  >
+                    {delta >= 0 ? "+" : "−"}
+                    {Math.abs(delta * 100).toFixed(0)}bp
+                  </span>
+                }
+                onChange={(v) => setTenor(t, v)}
               />
-            </div>
-          ))}
+            );
+          })}
           <div className="note">
             Portfolio key-rate durations:{" "}
             {DEFAULT_PORTFOLIO.map((p) => `${p.tenor}y ${p.krd.toFixed(1)}`).join(
@@ -253,6 +255,6 @@ export default function YieldCurve() {
           deliberately omits to keep the curve-shape intuition front and centre.
         </div>
       </div>
-    </div>
+    </ToolPage>
   );
 }

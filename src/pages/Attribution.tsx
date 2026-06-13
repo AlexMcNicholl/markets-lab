@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import {
   BarChart,
   Bar,
@@ -11,6 +10,10 @@ import {
   Tooltip,
 } from "recharts";
 import { attribute, carinoCheck, Sector } from "../lib/attribution";
+import { useSharedState } from "../lib/useSharedState";
+import ToolPage from "../components/ToolPage";
+import Slider from "../components/Slider";
+import CopyLinkButton from "../components/CopyLinkButton";
 
 const INITIAL: Sector[] = [
   { name: "Financials", wp: 32, wb: 28, rp: 4.1, rb: 3.2 },
@@ -25,16 +28,14 @@ const pct = (v: number, d = 2) => `${v >= 0 ? "" : "−"}${Math.abs(v).toFixed(d
 const cls = (v: number) => (v >= 0 ? "pos" : "neg");
 
 export default function Attribution() {
-  const [sectors, setSectors] = useState<Sector[]>(INITIAL);
+  const [sectors, setSectors, reset] = useSharedState<Sector[]>(INITIAL);
 
   const result = useMemo(() => attribute(sectors), [sectors]);
   const wpSum = sectors.reduce((s, x) => s + x.wp, 0);
   const wbSum = sectors.reduce((s, x) => s + x.wb, 0);
 
   const update = (i: number, key: keyof Sector, v: number) => {
-    setSectors((prev) =>
-      prev.map((s, idx) => (idx === i ? { ...s, [key]: v } : s)),
-    );
+    setSectors(sectors.map((s, idx) => (idx === i ? { ...s, [key]: v } : s)));
   };
 
   const chartData = result.effects.map((e) => ({
@@ -52,21 +53,26 @@ export default function Attribution() {
   const carino = carinoCheck(periodActive, periodRp, periodRb);
 
   return (
-    <div className="wrap tool-page">
-      <Link to="/" className="back">
-        ← All tools
-      </Link>
-      <h1>Attribution Playground</h1>
-      <p className="lede">
-        A single-period Brinson-Fachler decomposition. Change what the portfolio
-        owns relative to its benchmark, and watch active return split into the
-        bet on <em>where</em> to be (allocation) and the bet on <em>what</em> to
-        hold within each sector (selection).
-      </p>
-
+    <ToolPage
+      slug="attribution"
+      actions={<CopyLinkButton />}
+      lede={
+        <>
+          A single-period Brinson-Fachler decomposition. Change what the
+          portfolio owns relative to its benchmark, and watch active return
+          split into the bet on <em>where</em> to be (allocation) and the bet on{" "}
+          <em>what</em> to hold within each sector (selection).
+        </>
+      }
+    >
       <div className="panel">
         <div className="controls">
-          <h4>Sector inputs</h4>
+          <div className="controls-head">
+            <h4>Sector inputs</h4>
+            <button className="preset" onClick={reset}>
+              Reset
+            </button>
+          </div>
           {sectors.map((s, i) => (
             <div key={s.name} style={{ marginBottom: 18 }}>
               <div
@@ -79,41 +85,49 @@ export default function Attribution() {
               >
                 {s.name}
               </div>
-              <Field
-                label="Port. weight"
+              <Slider
+                dense
+                name="Port. weight"
                 value={s.wp}
                 onChange={(v) => update(i, "wp", v)}
                 min={0}
                 max={50}
                 step={1}
                 suffix="%"
+                display={(v) => v.toFixed(0)}
               />
-              <Field
-                label="Bench. weight"
+              <Slider
+                dense
+                name="Bench. weight"
                 value={s.wb}
                 onChange={(v) => update(i, "wb", v)}
                 min={0}
                 max={50}
                 step={1}
                 suffix="%"
+                display={(v) => v.toFixed(0)}
               />
-              <Field
-                label="Port. return"
+              <Slider
+                dense
+                name="Port. return"
                 value={s.rp}
                 onChange={(v) => update(i, "rp", v)}
                 min={-15}
                 max={15}
                 step={0.1}
                 suffix="%"
+                display={(v) => v.toFixed(1)}
               />
-              <Field
-                label="Bench. return"
+              <Slider
+                dense
+                name="Bench. return"
                 value={s.rb}
                 onChange={(v) => update(i, "rb", v)}
                 min={-15}
                 max={15}
                 step={0.1}
                 suffix="%"
+                display={(v) => v.toFixed(1)}
               />
             </div>
           ))}
@@ -285,44 +299,6 @@ export default function Attribution() {
           Getting this wrong is the most common error in home-grown attribution.
         </div>
       </div>
-    </div>
-  );
-}
-
-function Field({
-  label,
-  value,
-  min,
-  max,
-  step,
-  suffix,
-  onChange,
-}: {
-  label: string;
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  suffix: string;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <div className="control" style={{ marginBottom: 8 }}>
-      <div className="row">
-        <span className="name">{label}</span>
-        <span className="val">
-          {value.toFixed(step < 1 ? 1 : 0)}
-          {suffix}
-        </span>
-      </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-      />
-    </div>
+    </ToolPage>
   );
 }

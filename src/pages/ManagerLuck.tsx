@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import {
   BarChart,
   Bar,
@@ -11,14 +10,25 @@ import {
   Cell,
 } from "recharts";
 import { makeRng, normal, yearsToSignificance, quantile } from "../lib/stats";
+import { useSharedState } from "../lib/useSharedState";
+import ToolPage from "../components/ToolPage";
+import Slider from "../components/Slider";
+import CopyLinkButton from "../components/CopyLinkButton";
 
 const N = 1000;
 
+interface State {
+  skillBps: number; // true annual alpha, bps
+  te: number; // tracking error, % per year
+  years: number;
+  seed: number;
+}
+
+const DEFAULTS: State = { skillBps: 0, te: 4, years: 5, seed: 12345 };
+
 export default function ManagerLuck() {
-  const [skillBps, setSkillBps] = useState(0); // true annual alpha, bps
-  const [te, setTe] = useState(4); // tracking error, % per year
-  const [years, setYears] = useState(5);
-  const [seed, setSeed] = useState(12345);
+  const [state, setState, reset] = useSharedState<State>(DEFAULTS);
+  const { skillBps, te, years, seed } = state;
 
   const sim = useMemo(() => {
     const rng = makeRng(seed);
@@ -69,31 +79,31 @@ export default function ManagerLuck() {
   }, [skillBps, te, years, seed]);
 
   return (
-    <div className="wrap tool-page">
-      <Link to="/" className="back">
-        ← All tools
-      </Link>
-      <h1>Skill vs. Luck</h1>
-      <p className="lede">
-        Spin up {N.toLocaleString()} managers, each with the true skill you set.
-        Then look at who came out on top. The uncomfortable part: set skill to
-        zero and the leaderboard still looks impressive — those are the managers
-        marketing departments are built around.
-      </p>
-
+    <ToolPage
+      slug="manager-luck"
+      actions={<CopyLinkButton />}
+      lede={
+        <>
+          Spin up {N.toLocaleString()} managers, each with the true skill you
+          set. Then look at who came out on top. The uncomfortable part: set
+          skill to zero and the leaderboard still looks impressive — those are
+          the managers marketing departments are built around.
+        </>
+      }
+    >
       <div className="panel">
         <div className="controls">
           <h4>Assumptions</h4>
-          <Control
+          <Slider
             name="True skill (alpha)"
             value={skillBps}
             min={0}
             max={300}
             step={10}
             suffix=" bps"
-            onChange={setSkillBps}
+            onChange={(v) => setState({ ...state, skillBps: v })}
           />
-          <Control
+          <Slider
             name="Tracking error"
             value={te}
             min={1}
@@ -101,20 +111,26 @@ export default function ManagerLuck() {
             step={0.5}
             suffix="%"
             display={(v) => v.toFixed(1)}
-            onChange={setTe}
+            onChange={(v) => setState({ ...state, te: v })}
           />
-          <Control
+          <Slider
             name="Track record"
             value={years}
             min={1}
             max={20}
             step={1}
             suffix=" yrs"
-            onChange={setYears}
+            onChange={(v) => setState({ ...state, years: v })}
           />
           <div className="btn-row" style={{ marginTop: 8 }}>
-            <button className="preset" onClick={() => setSeed((s) => s + 1)}>
+            <button
+              className="preset"
+              onClick={() => setState({ ...state, seed: seed + 1 })}
+            >
               ↻ New random universe
+            </button>
+            <button className="preset" onClick={reset}>
+              Reset
             </button>
           </div>
           <div className="note">
@@ -231,46 +247,6 @@ export default function ManagerLuck() {
           extrapolating a star's recent numbers.
         </div>
       </div>
-    </div>
-  );
-}
-
-function Control({
-  name,
-  value,
-  min,
-  max,
-  step,
-  suffix,
-  display,
-  onChange,
-}: {
-  name: string;
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  suffix: string;
-  display?: (v: number) => string;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <div className="control">
-      <div className="row">
-        <span className="name">{name}</span>
-        <span className="val">
-          {display ? display(value) : value}
-          {suffix}
-        </span>
-      </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-      />
-    </div>
+    </ToolPage>
   );
 }

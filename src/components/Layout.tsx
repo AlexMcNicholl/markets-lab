@@ -1,5 +1,6 @@
 import { NavLink, Outlet, Link } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
+import { TOOLS } from "../lib/registry";
 
 export default function Layout() {
   return (
@@ -13,9 +14,11 @@ export default function Layout() {
             <NavLink to="/" end>
               Tools
             </NavLink>
-            <NavLink to="/attribution">Attribution</NavLink>
-            <NavLink to="/manager-luck">Skill vs. Luck</NavLink>
-            <NavLink to="/yield-curve">Yield Curve</NavLink>
+            {TOOLS.map((t) => (
+              <NavLink key={t.slug} to={`/${t.slug}`}>
+                {t.nav}
+              </NavLink>
+            ))}
             <NavLink to="/about">About</NavLink>
           </nav>
         </div>
