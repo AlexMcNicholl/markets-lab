@@ -6,19 +6,31 @@ export default function About() {
       <Link to="/" className="back">
         ← All tools
       </Link>
-      <h1>About</h1>
-      <p className="lede">
-        Markets Lab is a personal project — a place where I build small, exact
-        tools for the ideas I find most worth taking apart.
-      </p>
+
+      <div className="about-hero">
+        <img
+          src="/alex-mcnicholl.png"
+          alt="Alexandre McNicholl"
+          className="about-photo"
+        />
+        <div className="about-bio">
+          <h1>Alexandre McNicholl</h1>
+          <p className="about-role">
+            Investment professional · Toronto · CFA Level II candidate
+          </p>
+          <p className="lede">
+            Markets Lab is a personal project — a place where I build small,
+            exact tools for the ideas I find most worth taking apart.
+          </p>
+        </div>
+      </div>
 
       <div className="prose">
         <p>
-          I'm Alexandre McNicholl, a markets and investment professional based in
-          Toronto and a CFA Level II candidate. My day-to-day is the buy-side
-          investment process — performance attribution, manager research, and
-          portfolio risk across multi-asset strategies — and this is where I
-          build the interactive tools that come out of it, in my own time.
+          My day-to-day is the buy-side investment process — performance
+          attribution, manager research, and portfolio risk across multi-asset
+          strategies — and this is where I build the interactive tools that come
+          out of it, in my own time.
         </p>
         <p>
           Each tool takes one idea from across the investment process — valuation
