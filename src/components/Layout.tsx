@@ -21,6 +21,9 @@ export default function Layout() {
             >
               LinkedIn
             </a>
+            <a href="/Alexandre_McNicholl_CV.pdf" target="_blank" rel="noreferrer">
+              CV
+            </a>
           </nav>
         </div>
       </header>
