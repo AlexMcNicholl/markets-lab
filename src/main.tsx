@@ -14,6 +14,7 @@ import "./styles.css";
 // component here; "planned" slugs route to the shared ComingSoon stub instead.
 const TOOL_PAGES: Record<string, React.LazyExoticComponent<React.FC>> = {
   attribution: lazy(() => import("./pages/Attribution")),
+  "multi-period-linking": lazy(() => import("./pages/MultiPeriodLinking")),
   "manager-luck": lazy(() => import("./pages/ManagerLuck")),
   "yield-curve": lazy(() => import("./pages/YieldCurve")),
   "efficient-frontier": lazy(() => import("./pages/EfficientFrontier")),

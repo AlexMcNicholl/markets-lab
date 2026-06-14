@@ -65,11 +65,11 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "multi-period-linking",
     category: "Performance & Attribution",
-    status: "planned",
+    status: "live",
     title: "Multi-Period Linking",
     nav: "Linking",
     blurb:
-      "Link single-period attribution across quarters with the Carino and Menchero algorithms, so the effects still reconcile to compounded performance instead of drifting apart.",
+      "Link single-period active returns across quarters with Carino's algorithm, so the effects still reconcile to compounded performance instead of drifting apart.",
     takeaway: "Why attribution effects don't simply add up over time.",
   },
 
