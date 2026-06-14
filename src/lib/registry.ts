@@ -129,7 +129,7 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "black-litterman",
     category: "Portfolio Construction",
-    status: "planned",
+    status: "live",
     title: "Black-Litterman View Mixer",
     nav: "BL Mixer",
     blurb:

@@ -23,6 +23,7 @@ const TOOL_PAGES: Record<string, React.LazyExoticComponent<React.FC>> = {
   "credit-spreads": lazy(() => import("./pages/CreditSpreads")),
   "comparable-companies": lazy(() => import("./pages/ComparableCompanies")),
   "stress-tester": lazy(() => import("./pages/StressTester")),
+  "black-litterman": lazy(() => import("./pages/BlackLitterman")),
   "currency-hedging": lazy(() => import("./pages/CurrencyHedging")),
 };
 
