@@ -161,11 +161,11 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "factor-attribution",
     category: "Manager Research",
-    status: "planned",
+    status: "live",
     title: "Rolling Factor Attribution",
     nav: "Factor Attribution",
     blurb:
-      "Feed a return stream through rolling 12-month windows and decompose it into market beta, rates sensitivity, credit beta, and momentum. The question isn't just whether the return is skill — it's whether the factor loadings are stable or quietly drifting.",
+      "Run a track record through rolling 18-month regressions on market, rates, credit, and momentum factors. Split the return into exposure you could have bought and the alpha left over — then watch whether the loadings hold still or quietly drift.",
     takeaway: "What risks are actually embedded in a track record.",
   },
   {
