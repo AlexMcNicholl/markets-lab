@@ -82,7 +82,7 @@ export const TOOLS: ToolMeta[] = [
     nav: "Yield Curve",
     blurb:
       "Reshape the Canada curve with steepener, flattener, and butterfly presets and reprice a bond portfolio through its key-rate durations.",
-    takeaway: "Why where you sit on the curve is the whole trade.",
+    takeaway: "Why curve positioning drives the return.",
   },
   {
     slug: "credit-spreads",
@@ -91,7 +91,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Credit Spread Decomposition",
     nav: "Credit Spreads",
     blurb:
-      "Pull a corporate bond's yield apart into the risk-free curve, the credit spread, and the slice that's really just compensation for not being able to sell it in size.",
+      "Pull a corporate bond's yield apart into the risk-free curve, the credit spread, and the premium you're paid for illiquidity.",
     takeaway: "What you're actually paid for in a corporate bond.",
   },
   {
@@ -101,7 +101,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Portfolio Stress Tester",
     nav: "Stress Test",
     blurb:
-      "Apply named historical shocks — 2008 GFC, 2020 COVID, 2022 rates repricing — or build a custom scenario to a configurable multi-asset book. See P&L attribution by asset class and by factor so you know where the book breaks before it happens.",
+      "Apply named historical shocks — 2008, 2020, the 2022 rates repricing — or build a custom scenario on a multi-asset book, then read P&L attribution by asset class and by factor.",
     takeaway: "Where a portfolio breaks under historical stress.",
   },
   {
@@ -133,7 +133,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Black-Litterman View Mixer",
     nav: "BL Mixer",
     blurb:
-      "Start from equilibrium market-cap weights, dial in directional views with confidence levels, and watch the optimizer blend them into tilted active weights — the literal translation of a conviction into a position size.",
+      "Start from equilibrium market-cap weights, dial in directional views with confidence levels, and watch the optimizer blend them into tilted active weights.",
     takeaway: "How strong a view has to be to move the weights.",
   },
   {
@@ -176,7 +176,7 @@ export const TOOLS: ToolMeta[] = [
     nav: "Fundamental Law",
     blurb:
       "Trade skill (information coefficient) against breadth and see why a mediocre forecaster making many independent bets can beat a guru who makes only a few.",
-    takeaway: "IR ≈ IC × √breadth, made tangible.",
+    takeaway: "Why many small bets beat a few big ones.",
   },
 
   // ── Valuation & Security Selection ────────────────────────────────────────
@@ -187,7 +187,7 @@ export const TOOLS: ToolMeta[] = [
     title: "DCF Sensitivity Explorer",
     nav: "DCF",
     blurb:
-      "Flex WACC and terminal growth on a discounted-cash-flow model and watch the implied value — and the whole valuation range — swing on assumptions you can barely justify.",
+      "Flex WACC and terminal growth on a discounted-cash-flow model and watch the implied value — and the whole valuation range — swing on a couple of assumptions.",
     takeaway: "How much of a valuation is just the discount rate.",
   },
   {
