@@ -30,20 +30,28 @@ export default function Home() {
       <section className="hero">
         <div className="wrap">
           <div className="eyebrow label">Markets Lab</div>
-          <h1>Interactive tools for ideas worth taking apart.</h1>
+          <h1>Alexandre McNicholl</h1>
+          <p className="positioning">
+            Markets and investment professional in Toronto, working across
+            performance attribution, manager research, and portfolio risk.
+            CFA Level II candidate.
+          </p>
           <p>
-            A set of small, focused tools spanning fixed income, portfolio
-            construction, performance attribution, manager research, and more —
-            each one made to take a single idea and turn it into something you
-            can move with your hands.
+            Markets Lab is where I build small, focused tools — each one takes a
+            single idea from across the investment process, from valuation and
+            portfolio construction to attribution and risk, and turns it into
+            something you can move with your hands.
           </p>
           <div className="meta">
-            <span>Alexandre McNicholl · Toronto</span>
+            <span>Toronto, Canada</span>
             <a href="https://www.linkedin.com/in/amcnicholl/" target="_blank" rel="noreferrer">
               LinkedIn
             </a>
             <a href="https://github.com/AlexMcNicholl/markets-lab" target="_blank" rel="noreferrer">
               GitHub
+            </a>
+            <a href="/Alexandre_McNicholl_CV.pdf" target="_blank" rel="noreferrer">
+              CV
             </a>
             <Link to="/about">About</Link>
           </div>

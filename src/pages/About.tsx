@@ -14,27 +14,27 @@ export default function About() {
 
       <div className="prose">
         <p>
-          I'm Alexandre McNicholl, based in Toronto, and a CFA Level II
-          candidate. This is where I put the interactive tools I build in my own
-          time — each one an attempt to take an idea that usually lives in a
-          textbook or a spreadsheet and turn it into something you can move with
-          your hands.
+          I'm Alexandre McNicholl, a markets and investment professional based in
+          Toronto and a CFA Level II candidate. My day-to-day is the buy-side
+          investment process — performance attribution, manager research, and
+          portfolio risk across multi-asset strategies — and this is where I
+          build the interactive tools that come out of it, in my own time.
+        </p>
+        <p>
+          Each tool takes one idea from across the investment process — valuation
+          and security selection, portfolio construction, risk, attribution — and
+          turns it from something that usually lives in a textbook or a
+          spreadsheet into something you can move with your hands. Building the
+          interactive version of an idea is the fastest way I know to find out
+          whether I actually understand it.
         </p>
         <p>
           The underlying math is documented on each page, and the code is open.
           The tools run on synthetic examples and generic, public assumptions
           only — nothing here uses or derives from any employer's data,
-          holdings, or proprietary models. It exists purely to explore ideas and
-          to keep my own tooling sharp. New tools are added as ideas become
+          holdings, or proprietary models. New tools are added as ideas become
           worth building — the ones marked "planned" on the home page are in
           active design.
-        </p>
-        <p>
-          Most of these tools grew out of problems I work with in practice —
-          performance attribution, manager research, and portfolio risk across
-          multi-asset strategies. They exist because building the interactive
-          version of an idea is the fastest way to find out whether I actually
-          understand it.
         </p>
 
         <h3>Built with</h3>

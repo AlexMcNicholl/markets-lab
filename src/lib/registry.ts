@@ -15,10 +15,8 @@ export const CATEGORIES = [
   "Risk & Markets",
   "Portfolio Construction",
   "Manager Research",
+  "Valuation & Security Selection",
   "AI & Markets",
-  "Investment Banking",
-  "Equity Research",
-  "Debt Research",
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];
@@ -26,13 +24,11 @@ export type Category = (typeof CATEGORIES)[number];
 // One-line descriptor shown under each domain heading on the home page.
 export const CATEGORY_BLURBS: Record<Category, string> = {
   "Performance & Attribution": "Where return comes from — and whether it reconciles.",
-  "Risk & Markets": "How prices move, and what moves with them.",
+  "Risk & Markets": "How prices move across rates, credit, and assets.",
   "Portfolio Construction": "Turning views and constraints into weights.",
   "Manager Research": "Telling skill from luck in a track record.",
+  "Valuation & Security Selection": "Pricing a single name — and how much of the answer is the inputs.",
   "AI & Markets": "Language models pointed at market text.",
-  "Investment Banking": "Valuation and the mechanics of a deal.",
-  "Equity Research": "Fundamental analysis of single names.",
-  "Debt Research": "Credit risk, spreads, and primary markets.",
 };
 
 export type Status = "live" | "planned";
@@ -89,6 +85,16 @@ export const TOOLS: ToolMeta[] = [
     takeaway: "Why where you sit on the curve is the whole trade.",
   },
   {
+    slug: "credit-spreads",
+    category: "Risk & Markets",
+    status: "live",
+    title: "Credit Spread Decomposition",
+    nav: "Credit Spreads",
+    blurb:
+      "Pull a corporate bond's yield apart into the risk-free curve, the credit spread, and the slice that's really just compensation for not being able to sell it in size.",
+    takeaway: "What you're actually paid for in a corporate bond.",
+  },
+  {
     slug: "correlation-regimes",
     category: "Risk & Markets",
     status: "planned",
@@ -143,6 +149,38 @@ export const TOOLS: ToolMeta[] = [
     takeaway: "IR ≈ IC × √breadth, made tangible.",
   },
 
+  // ── Valuation & Security Selection ────────────────────────────────────────
+  {
+    slug: "dcf-sensitivity",
+    category: "Valuation & Security Selection",
+    status: "live",
+    title: "DCF Sensitivity Explorer",
+    nav: "DCF",
+    blurb:
+      "Flex WACC and terminal growth on a discounted-cash-flow model and watch the implied value — and the whole valuation range — swing on assumptions you can barely justify.",
+    takeaway: "How much of a valuation is just the discount rate.",
+  },
+  {
+    slug: "comparable-companies",
+    category: "Valuation & Security Selection",
+    status: "live",
+    title: "Comparable Company Analysis",
+    nav: "Comps",
+    blurb:
+      "Value a company off its peers' EV/EBITDA, then watch the implied share price swing on the choice of comp set alone — by more than any model assumption.",
+    takeaway: "Why the comp set is the whole argument.",
+  },
+  {
+    slug: "earnings-drift",
+    category: "Valuation & Security Selection",
+    status: "planned",
+    title: "Earnings Surprise & Drift",
+    nav: "Earnings Drift",
+    blurb:
+      "Sort names by earnings surprise and watch post-announcement drift play out — the decades-old anomaly that says the market doesn't price a surprise all at once.",
+    takeaway: "Does the market really price earnings in a day?",
+  },
+
   // ── AI & Markets ───────────────────────────────────────────────────────────
   {
     slug: "central-bank-tone",
@@ -163,72 +201,6 @@ export const TOOLS: ToolMeta[] = [
     blurb:
       "Draft monthly fund commentary straight from performance and attribution data, with automatic checks that flag any claim the numbers don't actually support.",
     takeaway: "LLM drafting with a hallucination guardrail.",
-  },
-
-  // ── Investment Banking ────────────────────────────────────────────────────
-  {
-    slug: "dcf-sensitivity",
-    category: "Investment Banking",
-    status: "live",
-    title: "DCF Sensitivity Explorer",
-    nav: "DCF",
-    blurb:
-      "Flex WACC and terminal growth on a discounted-cash-flow model and watch the implied value — and the whole football field — swing on assumptions you can barely justify.",
-    takeaway: "How much of a valuation is just the discount rate.",
-  },
-  {
-    slug: "lbo-returns",
-    category: "Investment Banking",
-    status: "planned",
-    title: "LBO Returns Sandbox",
-    nav: "LBO",
-    blurb:
-      "Set leverage, entry and exit multiples, and the hold period, then decompose a sponsor's IRR into the three things that actually drive it.",
-    takeaway: "Multiple expansion vs. deleveraging vs. growth.",
-  },
-
-  // ── Equity Research ───────────────────────────────────────────────────────
-  {
-    slug: "comparable-companies",
-    category: "Equity Research",
-    status: "live",
-    title: "Comparable Company Analysis",
-    nav: "Comps",
-    blurb:
-      "Value a company off its peers' EV/EBITDA, then watch the implied share price swing on the choice of comp set alone — by more than any model assumption.",
-    takeaway: "Why the comp set is the whole argument.",
-  },
-  {
-    slug: "earnings-drift",
-    category: "Equity Research",
-    status: "planned",
-    title: "Earnings Surprise & Drift",
-    nav: "Earnings Drift",
-    blurb:
-      "Sort names by earnings surprise and watch post-announcement drift play out — the decades-old anomaly that says the market doesn't price a surprise all at once.",
-    takeaway: "Does the market really price earnings in a day?",
-  },
-
-  // ── Debt Research ─────────────────────────────────────────────────────────
-  {
-    slug: "credit-spreads",
-    category: "Debt Research",
-    status: "live",
-    title: "Credit Spread Decomposition",
-    nav: "Credit Spreads",
-    blurb:
-      "Pull a corporate bond's yield apart into the risk-free curve, the credit spread, and the slice that's really just compensation for not being able to sell it in size.",
-    takeaway: "What you're actually paid for in a corporate bond.",
-  },
-  {
-    slug: "new-issue-concession",
-    category: "Debt Research",
-    status: "planned",
-    title: "New-Issue Concession",
-    nav: "New Issues",
-    blurb:
-      "Price a new bond against the issuer's secondary curve and see how much extra yield — the new-issue concession — it takes to clear a primary deal as market tone shifts.",
-    takeaway: "What it costs to bring a deal to market.",
   },
 ];
 

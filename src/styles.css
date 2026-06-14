@@ -166,6 +166,10 @@ a:hover {
   max-width: 60ch;
   margin: 0;
 }
+.hero .positioning {
+  color: var(--ink-1);
+  margin-bottom: 16px;
+}
 .hero .meta {
   margin-top: 32px;
   display: flex;
