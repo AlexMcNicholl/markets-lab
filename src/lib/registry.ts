@@ -95,6 +95,16 @@ export const TOOLS: ToolMeta[] = [
     takeaway: "What you're actually paid for in a corporate bond.",
   },
   {
+    slug: "stress-tester",
+    category: "Risk & Markets",
+    status: "planned",
+    title: "Portfolio Stress Tester",
+    nav: "Stress Test",
+    blurb:
+      "Apply named historical shocks — 2008 GFC, 2020 COVID, 2022 rates repricing — or build a custom scenario to a configurable multi-asset book. See P&L attribution by asset class and by factor so you know where the book breaks before it happens.",
+    takeaway: "Where a portfolio breaks under historical stress.",
+  },
+  {
     slug: "correlation-regimes",
     category: "Risk & Markets",
     status: "planned",
@@ -117,6 +127,16 @@ export const TOOLS: ToolMeta[] = [
     takeaway: "Why the optimizer's confidence is mostly noise.",
   },
   {
+    slug: "black-litterman",
+    category: "Portfolio Construction",
+    status: "planned",
+    title: "Black-Litterman View Mixer",
+    nav: "BL Mixer",
+    blurb:
+      "Start from equilibrium market-cap weights, dial in directional views with confidence levels, and watch the optimizer blend them into tilted active weights — the literal translation of a conviction into a position size.",
+    takeaway: "How strong a view has to be to move the weights.",
+  },
+  {
     slug: "currency-hedging",
     category: "Portfolio Construction",
     status: "planned",
@@ -137,6 +157,16 @@ export const TOOLS: ToolMeta[] = [
     blurb:
       "Simulate a universe of managers with the skill you dial in, then read the leaderboard. Even with zero skill, someone beats the index five years running.",
     takeaway: "How long a track record has to be to mean anything.",
+  },
+  {
+    slug: "factor-attribution",
+    category: "Manager Research",
+    status: "planned",
+    title: "Rolling Factor Attribution",
+    nav: "Factor Attribution",
+    blurb:
+      "Feed a return stream through rolling 12-month windows and decompose it into market beta, rates sensitivity, credit beta, and momentum. The question isn't just whether the return is skill — it's whether the factor loadings are stable or quietly drifting.",
+    takeaway: "What risks are actually embedded in a track record.",
   },
   {
     slug: "fundamental-law",
