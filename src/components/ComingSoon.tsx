@@ -22,10 +22,8 @@ export default function ComingSoon({ slug }: { slug: string }) {
       lede={tool?.blurb ?? "This project is on the build list."}
     >
       <div className="callout cs-callout">
-        <strong>On the build list.</strong> Part of the {tool?.category} track,
-        this one isn't interactive yet. The idea: {tool?.takeaway} I build these
-        one at a time, with the underlying method documented on the page the way
-        the live tools are.
+        <strong>In design.</strong> {tool?.blurb} The underlying method will be
+        documented on the page the way the live tools are.
       </div>
 
       <div className="prose">

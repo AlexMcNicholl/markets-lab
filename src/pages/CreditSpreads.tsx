@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   decompose,
   getProfile,
@@ -167,6 +168,13 @@ export default function CreditSpreads() {
           losses you actually expect to take. That gap is why credit can be a
           good trade in calm markets and a brutal one when liquidity disappears —
           the premium you were earning was the warning, not a free lunch.
+        </p>
+        <p>
+          The risk-free layer beneath the spread is the{" "}
+          <Link to="/yield-curve">Yield Curve Sandbox</Link>. To see how a
+          spread-widening shock hits a whole portfolio alongside other risk
+          factors, see the{" "}
+          <Link to="/stress-tester">Portfolio Stress Tester</Link>.
         </p>
       </div>
     </ToolPage>

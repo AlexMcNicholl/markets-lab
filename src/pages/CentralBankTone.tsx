@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   Bank,
   BANK_NAME,
@@ -230,6 +231,12 @@ export default function CentralBankTone() {
           reading the sentence, not just the term — but it trades this page's
           full transparency for a judgement you have to trust. The lexicon is the
           baseline you grade that model against.
+        </p>
+        <p>
+          For the bond-market implication of a rate decision, the{" "}
+          <Link to="/yield-curve">Yield Curve Sandbox</Link> reprices a portfolio
+          through the parallel-vs.-shape distinction that central-bank
+          communication often turns on.
         </p>
       </div>
     </ToolPage>

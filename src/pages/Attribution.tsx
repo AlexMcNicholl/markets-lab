@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { attribute, Sector } from "../lib/attribution";
 import {
   buildScenario,
@@ -145,6 +146,13 @@ export default function Attribution() {
           back onto each period's effects so a multi-period attribution still
           reconciles to performance. Getting it wrong is the most common error in
           home-grown attribution.
+        </p>
+        <p>
+          The multi-period version of this problem is worked through directly in
+          the{" "}
+          <Link to="/multi-period-linking">Multi-Period Linking</Link> tool —
+          that one shows the residual opening up and Carino's algorithm closing
+          it.
         </p>
       </div>
     </ToolPage>

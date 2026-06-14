@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   BarChart,
   Bar,
@@ -42,10 +43,11 @@ export default function BlackLitterman() {
       actions={<CopyLinkButton />}
       lede={
         <>
-          Reverse-engineer the excess returns the market is implicitly pricing
-          from market-cap weights, layer a directional view on top, and watch the
-          optimizer translate that conviction into a position size. Pick a view
-          below, then dial your confidence in it.
+          A directional view only earns a position if you're willing to back it
+          with conviction. Black-Litterman starts from the returns the market
+          implicitly prices at today's weights, blends in a view at whatever
+          confidence you dial, and shows exactly what position size that
+          conviction justifies. Pick a view below, then move the slider.
         </>
       }
     >
@@ -237,6 +239,13 @@ export default function BlackLitterman() {
           and the slider makes that price explicit. The universe, volatilities,
           and correlations are illustrative figures, not any real index or
           product.
+        </p>
+        <p>
+          For context on why the unconstrained optimizer is so sensitive to input
+          error, see the{" "}
+          <Link to="/efficient-frontier">Resampled Efficient Frontier</Link>. The
+          FX layer on a global book is in{" "}
+          <Link to="/currency-hedging">Currency Hedging for Canadians</Link>.
         </p>
       </div>
     </ToolPage>

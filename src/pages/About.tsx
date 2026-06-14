@@ -19,55 +19,35 @@ export default function About() {
             Investment professional · Toronto · CFA Level II candidate
           </p>
           <p className="lede">
-            Markets Lab is a personal project — a place where I build small,
-            exact tools for the ideas I find most worth taking apart.
+            I work across the buy-side investment process — attribution, manager
+            research, and portfolio risk on multi-asset strategies. Markets Lab
+            is where that work turns interactive.
           </p>
         </div>
       </div>
 
       <div className="prose">
         <p>
-          My day-to-day is the buy-side investment process — performance
-          attribution, manager research, and portfolio risk across multi-asset
-          strategies — and this is where I build the interactive tools that come
-          out of it, in my own time.
-        </p>
-        <p>
-          Each tool takes one idea from across the investment process — valuation
-          and security selection, portfolio construction, risk, attribution — and
-          turns it from something that usually lives in a textbook or a
-          spreadsheet into something you can move with your hands. Building the
-          interactive version of an idea is the fastest way I know to find out
-          whether I actually understand it.
+          Each tool starts from an idea I've worked through in practice or
+          wanted to understand more precisely — something from attribution,
+          portfolio construction, risk, or valuation that usually lives in a
+          spreadsheet or a textbook. Building the interactive version of an idea
+          is the fastest way I know to find out whether I actually understand it.
         </p>
         <p>
           The underlying math is documented on each page, and the code is open.
-          The tools run on synthetic examples and generic, public assumptions
+          Everything runs on synthetic examples and generic public assumptions
           only — nothing here uses or derives from any employer's data,
           holdings, or proprietary models. New tools are added as ideas become
-          worth building — the ones marked "planned" on the home page are in
-          active design.
+          worth building.
         </p>
-
-        <h3>Built with</h3>
-        <p>
-          React, TypeScript, and Vite, with Recharts for the visuals. The
-          simulations use a seeded pseudo-random generator so results are
-          reproducible. Source is on{" "}
-          <a href="https://github.com/AlexMcNicholl" target="_blank" rel="noreferrer">
+        <p className="note">
+          Built with React, TypeScript, Vite, and Recharts. Source is on{" "}
+          <a href="https://github.com/AlexMcNicholl/markets-lab" target="_blank" rel="noreferrer">
             GitHub
           </a>
           .
         </p>
-        <div className="chips">
-          {["React", "TypeScript", "Vite", "Recharts", "CFA L2 candidate"].map(
-            (c) => (
-              <span className="chip" key={c}>
-                {c}
-              </span>
-            ),
-          )}
-        </div>
 
         <h3>Get in touch</h3>
         <p>

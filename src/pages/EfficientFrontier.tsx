@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   ScatterChart,
   Scatter,
@@ -290,6 +291,14 @@ export default function EfficientFrontier() {
           position limits that cap the damage, but they dampen the instability
           rather than remove it; the inputs are still estimates.
         </div>
+        <p>
+          <Link to="/black-litterman">Black-Litterman</Link> addresses the
+          estimation-error problem differently — instead of resampling, it
+          anchors the optimizer to market-implied returns and blends in views in
+          proportion to your conviction. The FX dimension of a global allocation
+          is in{" "}
+          <Link to="/currency-hedging">Currency Hedging for Canadians</Link>.
+        </p>
       </div>
     </ToolPage>
   );

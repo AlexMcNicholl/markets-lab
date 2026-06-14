@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   BarChart,
   Bar,
@@ -378,6 +379,12 @@ export default function DcfSensitivity() {
           an educational tool on public data, not investment advice or a price
           target.
         </div>
+        <p>
+          The relative-value alternative is{" "}
+          <Link to="/comparable-companies">Comparable Company Analysis</Link> —
+          where the same financials imply a different price depending entirely on
+          who you call a peer.
+        </p>
       </div>
     </ToolPage>
   );

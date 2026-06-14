@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   BarChart,
   Bar,
@@ -236,6 +237,13 @@ export default function CurrencyHedging() {
           strong, fully hedging would have added a punishing carry drag on top of
           the equity loss. The regime determines which of the two risks — FX
           variance or carry cost — is the larger of the two.
+        </p>
+        <p>
+          The other portfolio construction tools:{" "}
+          <Link to="/efficient-frontier">Resampled Efficient Frontier</Link> on
+          estimation error and optimizer instability, and{" "}
+          <Link to="/black-litterman">Black-Litterman View Mixer</Link> on
+          blending views into weights.
         </p>
       </div>
     </ToolPage>

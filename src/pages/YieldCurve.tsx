@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -279,6 +280,13 @@ export default function YieldCurve() {
           price-yield relationship — adds a positive second-order term this tool
           deliberately omits to keep the curve-shape intuition front and centre.
         </div>
+        <p>
+          The credit spread that sits on top of the risk-free rate is decomposed
+          in{" "}
+          <Link to="/credit-spreads">Credit Spread Decomposition</Link>. To see
+          how a rate shock propagates through a whole multi-asset book, see the{" "}
+          <Link to="/stress-tester">Portfolio Stress Tester</Link>.
+        </p>
       </div>
     </ToolPage>
   );

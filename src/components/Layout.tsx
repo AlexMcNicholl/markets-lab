@@ -15,11 +15,11 @@ export default function Layout() {
             </NavLink>
             <NavLink to="/about">About</NavLink>
             <a
-              href="https://github.com/AlexMcNicholl/markets-lab"
+              href="https://www.linkedin.com/in/amcnicholl/"
               target="_blank"
               rel="noreferrer"
             >
-              GitHub
+              LinkedIn
             </a>
           </nav>
         </div>

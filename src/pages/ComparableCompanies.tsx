@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   valueComps,
   COMP_SETS,
@@ -176,6 +177,13 @@ export default function ComparableCompanies() {
           close to. That is why the first question to ask of any comp-based
           valuation is not what multiple they used, but who they decided to call a
           peer — and, just as quietly, who they left out.
+        </p>
+        <p>
+          The intrinsic-value counterpart is the{" "}
+          <Link to="/dcf-sensitivity">DCF Sensitivity Explorer</Link> — a
+          ten-year model on real companies where a half-point move in WACC or
+          terminal growth moves the answer by as much as swapping the comp set
+          does here.
         </p>
       </div>
     </ToolPage>

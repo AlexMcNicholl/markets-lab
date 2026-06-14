@@ -36,10 +36,11 @@ export default function Home() {
             buy-side investment process. CFA Level II candidate.
           </p>
           <p>
-            Markets Lab is where I build small, focused tools — each one takes a
-            single idea from across the investment process, from valuation and
-            portfolio construction to attribution and risk, and turns it into
-            something you can work through by hand.
+            My day-to-day spans performance attribution, manager research, and
+            portfolio risk across multi-asset strategies. Markets Lab is where
+            that work turns interactive — each tool takes one idea from the
+            investment process and makes it something you can move through by
+            hand.
           </p>
           <div className="meta">
             <span>Toronto, Canada</span>

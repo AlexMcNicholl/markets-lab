@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   BarChart,
   Bar,
@@ -235,6 +236,12 @@ export default function StressTester() {
           Shock estimates are illustrative approximations of each episode's
           direction and magnitude — not reconstructed from any specific index or
           product.
+        </p>
+        <p>
+          The rate-risk mechanics that drove 2022 are worked through in the{" "}
+          <Link to="/yield-curve">Yield Curve Sandbox</Link>; the credit-spread
+          side of the same episode is in{" "}
+          <Link to="/credit-spreads">Credit Spread Decomposition</Link>.
         </p>
       </div>
     </ToolPage>
