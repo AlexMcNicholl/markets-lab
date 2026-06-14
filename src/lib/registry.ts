@@ -213,7 +213,7 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "credit-spreads",
     category: "Debt Research",
-    status: "planned",
+    status: "live",
     title: "Credit Spread Decomposition",
     nav: "Credit Spreads",
     blurb:
