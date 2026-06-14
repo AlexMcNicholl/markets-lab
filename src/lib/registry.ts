@@ -97,7 +97,7 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "stress-tester",
     category: "Risk & Markets",
-    status: "planned",
+    status: "live",
     title: "Portfolio Stress Tester",
     nav: "Stress Test",
     blurb:
