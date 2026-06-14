@@ -139,11 +139,11 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "currency-hedging",
     category: "Portfolio Construction",
-    status: "planned",
+    status: "live",
     title: "Currency Hedging for Canadians",
     nav: "FX Hedging",
     blurb:
-      "Dial the hedge ratio on a global book held in CAD and watch volatility, carry, and currency beta trade off against each other across different home-currency regimes.",
+      "Dial the hedge ratio on a global book held in CAD and watch the FX effect and carry trade off across four currency regimes — from a loonie collapse to an expensive Fed hike cycle.",
     takeaway: "How much of a foreign return is really the loonie.",
   },
 
