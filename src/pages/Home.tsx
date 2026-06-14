@@ -32,9 +32,10 @@ export default function Home() {
           <div className="eyebrow label">Markets Lab</div>
           <h1>Interactive tools for ideas worth taking apart.</h1>
           <p>
-            A set of small, focused tools — each one made to take a single idea
-            and turn it into something you can move with your hands. Drag
-            something, and watch the intuition fall out.
+            A set of small, focused tools spanning fixed income, portfolio
+            construction, performance attribution, manager research, and more —
+            each one made to take a single idea and turn it into something you
+            can move with your hands.
           </p>
           <div className="meta">
             <span>Alexandre McNicholl · Toronto</span>
@@ -94,6 +95,12 @@ function DomainSection({
   tools: ToolMeta[];
 }) {
   const grid = useInView<HTMLDivElement>();
+  // Live tools lead each domain; planned stubs follow, so a skim lands on real
+  // work first. Registry order is otherwise preserved within each group.
+  const ordered = [...tools].sort(
+    (a, b) =>
+      (a.status === "live" ? 0 : 1) - (b.status === "live" ? 0 : 1),
+  );
   return (
     <section className="domain">
       <div className="domain-head">
@@ -102,7 +109,7 @@ function DomainSection({
         <span className="domain-count num">{tools.length}</span>
       </div>
       <div ref={grid.ref} className={`tools${grid.inView ? " is-visible" : ""}`}>
-        {tools.map((t, i) => (
+        {ordered.map((t, i) => (
           <ToolCard key={t.slug} tool={t} index={i} />
         ))}
       </div>
@@ -127,7 +134,7 @@ function ToolCard({ tool, index }: { tool: ToolMeta; index: number }) {
       <h3>{tool.title}</h3>
       <p className="takeaway">{tool.takeaway}</p>
       <span className="open" aria-hidden="true">
-        {planned ? "Preview →" : "Open →"}
+        {planned ? "Coming soon" : "Open →"}
       </span>
     </Link>
   );

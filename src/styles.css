@@ -928,12 +928,34 @@ table.data tr.is-leader td {
   border: 1px solid #ecdcbb;
 }
 
-/* Planned cards: present but clearly not yet interactive */
-.tool-card.is-planned::after {
-  background: var(--gold);
+/* Planned cards: present but clearly secondary, so they don't dilute live work.
+   Opacity is set by a dedicated end-state keyframe because the card's opacity is
+   animated on scroll-in (a plain rule would be overridden by the animation). */
+.tools.is-visible .tool-card.is-planned {
+  animation-name: cardInPlanned;
 }
+@keyframes cardInPlanned {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 0.6;
+    transform: none;
+  }
+}
+/* No hover lift, accent bar, or background shift — they read as not-yet-live. */
+.tool-card.is-planned:hover {
+  background: var(--paper);
+}
+.tool-card.is-planned:hover::after {
+  transform: scaleX(0);
+}
+/* "Coming soon" sits muted and always visible (no hover reveal). */
 .tool-card.is-planned .open {
-  color: var(--gold);
+  color: var(--ink-3);
+  opacity: 1;
+  transform: none;
 }
 
 /* ComingSoon stub page */

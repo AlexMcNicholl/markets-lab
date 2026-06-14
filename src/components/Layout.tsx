@@ -33,7 +33,11 @@ export default function Layout() {
             Built by Alexandre McNicholl · Toronto · {new Date().getFullYear()}
           </span>
           <span>
-            Public data and synthetic examples only. Not investment advice.
+            Public data and synthetic examples only. Not investment advice.{" "}
+            ·{" "}
+            <a href="/Alexandre_McNicholl_CV.pdf" target="_blank" rel="noreferrer">
+              CV
+            </a>
           </span>
         </div>
       </footer>

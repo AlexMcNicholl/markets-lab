@@ -25,7 +25,16 @@ export default function About() {
           The tools run on synthetic examples and generic, public assumptions
           only — nothing here uses or derives from any employer's data,
           holdings, or proprietary models. It exists purely to explore ideas and
-          to keep my own tooling sharp.
+          to keep my own tooling sharp. New tools are added as ideas become
+          worth building — the ones marked "planned" on the home page are in
+          active design.
+        </p>
+        <p>
+          Most of these tools grew out of problems I work with in practice —
+          performance attribution, manager research, and portfolio risk across
+          multi-asset strategies. They exist because building the interactive
+          version of an idea is the fastest way to find out whether I actually
+          understand it.
         </p>
 
         <h3>Built with</h3>
@@ -53,7 +62,11 @@ export default function About() {
           <a href="https://www.linkedin.com/in/amcnicholl/" target="_blank" rel="noreferrer">
             LinkedIn
           </a>{" "}
-          · <a href="mailto:amcnicholl02@gmail.com">amcnicholl02@gmail.com</a>
+          · <a href="mailto:amcnicholl02@gmail.com">amcnicholl02@gmail.com</a>{" "}
+          ·{" "}
+          <a href="/Alexandre_McNicholl_CV.pdf" target="_blank" rel="noreferrer">
+            CV (PDF)
+          </a>
         </p>
       </div>
     </div>
