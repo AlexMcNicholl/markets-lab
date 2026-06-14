@@ -191,11 +191,11 @@ export const TOOLS: ToolMeta[] = [
   {
     slug: "comparable-companies",
     category: "Equity Research",
-    status: "planned",
+    status: "live",
     title: "Comparable Company Analysis",
     nav: "Comps",
     blurb:
-      "Build a comp set, normalize the multiples, and see how the choice of peers alone can swing the implied share price by more than the model ever does.",
+      "Value a company off its peers' EV/EBITDA, then watch the implied share price swing on the choice of comp set alone — by more than any model assumption.",
     takeaway: "Why the comp set is the whole argument.",
   },
   {
