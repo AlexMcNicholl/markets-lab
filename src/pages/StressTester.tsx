@@ -49,9 +49,11 @@ export default function StressTester() {
       actions={<CopyLinkButton />}
       lede={
         <>
-          Apply a named historical shock to a multi-asset portfolio and read off
-          how much each position contributed to the total drawdown — or cushioned
-          it. Pick a scenario and a portfolio type below.
+          A 60/40 looks diversified until the scenario that breaks it shows up —
+          and in 2022 the bond sleeve that's supposed to cushion the drawdown{" "}
+          <em>was</em> the drawdown. Pick a historical shock and a portfolio
+          below, and read which positions actually carried the loss versus which
+          only looked like ballast.
         </>
       }
     >
@@ -217,7 +219,7 @@ export default function StressTester() {
       </div>
 
       <div className="prose">
-        <h3>Why stress testing matters</h3>
+        <h3>Why the diversified book wasn't</h3>
         <p>
           The arithmetic is linear: each asset's P&amp;L impact is its weight
           times the scenario shock, so the table reconciles exactly to the total.
