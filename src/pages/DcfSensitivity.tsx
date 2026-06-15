@@ -28,6 +28,7 @@ import { signClass } from "../lib/format";
 import { useSharedState } from "../lib/useSharedState";
 import ToolPage from "../components/ToolPage";
 import CopyLinkButton from "../components/CopyLinkButton";
+import DataSource from "../components/DataSource";
 
 // $m with thousands separators; whole and 2-dp dollars per share.
 const m = (n: number) => Math.round(n).toLocaleString("en-US");
@@ -337,6 +338,75 @@ export default function DcfSensitivity() {
           )}
         </div>
       </div>
+
+      <DataSource
+        kind={company.synthetic ? "illustrative" : "sourced"}
+        provenance={
+          company.synthetic ? (
+            <>
+              Illustrative figures — not a real company. Net debt and share count
+              are fixed, so every move in fair value traces to the discount rate
+              and terminal growth alone.
+            </>
+          ) : (
+            <>
+              The hard anchors below are {company.name}'s {company.fy} Form 10-K
+              figures; near-term FCF growth is the one input that's assumed, and
+              WACC and terminal growth are the lens you choose.
+            </>
+          )
+        }
+        source={
+          link ? { label: `${company.name} 10-K on SEC EDGAR`, href: link } : undefined
+        }
+      >
+        <table className="data">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th className="num">Value</th>
+              <th>Where it comes from</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Year-1 free cash flow</td>
+              <td className="num">{m(company.fcf1)} $m</td>
+              <td>
+                {company.synthetic
+                  ? "Assumed"
+                  : "3-year average of operating cash flow − capex"}
+              </td>
+            </tr>
+            <tr className="is-leader">
+              <td>Near-term FCF growth</td>
+              <td className="num">{wpct(company.nearGrowth)}</td>
+              <td>Assumption — the one explicitly chosen input</td>
+            </tr>
+            <tr>
+              <td>Net debt</td>
+              <td className="num">{m(company.netDebt)} $m</td>
+              <td>
+                {company.synthetic
+                  ? "Assumed, held fixed"
+                  : "Total debt − cash & marketable securities"}
+              </td>
+            </tr>
+            <tr>
+              <td>Diluted shares</td>
+              <td className="num">{m(company.shares)} m</td>
+              <td>{company.synthetic ? "Assumed, held fixed" : "Latest reported"}</td>
+            </tr>
+            {hasPrice && (
+              <tr>
+                <td>Market price</td>
+                <td className="num">{usd2(market)}</td>
+                <td>Close on the 10-K filing date ({company.asOf})</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </DataSource>
 
       <div className="prose">
         <h3>How it's calculated</h3>

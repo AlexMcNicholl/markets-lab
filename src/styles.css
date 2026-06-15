@@ -563,6 +563,69 @@ table.data tr.total td {
   margin-top: 0;
 }
 
+/* ---------- data & sources disclosure ---------- */
+.datasource {
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  margin-top: 18px;
+}
+.datasource > summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 16px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 600;
+  user-select: none;
+}
+.datasource > summary::-webkit-details-marker {
+  display: none;
+}
+.datasource-marker {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--ink-3);
+  border-bottom: 1.5px solid var(--ink-3);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+.datasource[open] > summary .datasource-marker {
+  transform: rotate(45deg);
+}
+.datasource-chip {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+}
+.datasource-chip.sourced {
+  color: var(--accent-soft);
+}
+.datasource-chip.illustrative {
+  color: var(--gold);
+}
+.datasource-body {
+  padding: 0 16px 18px;
+  border-top: 1px solid var(--rule);
+}
+.datasource-prov {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin: 14px 0 0;
+}
+.datasource-body table.data {
+  margin-top: 16px;
+}
+
 /* ---------- attribution: toolbar, verdict, sector grid ---------- */
 .toolbar {
   display: flex;
