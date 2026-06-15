@@ -32,14 +32,14 @@ export default function Home() {
           <div className="eyebrow label">Markets Lab</div>
           <h1>Alexandre McNicholl</h1>
           <p className="positioning">
-            Markets and investment professional in Toronto, working across the
-            buy-side investment process. CFA Level II candidate.
+            Capital markets professional, working across the buy-side investment
+            process. CFA Level II candidate.
           </p>
           <p>
-            Markets Lab is where I build small, focused tools — each one takes a
-            single idea from across the investment process, from valuation and
-            portfolio construction to attribution and risk, and turns it into
-            something you can work through by hand.
+            Markets Lab is a collection of small, focused tools. Each one takes
+            a single idea from the investment process and turns it into something
+            you can work through by hand, spanning valuation, portfolio
+            construction, attribution, and risk.
           </p>
           <div className="meta">
             <span>Toronto, Canada</span>
