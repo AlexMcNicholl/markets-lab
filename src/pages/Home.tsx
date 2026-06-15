@@ -58,6 +58,28 @@ export default function Home() {
       </section>
 
       <div className="wrap">
+        <Link to="/research-portfolio" className="flagship">
+          <div className="flagship-body">
+            <div className="flagship-eyebrow label">
+              Flagship · model · illustrative
+            </div>
+            <h2>Research Portfolio</h2>
+            <p className="flagship-lead">
+              A view, sized and tracked. A model book — synthetic in capital,
+              real in prices and reasoning — where every position exists for a
+              reason: a thesis, a conviction-driven size, honest risk, and
+              Brinson attribution on my own decisions, losers shown as plainly as
+              winners.
+            </p>
+            <p className="flagship-loop num">
+              thesis → sized position → risk → attribution → outcome
+            </p>
+          </div>
+          <span className="flagship-open" aria-hidden="true">
+            Open the cockpit →
+          </span>
+        </Link>
+
         <div className="section-head">
           <h2>Projects</h2>
           <span className="hr" />

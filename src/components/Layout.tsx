@@ -13,6 +13,7 @@ export default function Layout() {
             <NavLink to="/" end>
               Projects
             </NavLink>
+            <NavLink to="/research-portfolio">Portfolio</NavLink>
             <NavLink to="/about">About</NavLink>
             <a
               href="https://www.linkedin.com/in/amcnicholl/"

@@ -8,6 +8,11 @@ import ComingSoon from "./components/ComingSoon";
 import { TOOLS } from "./lib/registry";
 import "./styles.css";
 
+// The Research Portfolio is a flagship route, not a peer tool: it *uses* the
+// tools, so it lives outside the registry grid and is code-split like the rest.
+const ResearchPortfolio = lazy(() => import("./pages/ResearchPortfolio"));
+const ResearchNote = lazy(() => import("./pages/ResearchNote"));
+
 // Live tool pages are code-split: each (and the heavy charting library it pulls
 // in) loads only when its route is visited, so the initial bundle stays small
 // and adding tools doesn't grow it. Map every "live" registry slug to its page
@@ -43,6 +48,22 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
+      {
+        path: "research-portfolio",
+        element: (
+          <Suspense fallback={<div className="wrap route-loading">Loading…</div>}>
+            <ResearchPortfolio />
+          </Suspense>
+        ),
+      },
+      {
+        path: "research-portfolio/note/:slug",
+        element: (
+          <Suspense fallback={<div className="wrap route-loading">Loading…</div>}>
+            <ResearchNote />
+          </Suspense>
+        ),
+      },
       ...TOOLS.map((t) => ({
         path: t.slug,
         element:
