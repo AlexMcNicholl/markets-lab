@@ -91,12 +91,11 @@ export default function ResearchPortfolio() {
 
       <h1>Research Portfolio</h1>
       <p className="lede">
-        A view, sized and tracked. A <strong>model</strong> book — synthetic in
-        capital, real in prices and reasoning — that shows each position existing
-        for a reason: a thesis, a conviction-driven size, honest risk, and
-        Brinson attribution on my own decisions, losers shown as plainly as
-        winners. The point isn't the return number; it's the process behind it.
-        Public data only. Not investment advice.
+        A <strong>model</strong> book — synthetic in capital, real in its prices
+        and its reasoning. Every name carries a written thesis, a size that
+        follows conviction, a sell rule set in advance, and Brinson attribution
+        on my own calls. Read the process, not the P&amp;L. Public data only; not
+        investment advice.
       </p>
 
       {book.dataMode === "estimate" && (
@@ -150,8 +149,8 @@ export default function ResearchPortfolio() {
             Equity curve <span className="rp-illus">model · illustrative</span>
           </h4>
           <p className="rp-panel-sub">
-            Mark-to-market on real closes, dated entry → as of. Capital not yet
-            deployed sits in cash, so the line starts at notional.
+            Mark-to-market on real closes, entry → as of. Undeployed capital
+            sits in cash, so the line starts at notional.
           </p>
           <div className="chart-wrap" style={{ height: 240 }}>
             <ResponsiveContainer width="100%" height="100%">
@@ -216,8 +215,8 @@ export default function ResearchPortfolio() {
         <section className="rp-panel">
           <h4>Contribution to return — since entry</h4>
           <p className="rp-panel-sub">
-            Each name's mark-to-market P&amp;L as a share of the book. Winners and
-            losers both shown; the bars sum to the headline {fsign(ret)}.
+            Each name's P&amp;L as a share of the book — losers as plainly as
+            winners. Bars sum to the headline {fsign(ret)}.
           </p>
           <div
             className="chart-wrap"
@@ -451,40 +450,35 @@ export default function ResearchPortfolio() {
       <div className="prose rp-method">
         <h3>How the book is built — and what's real</h3>
         <p>
-          The capital is synthetic: a $
-          {(book.notionalCapital / 1000000).toFixed(1)}M notional paper book with
-          a conviction-driven target weight on each name. Everything else is
-          real. Entry prices are the actual close on the dated entry; marks are
-          the close as of {fmtDate(book.asOf)}; the equity curve is genuine
-          mark-to-market, not an invented track record. Entries are dated and
-          never backfilled — that constraint is the honesty signal, and it's why
-          a losing position stays on the page as a loser.
+          Only the capital is invented: a $
+          {(book.notionalCapital / 1000000).toFixed(1)}M notional paper book.
+          Entry prices are the actual close on the dated entry; marks are the
+          close as of {fmtDate(book.asOf)}; the equity curve is genuine
+          mark-to-market. Entries are dated and never backfilled — that
+          constraint is what keeps a loser on the page as a loser.
         </p>
         <p>
           <strong>Conviction drives size.</strong> High-conviction names carry
-          the top weights; a low-conviction hedge like a gold royalty is
-          deliberately small. That conviction-to-weight link is exactly the logic
-          of the{" "}
-          <Link to="/black-litterman">Black-Litterman View Mixer</Link> — a
+          the top weights; a low-conviction hedge like a gold royalty stays
+          deliberately small — the same logic as the{" "}
+          <Link to="/black-litterman">Black-Litterman View Mixer</Link>, where a
           stronger view earns a bigger tilt. Each position's framework link opens
-          the tool that actually did the valuation work behind the cell.
+          the tool behind the valuation.
         </p>
         <p>
-          <strong>Benchmark.</strong> The {bench.name} is the reference for both
-          the allocation view and the attribution: published sector weights as of{" "}
-          {fmtDate(bench.weightsAsOf)}, with sector returns over the window
-          measured on the matching sector indices where one exists and the
-          composite as a neutral proxy elsewhere. A recognized standard, not an
-          ad-hoc set. Re-marked {book.remarkCadence} so the "as of" never goes
-          stale.
+          <strong>Benchmark.</strong> The {bench.name} anchors both the
+          allocation view and the attribution: published sector weights as of{" "}
+          {fmtDate(bench.weightsAsOf)}, with window returns on the matching
+          sector indices where they exist and the composite as a neutral proxy
+          elsewhere. A recognized standard, not an ad-hoc set — re-marked{" "}
+          {book.remarkCadence} so the "as of" never goes stale.
         </p>
         <div className="callout">
           <strong>The honest read:</strong> a model book that's up impresses no
-          one — I picked the entries. What's meant to read here is the process: a
-          stated thesis on each name, a size that follows conviction, a sell rule
-          written down in advance, and attribution that owns the losers. That's
-          the part that survives a bad month. Illustrative, public-data only —
-          not investment advice or a recommendation.
+          one — I picked the entries. The signal is the discipline: a thesis on
+          each name, size that tracks conviction, a sell rule written before the
+          trade, and attribution that owns the losers. That's what survives a bad
+          month. Illustrative; public data only.
         </div>
       </div>
     </div>

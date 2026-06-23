@@ -72,8 +72,8 @@ export default function ResearchNote() {
 
       {note.stub && (
         <div className="rp-note-stub">
-          Structured note — thesis and variables in brief. The full write-up
-          (CNQ is the worked template) follows this same skeleton.
+          Structured note — thesis and variables in brief, on the same skeleton
+          as the full CNQ write-up.
         </div>
       )}
 
@@ -109,8 +109,8 @@ export default function ResearchNote() {
 
         <h3>Key variables</h3>
         <p className="rp-note-subtle">
-          The handful of things the view actually rides on — what I'd watch to
-          know if it's working.
+          The handful of things the view actually rides on — and what I'd watch
+          to know it's working.
         </p>
         <ul className="rp-note-vars">
           {note.keyVariables.map((v, i) => (
@@ -141,9 +141,9 @@ export default function ResearchNote() {
         </ul>
 
         <div className="callout">
-          <strong>Illustrative.</strong> A model position on a public name, held
-          in a synthetic-capital book. Public data only — not investment advice,
-          a recommendation, or a price target.
+          <strong>Illustrative.</strong> A model position on a public name in a
+          synthetic-capital book. Public data only — not investment advice or a
+          price target.
         </div>
       </div>
 
