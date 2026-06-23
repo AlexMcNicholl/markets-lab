@@ -2,7 +2,7 @@
 //
 // Single-period attribution effects are arithmetic, but returns compound. So
 // the naive sum of each period's active return (rp - rb) does NOT equal the
-// realised compounded active return — the difference is the linking residual.
+// realised compounded active return - the difference is the linking residual.
 //
 // Carino's logarithmic algorithm distributes that residual back onto each
 // period so the per-period contributions sum to the compounded active return
@@ -132,7 +132,7 @@ export const LINK_SCENARIOS: LinkScenario[] = [
     id: "steady",
     label: "Steady alpha",
     blurb:
-      "Small, consistent outperformance in a calm market. Returns are modest, so the residual is tiny — adding the quarters up almost works.",
+      "Small, consistent outperformance in a calm market. Returns are modest, so the residual is tiny - adding the quarters up almost works.",
     periods: quarters([
       [3.0, 2.5],
       [2.0, 1.6],
@@ -168,7 +168,7 @@ export const LINK_SCENARIOS: LinkScenario[] = [
     id: "down",
     label: "Down-market alpha",
     blurb:
-      "The manager beats the benchmark every quarter, but the market is negative all year — so compounding shrinks the reported edge.",
+      "The manager beats the benchmark every quarter, but the market is negative all year - so compounding shrinks the reported edge.",
     periods: quarters([
       [-3.0, -5.0],
       [-2.0, -4.0],

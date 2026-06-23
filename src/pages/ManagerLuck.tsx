@@ -86,7 +86,7 @@ export default function ManagerLuck() {
         <>
           Spin up {N.toLocaleString()} managers, each with the true skill you
           set. Then look at who came out on top. The uncomfortable part: set
-          skill to zero and the leaderboard still looks impressive — those are
+          skill to zero and the leaderboard still looks impressive - those are
           the managers marketing departments are built around.
         </>
       }
@@ -233,7 +233,7 @@ export default function ManagerLuck() {
         <p>
           A genuinely good active manager might run an information ratio of 0.5.
           That implies roughly <strong>16 years</strong> of data before you can
-          statistically separate them from a coin flip — far longer than the
+          statistically separate them from a coin flip - far longer than the
           three- to five-year records most hiring and firing decisions rest on.
           Push skill to zero and the requirement becomes infinite: there is
           nothing to detect, yet a thousand-manager universe still throws up a
@@ -242,8 +242,8 @@ export default function ManagerLuck() {
         <div className="callout">
           <strong>The practical point for manager selection:</strong> a short
           record of outperformance is weak evidence on its own. It's why serious
-          diligence leans on understanding the <em>process</em> — repeatable
-          edge, risk discipline, consistency of approach — rather than
+          diligence leans on understanding the <em>process</em> - repeatable
+          edge, risk discipline, consistency of approach - rather than
           extrapolating a star's recent numbers.
         </div>
       </div>

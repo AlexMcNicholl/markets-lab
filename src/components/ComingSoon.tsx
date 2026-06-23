@@ -41,7 +41,7 @@ export default function ComingSoon({ slug }: { slug: string }) {
           </p>
         ) : (
           <p>
-            Other tools are already live —{" "}
+            Other tools are already live -{" "}
             <Link to="/">browse the full set</Link>.
           </p>
         )}

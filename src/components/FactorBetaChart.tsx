@@ -11,7 +11,7 @@ import {
 import { FACTORS, FACTOR_COLOR, WindowPoint } from "../lib/factor";
 
 /**
- * Rolling factor betas — one line per factor, re-estimated on each trailing
+ * Rolling factor betas - one line per factor, re-estimated on each trailing
  * window. A flat line is a stable exposure; a sloping or sign-flipping line is
  * style drift the full-period average quietly hides. The dashed β = 1 guide
  * anchors the market-beta line against a full index exposure.

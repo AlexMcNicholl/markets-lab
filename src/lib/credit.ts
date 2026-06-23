@@ -8,7 +8,7 @@
 //   liquidity premium = exogenous wedge      (paid for not being able to sell)
 //
 // PD is the physical (real-world) annual default probability and LGD the loss
-// given default; `mult` is the default risk premium — the ratio of the
+// given default; `mult` is the default risk premium - the ratio of the
 // risk-neutral hazard the market prices to the physical one, so the market
 // charges several times the actuarial expected loss. Liquidity is the residual
 // wedge observed on top. All figures are first-order and annualised: this is the
@@ -29,7 +29,7 @@ export interface CreditProfile {
 export interface SpreadComponent {
   key: "el" | "rp" | "liq";
   label: string;
-  /** The risk you bear to earn this slice — the "bet" behind the payoff. */
+  /** The risk you bear to earn this slice - the "bet" behind the payoff. */
   compensates: string;
   bps: number;
   /** Share of the total credit spread, 0..1. */
@@ -44,7 +44,7 @@ export interface CreditResult {
 }
 
 // Illustrative profiles spanning the rating spectrum and two market regimes.
-// Synthetic but plausible figures — broadly the shape of corporate spreads, not
+// Synthetic but plausible figures - broadly the shape of corporate spreads, not
 // any real issuer or index.
 export const PROFILES: CreditProfile[] = [
   {
@@ -84,7 +84,7 @@ export const PROFILES: CreditProfile[] = [
     id: "crisis",
     label: "IG in a crisis",
     rating: "BBB",
-    blurb: "The same BBB credit during a market panic. The spread triples — almost entirely on risk premium and a frozen market, not on a higher chance of default.",
+    blurb: "The same BBB credit during a market panic. The spread triples - almost entirely on risk premium and a frozen market, not on a higher chance of default.",
     riskFree: 1.0,
     pd: 0.30,
     lgd: 0.6,
@@ -104,7 +104,7 @@ export const PROFILES: CreditProfile[] = [
   },
 ];
 
-export const DEFAULT_PROFILE_ID = PROFILES[1].id; // BBB — the headline case
+export const DEFAULT_PROFILE_ID = PROFILES[1].id; // BBB - the headline case
 
 export function getProfile(id: string): CreditProfile {
   return PROFILES.find((p) => p.id === id) ?? PROFILES[1];

@@ -1,4 +1,4 @@
-// Research notes — the one-page thesis behind each position in the Research
+// Research notes - the one-page thesis behind each position in the Research
 // Portfolio. The cockpit's position cards link here via `noteSlug`.
 //
 // Each note is the substance behind a cell: the view, the handful of variables
@@ -46,12 +46,12 @@ export const NOTES: ResearchNote[] = [
         <p>
           The position is a bet that the market is discounting Canadian Natural's
           barrels at a crude tape it won't actually get. CNQ owns one of the
-          longest-life, lowest-decline asset bases in the sector — synthetic and
+          longest-life, lowest-decline asset bases in the sector - synthetic and
           thermal oil reserves measured in decades, not the 30%-plus annual
           decline a shale operator has to outrun with capex. That structural
           edge is the whole argument: a low base decline means maintenance
           capital is modest, so a far larger share of cash flow is genuinely
-          free, and free cash flow — not production growth — is what a mature
+          free, and free cash flow - not production growth - is what a mature
           energy name gets paid for.
         </p>
         <p>
@@ -68,7 +68,7 @@ export const NOTES: ResearchNote[] = [
         </p>
         <p>
           This is a high-conviction, top-weight position precisely because the
-          edge is structural rather than a call on next quarter's price — the
+          edge is structural rather than a call on next quarter's price - the
           decline-rate advantage doesn't depend on me being right about the tape
           in any given month. The risk I'm underwriting is the one in the kill
           criteria: a sustained move below roughly $60 WTI with no cost response,
@@ -123,7 +123,7 @@ export const NOTES: ResearchNote[] = [
           The position is a bet that the market keeps mis-pricing a
           capital-allocation machine as if it were a software company. What
           Constellation actually is, is a decentralised acquirer of small,
-          sticky, mission-critical vertical-market software businesses — the kind
+          sticky, mission-critical vertical-market software businesses - the kind
           of niche systems that run a municipal water utility or a marina, that
           cost almost nothing relative to the pain of ripping them out, and that
           churn at low single digits for decades. The edge is not any single
@@ -137,7 +137,7 @@ export const NOTES: ResearchNote[] = [
           capitalises this year's earnings on a trailing multiple; the real asset
           is a long runway of high-return reinvestment that the trailing multiple
           can't see, because it shows up only as next year's deals. Management has
-          deliberately widened that runway — larger deals, the willingness to
+          deliberately widened that runway - larger deals, the willingness to
           spin out platforms (Topicus, Lumine) so each can compound on its own
           balance sheet, and a culture that treats hurdle-rate discipline as
           religion rather than guidance. So long as capital keeps going out the
@@ -148,12 +148,12 @@ export const NOTES: ResearchNote[] = [
         </p>
         <p>
           It is a high-conviction, top-weight holding because the edge is the
-          process, not a forecast — I don't need to be right about any single
+          process, not a forecast - I don't need to be right about any single
           acquisition, only about the machine's continued ability to find and
           underwrite them. The risk I'm underwriting is the one in the kill
           criteria: deployment that stalls for several quarters, returns drifting
           toward the cost of capital, or organic VMS growth turning persistently
-          negative net of churn — any of which would mean the runway has run out,
+          negative net of churn - any of which would mean the runway has run out,
           not narrowed.
         </p>
       </>
@@ -162,7 +162,7 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Capital deployed / year",
         detail:
-          "The fuel for the engine. The thesis is about reinvestment, so the dollars going into acquisitions each year — and whether the pace holds as the base grows — is the line that confirms or kills the runway argument.",
+          "The fuel for the engine. The thesis is about reinvestment, so the dollars going into acquisitions each year - and whether the pace holds as the base grows - is the line that confirms or kills the runway argument.",
       },
       {
         label: "Return on invested capital",
@@ -172,12 +172,12 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Organic VMS growth",
         detail:
-          "The quiet durability check. Net of churn, organic growth tells you the acquired base isn't quietly melting — it's the difference between compounding on a stable foundation and running on a treadmill.",
+          "The quiet durability check. Net of churn, organic growth tells you the acquired base isn't quietly melting - it's the difference between compounding on a stable foundation and running on a treadmill.",
       },
       {
         label: "Multiple paid on acquisitions",
         detail:
-          "Discipline, made visible. Rising prices paid for deals would erode the return on deployed capital even if the pace looks healthy — the engine can be busy and still destroy value.",
+          "Discipline, made visible. Rising prices paid for deals would erode the return on deployed capital even if the pace looks healthy - the engine can be busy and still destroy value.",
       },
     ],
     valuation: (
@@ -186,7 +186,7 @@ export const NOTES: ResearchNote[] = [
         <span className="note-tool">Comparable Company Analysis</span>: here the
         comp set <em>is</em> the argument. Screened against generic software
         peers, Constellation looks expensive on every headline multiple; screened
-        against the short list of disciplined serial acquirers — businesses whose
+        against the short list of disciplined serial acquirers - businesses whose
         value is the redeployment of cash, not the growth of a single product —
         it screens differently. The exercise is to show how much of the price you
         observe is really a choice of peer group, and to make explicit that the
@@ -208,7 +208,7 @@ export const NOTES: ResearchNote[] = [
           deliberately modest: the largest Canadian bank earns a structurally
           higher return on equity than the Big Six average, but the market grants
           it only a partial premium to that average on price-to-book. The reason
-          the ROE is higher is mix, not leverage — Royal's earnings lean more on
+          the ROE is higher is mix, not leverage - Royal's earnings lean more on
           capital-markets and wealth management, businesses that consume less
           balance sheet per dollar of profit than plain domestic lending. A bank
           that earns a higher, more capital-efficient ROE deserves to trade at a
@@ -220,7 +220,7 @@ export const NOTES: ResearchNote[] = [
           for an honest reason: the entire Canadian bank complex is levered to a
           credit cycle I don't control. The single line that decides whether the
           year is good or ugly is provisions for credit losses, and that turns on
-          the Canadian consumer, housing, and the path of rates — none of which
+          the Canadian consumer, housing, and the path of rates - none of which
           is a Royal-specific call. So the thesis is relative, not absolute. I am
           not betting that bank earnings go up; I am betting that within a sector
           I want some exposure to, the best franchise is the one to own, and that
@@ -232,17 +232,17 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Return on equity vs. the Big Six",
         detail:
-          "The justifier for the premium. The whole relative-value case is that a structurally higher, more capital-efficient ROE should command a wider price-to-book than the peer average — so the spread between Royal's ROE and the group's is the variable that earns the multiple.",
+          "The justifier for the premium. The whole relative-value case is that a structurally higher, more capital-efficient ROE should command a wider price-to-book than the peer average - so the spread between Royal's ROE and the group's is the variable that earns the multiple.",
       },
       {
         label: "Provisions for credit losses",
         detail:
-          "The cycle risk that overrides everything. PCLs are the line that turns a quality bank into a falling knife in a downturn — and the part of the outcome least within the franchise's control.",
+          "The cycle risk that overrides everything. PCLs are the line that turns a quality bank into a falling knife in a downturn - and the part of the outcome least within the franchise's control.",
       },
       {
         label: "CET1 ratio",
         detail:
-          "Capital headroom, and optionality. A strong common-equity tier-1 ratio funds buybacks and dividend growth and provides the cushion that lets a bank lean into a downturn rather than retrench — the difference between a defensive holding and a fragile one.",
+          "Capital headroom, and optionality. A strong common-equity tier-1 ratio funds buybacks and dividend growth and provides the cushion that lets a bank lean into a downturn rather than retrench - the difference between a defensive holding and a fragile one.",
       },
     ],
     valuation: (
@@ -253,8 +253,8 @@ export const NOTES: ResearchNote[] = [
         a bank, book value is the cleaner anchor than a cash-flow model, and the
         relevant question is purely relative: what premium-to-book does the
         franchise quality actually earn, and how much of that is already in the
-        price? The comp screen makes the gap — earned ROE premium versus granted
-        valuation premium — explicit, which is the entire basis of the position.
+        price? The comp screen makes the gap - earned ROE premium versus granted
+        valuation premium - explicit, which is the entire basis of the position.
       </>
     ),
   },
@@ -268,13 +268,13 @@ export const NOTES: ResearchNote[] = [
       <>
         <p>
           The position is a sum-of-the-parts discount story. Brookfield's value
-          is built from a few distinct blocks — a stake in a listed
+          is built from a few distinct blocks - a stake in a listed
           asset-management business, a large book of owned real assets
           (infrastructure, renewables, real estate, an insurance balance sheet),
           and the carried interest accruing inside the funds it runs. The market
           is comfortable pricing the visible blocks: the listed affiliates and
           the fee stream you can see today. It is far less comfortable paying for
-          the two that require trust — the realisation value of the owned capital,
+          the two that require trust - the realisation value of the owned capital,
           which gets marked conservatively or not at all, and the carry, which is
           a call option on the future performance of funds that haven't been
           harvested yet. The result is a holding-company discount to a defensible
@@ -294,7 +294,7 @@ export const NOTES: ResearchNote[] = [
         </p>
         <p>
           It is sized medium, not top-weight, with eyes open. The NAV is honestly
-          hard to mark — that opacity is the source of the discount and also the
+          hard to mark - that opacity is the source of the discount and also the
           reason it can persist for years regardless of how the underlying does.
           The kill criteria are the discipline here: fee-bearing capital growth
           stalling, realisations that disappoint and so vindicate the market's
@@ -312,7 +312,7 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Carried interest",
         detail:
-          "The option the market discounts hardest. Carry is worth little if funds underperform and a lot if they don't — most of the disputed value sits here, which is why realisations matter so much.",
+          "The option the market discounts hardest. Carry is worth little if funds underperform and a lot if they don't - most of the disputed value sits here, which is why realisations matter so much.",
       },
       {
         label: "Realisations / marks on owned capital",
@@ -322,7 +322,7 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Discount to NAV",
         detail:
-          "The entry edge — and the trap. A wide discount is the reason to own it, but a discount that refuses to close is also the way the thesis quietly fails. Direction over the horizon matters as much as the starting level.",
+          "The entry edge - and the trap. A wide discount is the reason to own it, but a discount that refuses to close is also the way the thesis quietly fails. Direction over the horizon matters as much as the starting level.",
       },
     ],
     valuation: (
@@ -350,13 +350,13 @@ export const NOTES: ResearchNote[] = [
       <>
         <p>
           The position is a quality-growth bet on a professional-services
-          roll-up. WSP sells engineering and environmental consulting — design,
+          roll-up. WSP sells engineering and environmental consulting - design,
           advisory, and project work that rides multi-year, politically durable
           spending on infrastructure, water, transport, and the energy
           transition. The demand backdrop is the easy part; the more interesting
           part is the mix. As the work shifts from lower-margin execution toward
           higher-margin advisory and front-end design, the blended EBITDA margin
-          should grind higher — and my view is that the market is slow to
+          should grind higher - and my view is that the market is slow to
           capitalise margin expansion that is gradual and mix-driven rather than
           a step-change it can point to in a single quarter.
         </p>
@@ -366,7 +366,7 @@ export const NOTES: ResearchNote[] = [
           global platform, and the cadence has been consistent enough to treat as
           a repeatable source of growth rather than a one-off. The combination —
           visible backlog, a structural margin tailwind, and a disciplined
-          acquisition machine — is what justifies paying a quality multiple. This
+          acquisition machine - is what justifies paying a quality multiple. This
           is explicitly not a deep-value call; I am paying up for a compounder and
           betting the compounding outlasts the multiple.
         </p>
@@ -375,7 +375,7 @@ export const NOTES: ResearchNote[] = [
           the revenue but not the margin; the mix-shift is real but slow and can
           stall; and a roll-up only works while the acquired revenue grows
           organically rather than papering over a melting base. The kill criteria
-          track exactly those failure modes — book-to-bill slipping below 1,
+          track exactly those failure modes - book-to-bill slipping below 1,
           margin expansion stalling, or the acquisition cadence slowing without
           organic growth to replace it.
         </p>
@@ -385,12 +385,12 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Backlog / book-to-bill",
         detail:
-          "Forward revenue visibility. Book-to-bill above 1 means the pipeline is filling faster than it's drained — the leading indicator that the infrastructure-spend tailwind is still blowing.",
+          "Forward revenue visibility. Book-to-bill above 1 means the pipeline is filling faster than it's drained - the leading indicator that the infrastructure-spend tailwind is still blowing.",
       },
       {
         label: "EBITDA margin",
         detail:
-          "The heart of the thesis. The whole edge is that the shift toward higher-margin advisory work lifts the blended margin faster than the market expects — a half-point here moves the valuation more than a quarter of revenue does.",
+          "The heart of the thesis. The whole edge is that the shift toward higher-margin advisory work lifts the blended margin faster than the market expects - a half-point here moves the valuation more than a quarter of revenue does.",
       },
       {
         label: "Net revenue organic growth",
@@ -410,7 +410,7 @@ export const NOTES: ResearchNote[] = [
         consultancy, the valuation rides overwhelmingly on the terminal margin
         assumption, because a steady-state advisory mix earns a meaningfully
         different margin than today's blend. That makes the football field wide
-        on a single half-point of terminal margin — so the question the tool
+        on a single half-point of terminal margin - so the question the tool
         forces is not "what is it worth" but "how much margin expansion do I have
         to believe is durable to justify the price," and whether the mix-shift
         evidence supports that belief.
@@ -431,7 +431,7 @@ export const NOTES: ResearchNote[] = [
           contracted pipeline business: most of its cash flow comes from
           take-or-pay and regulated tolls, where the customer pays for capacity
           whether the gas flows or not. Cash flow that durable and that
-          long-dated behaves like a long bond — its present value is dominated by
+          long-dated behaves like a long bond - its present value is dominated by
           the discount rate, which means the share price has been beaten up less
           by anything operational than by the back-up in long-end yields. The view
           is that the rate-driven sell-off over-discounted a distribution that is
@@ -443,14 +443,14 @@ export const NOTES: ResearchNote[] = [
           the payout and removes the tail risk that a stressed balance sheet
           forces a distribution cut at the worst possible moment. Combine durable,
           contracted cash flow with a de-risking balance sheet and you have a
-          payout that should re-rate higher — i.e. a lower yield, a higher price —
+          payout that should re-rate higher - i.e. a lower yield, a higher price —
           when the long end stops repricing upward. I am collecting the
           distribution while I wait for the rate environment to cooperate.
         </p>
         <p>
           It is sized medium and held with no illusions: this is as much a bet on
           the curve as on the company, and I don't control the curve. The kill
-          criteria are framed accordingly — long-end yields grinding structurally
+          criteria are framed accordingly - long-end yields grinding structurally
           higher (which would keep repricing the discount rate against me), a
           de-leveraging path that slips, or a project overrun or adverse
           regulatory ruling that impairs the contracted cash flow the whole
@@ -467,7 +467,7 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Contracted / regulated cash-flow share",
         detail:
-          "The durability of the distribution. The higher the take-or-pay and regulated portion, the more bond-like — and the more defensible — the payout, which is what justifies pricing it off the curve at all.",
+          "The durability of the distribution. The higher the take-or-pay and regulated portion, the more bond-like - and the more defensible - the payout, which is what justifies pricing it off the curve at all.",
       },
       {
         label: "Debt / EBITDA",
@@ -482,8 +482,8 @@ export const NOTES: ResearchNote[] = [
         pipeline prices like a long-duration instrument, so the relevant lever is
         what the long end does to the discount rate, not what next year's
         throughput does to volumes. The tool makes that duration intuition
-        concrete — a move at the back of the curve flows straight into the present
-        value of a contracted cash-flow stream — which is exactly why I treat the
+        concrete - a move at the back of the curve flows straight into the present
+        value of a contracted cash-flow stream - which is exactly why I treat the
         position's fortunes as a rates call and size it as one.
       </>
     ),
@@ -504,8 +504,8 @@ export const NOTES: ResearchNote[] = [
           precious-metals prices without the cost inflation, capex blowouts, and
           single-mine operating risk that make the miners themselves so painful to
           own. What earns its place in the book is that this exposure tends to do
-          well in exactly the macro states — risk-off, falling real rates, geo-
-          political stress — where the energy and financial cyclicals doing the
+          well in exactly the macro states - risk-off, falling real rates, geo-
+          political stress - where the energy and financial cyclicals doing the
           heavy lifting elsewhere in the book do badly.
         </p>
         <p>
@@ -513,7 +513,7 @@ export const NOTES: ResearchNote[] = [
           bull thesis; I am buying a position whose payoff is shaped to offset the
           rest of the portfolio, and I accept that in a calm, cyclical-up tape it
           will quietly lag. The premium royalty multiple is real and I treat it as
-          the cost of that insurance rather than as a mis-pricing to exploit — a
+          the cost of that insurance rather than as a mis-pricing to exploit - a
           capital-light model with a diversified book of streams genuinely
           deserves to trade above the miners, and I am paying for diversification,
           not for cheapness.
@@ -524,12 +524,12 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Gold price",
         detail:
-          "The macro driver — and the whole reason the position is owned. The point isn't that gold goes up; it's that gold tends to rise when the cyclical book is under pressure, which is the diversification I'm paying for.",
+          "The macro driver - and the whole reason the position is owned. The point isn't that gold goes up; it's that gold tends to rise when the cyclical book is under pressure, which is the diversification I'm paying for.",
       },
       {
         label: "Royalty / stream portfolio quality",
         detail:
-          "Diversification and counterparty risk across the underlying mines. A single impaired or halted counterparty mine matters more for a streamer than the gold price on any given day — breadth is what keeps this defensive rather than fragile.",
+          "Diversification and counterparty risk across the underlying mines. A single impaired or halted counterparty mine matters more for a streamer than the gold price on any given day - breadth is what keeps this defensive rather than fragile.",
       },
       {
         label: "Multiple vs. the miners",
@@ -541,7 +541,7 @@ export const NOTES: ResearchNote[] = [
       <>
         Framed through{" "}
         <span className="note-tool">Comparable Company Analysis</span> against
-        royalty and streaming peers rather than against the operating miners — the
+        royalty and streaming peers rather than against the operating miners - the
         relevant comparison is to other capital-light businesses with the same
         risk profile. The question the comp screen poses is narrow and honest: is
         the premium-to-miners multiple in line with the streaming peer group, or
@@ -574,9 +574,9 @@ export const NOTES: ResearchNote[] = [
           and the right posture for a contrarian call that isn't working is not to
           double down. So this is held small and on a short leash. I am not
           averaging down to manufacture conviction I no longer fully have; I am
-          watching the kill criteria — deteriorating free-cash-flow dividend
+          watching the kill criteria - deteriorating free-cash-flow dividend
           coverage, leverage that rises instead of falls, competition that
-          intensifies rather than rationalises — and I am prepared to be stopped
+          intensifies rather than rationalises - and I am prepared to be stopped
           out. The real thing this position tests is governance: whether I respect
           a sell rule I wrote in advance when the market disagrees with me, or
           whether I let a small loss talk me into a large one. That discipline is
@@ -588,12 +588,12 @@ export const NOTES: ResearchNote[] = [
       {
         label: "Dividend coverage (FCF payout)",
         detail:
-          "The leg the entire thesis hangs on — and the one under the most pressure. If free cash flow doesn't comfortably cover the distribution, the yield that justified the position is a liability, not a cushion.",
+          "The leg the entire thesis hangs on - and the one under the most pressure. If free cash flow doesn't comfortably cover the distribution, the yield that justified the position is a liability, not a cushion.",
       },
       {
         label: "Net debt / EBITDA",
         detail:
-          "Leverage in a higher-rate world — the market's actual worry. Rising leverage as rates stay high is the scenario that turns a yield play into a balance-sheet problem, and it's the variable I'd act on fastest.",
+          "Leverage in a higher-rate world - the market's actual worry. Rising leverage as rates stay high is the scenario that turns a yield play into a balance-sheet problem, and it's the variable I'd act on fastest.",
       },
       {
         label: "Wireless / wireline pricing",
@@ -608,7 +608,7 @@ export const NOTES: ResearchNote[] = [
         an equity model, on purpose. For a levered incumbent where the worry is
         solvency and the durability of the payout, what the bond market charges to
         lend to the company is a cleaner, less hopeful read on the risk than the
-        equity's dividend yield — a widening spread is the credit market pricing
+        equity's dividend yield - a widening spread is the credit market pricing
         the same fear the falling share price reflects, but with more discipline.
         Right now it is the part of the thesis flashing, which is exactly why I'm
         watching the credit, not the yield.

@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
  * parameter; when the state equals its default the parameter is dropped to
  * keep clean URLs clean.
  *
- * The URL is the single source of truth — `state` is derived from it on every
+ * The URL is the single source of truth - `state` is derived from it on every
  * render, so `setState` always takes the complete next state (compute it from
  * the current `state` in the caller). Updates use `replace` so dragging a
  * slider doesn't flood browser history.

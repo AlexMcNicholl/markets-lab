@@ -105,8 +105,8 @@ export default function DcfSensitivity() {
         <>
           A ten-year discounted-cash-flow model on real companies, with the cash
           flow, debt, and share count pulled from their latest 10-K. Pick a
-          company and a valuation <em>lens</em>, and watch fair value — and the
-          whole football field — swing on the discount rate and terminal growth,
+          company and a valuation <em>lens</em>, and watch fair value - and the
+          whole football field - swing on the discount rate and terminal growth,
           then land it against the price the market actually paid.
         </>
       }
@@ -142,13 +142,13 @@ export default function DcfSensitivity() {
 
       <div className="stats hero-stats">
         <div className="stat">
-          <div className="k">Implied value — {lens.short}</div>
+          <div className="k">Implied value - {lens.short}</div>
           <div className="v">{usd2(val.perShare)}</div>
         </div>
         {hasPrice ? (
           <>
             <div className="stat">
-              <div className="k">Market — {company.asOf}</div>
+              <div className="k">Market - {company.asOf}</div>
               <div className="v">{usd2(market)}</div>
             </div>
             <div className="stat">
@@ -178,7 +178,7 @@ export default function DcfSensitivity() {
             A ten-year DCF of <strong>{company.name}</strong>, discounted through
             the <strong>{lens.label.toLowerCase()}</strong> lens (
             {wpct(lens.wacc)} WACC, {wpct(lens.g)} terminal growth), is worth{" "}
-            <strong>{usd2(val.perShare)}</strong> a share —{" "}
+            <strong>{usd2(val.perShare)}</strong> a share -{" "}
             <strong className={signClass(vsMarket)}>{gapWord}</strong> the{" "}
             {usd2(market)} the market paid on {company.asOf}.{" "}
             <strong>{(val.tvShare * 100).toFixed(0)}%</strong> of that value sits
@@ -319,7 +319,7 @@ export default function DcfSensitivity() {
           ÷ {m(company.shares)}m shares = <strong>{usd2(val.perShare)}</strong> a
           share.{" "}
           {company.synthetic ? (
-            "Illustrative figures — not a real company."
+            "Illustrative figures - not a real company."
           ) : (
             <>
               Source: {company.name} {company.fy} Form 10-K via{" "}
@@ -344,7 +344,7 @@ export default function DcfSensitivity() {
         provenance={
           company.synthetic ? (
             <>
-              Illustrative figures — not a real company. Net debt and share count
+              Illustrative figures - not a real company. Net debt and share count
               are fixed, so every move in fair value traces to the discount rate
               and terminal growth alone.
             </>
@@ -381,7 +381,7 @@ export default function DcfSensitivity() {
             <tr className="is-leader">
               <td>Near-term FCF growth</td>
               <td className="num">{wpct(company.nearGrowth)}</td>
-              <td>Assumption — the one explicitly chosen input</td>
+              <td>Assumption - the one explicitly chosen input</td>
             </tr>
             <tr>
               <td>Net debt</td>
@@ -426,14 +426,14 @@ export default function DcfSensitivity() {
         <p>
           Subtract net debt from enterprise value to get equity value, divide by
           shares, and you have an implied price. Only WACC and terminal growth
-          change between lenses — the cash flows, debt, and share count are fixed
+          change between lenses - the cash flows, debt, and share count are fixed
           and sourced from the filing.
         </p>
 
         <h3>Why the valuation is mostly the discount rate</h3>
         <p>
           More than half of enterprise value typically lives in the
-          terminal-value row — the part with the least analysis behind it, a
+          terminal-value row - the part with the least analysis behind it, a
           single fraction (WACC − g) in the denominator. Because that gap is
           small, a half-point move in either input moves the quotient by a large
           percentage, which is why the football-field bars are as wide as they
@@ -444,7 +444,7 @@ export default function DcfSensitivity() {
         <div className="callout">
           <strong>The honest read:</strong> a DCF doesn't tell you what a company
           is worth so much as what you'd have to believe for it to be worth its
-          price. Read the football field that way — the spread and the
+          price. Read the football field that way - the spread and the
           assumptions behind each end, not a single number to the penny. This is
           an educational tool on public data, not investment advice or a price
           target.

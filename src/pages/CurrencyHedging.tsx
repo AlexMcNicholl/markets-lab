@@ -30,17 +30,17 @@ function buildVerdict(results: HedgeResult[], fxMove: number, carryRate: number)
   const loser = hedgingWins ? "unhedged" : "fully hedged";
 
   if (Math.abs(fxMove) < 0.5) {
-    return `With no currency move, the hedge ratio had almost no effect on returns — the only variable was the ${pct(Math.abs(carryRate))}% carry cost of each unit of hedge.`;
+    return `With no currency move, the hedge ratio had almost no effect on returns - the only variable was the ${pct(Math.abs(carryRate))}% carry cost of each unit of hedge.`;
   }
 
   if (fxMove > 0) {
-    // CAD fell — unhedged wins
-    return `The CAD fell, handing unhedged investors a +${fxMove.toFixed(1)}% FX tailwind. ${winner === "staying unhedged" ? "Staying unhedged" : "Fully hedging"} returned ${pct(hedgingWins ? fully.total : unhedged.total)}% vs ${pct(hedgingWins ? unhedged.total : fully.total)}% ${loser} — a ${spread}% spread driven almost entirely by the FX move.`;
+    // CAD fell - unhedged wins
+    return `The CAD fell, handing unhedged investors a +${fxMove.toFixed(1)}% FX tailwind. ${winner === "staying unhedged" ? "Staying unhedged" : "Fully hedging"} returned ${pct(hedgingWins ? fully.total : unhedged.total)}% vs ${pct(hedgingWins ? unhedged.total : fully.total)}% ${loser} - a ${spread}% spread driven almost entirely by the FX move.`;
   }
 
   if (fxMove < 0) {
-    // CAD rose — hedging wins
-    return `The CAD rose, turning FX into a ${signed(fxMove, 1)}% drag for unhedged investors. Fully hedged sidestepped it and returned ${pct(fully.total)}% vs ${pct(unhedged.total)}% unhedged — a ${spread}% gap, minus only the ${pct(Math.abs(carryRate))}% carry cost.`;
+    // CAD rose - hedging wins
+    return `The CAD rose, turning FX into a ${signed(fxMove, 1)}% drag for unhedged investors. Fully hedged sidestepped it and returned ${pct(fully.total)}% vs ${pct(unhedged.total)}% unhedged - a ${spread}% gap, minus only the ${pct(Math.abs(carryRate))}% carry cost.`;
   }
 
   return `${winner} outperformed by ${spread}%.`;
@@ -70,7 +70,7 @@ export default function CurrencyHedging() {
           A Canadian investor's global book has three return layers: the local
           equity return, the currency move (USD/CAD), and the carry embedded in
           the forward contract used to hedge. Pick a regime below and watch all
-          three shift as the hedge ratio changes — and see which bet the FX
+          three shift as the hedge ratio changes - and see which bet the FX
           environment actually rewarded.
         </>
       }
@@ -218,7 +218,7 @@ export default function CurrencyHedging() {
           carry ≈ r<sub>CAD</sub> − r<sub>foreign</sub>
         </div>
         <p>
-          The FX effect scales linearly with the unhedged fraction — going from
+          The FX effect scales linearly with the unhedged fraction - going from
           0% to 100% hedged replaces all of it with the carry rate. Carry is
           priced by covered-interest parity: if US short rates exceed Canadian
           rates, the USD forward trades at a discount to spot, so selling it
@@ -228,15 +228,15 @@ export default function CurrencyHedging() {
         <h3>Why the right answer depends on the regime</h3>
         <p>
           No hedge ratio dominates across environments. When the CAD is falling —
-          as it did in 2015 when oil collapsed — the FX move is a tailwind and
+          as it did in 2015 when oil collapsed - the FX move is a tailwind and
           hedging locks it out while still costing carry. When the CAD rises, the
           unhedged position absorbs a drag that a forward would have eliminated at
           the cost of a much smaller carry premium. In 2022 the Federal Reserve
           hiked far faster than the Bank of Canada, widening the carry cost to
-          roughly 4% — so even though equities fell and the USD was relatively
+          roughly 4% - so even though equities fell and the USD was relatively
           strong, fully hedging would have added a punishing carry drag on top of
-          the equity loss. The regime determines which of the two risks — FX
-          variance or carry cost — is the larger of the two.
+          the equity loss. The regime determines which of the two risks - FX
+          variance or carry cost - is the larger of the two.
         </p>
         <p>
           The other portfolio construction tools:{" "}

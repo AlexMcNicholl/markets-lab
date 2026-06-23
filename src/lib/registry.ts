@@ -23,11 +23,11 @@ export type Category = (typeof CATEGORIES)[number];
 
 // One-line descriptor shown under each domain heading on the home page.
 export const CATEGORY_BLURBS: Record<Category, string> = {
-  "Performance & Attribution": "Where return comes from — and whether it reconciles.",
+  "Performance & Attribution": "Where return comes from - and whether it reconciles.",
   "Risk & Markets": "How prices move across rates, credit, and assets.",
   "Portfolio Construction": "Turning views and constraints into weights.",
   "Manager Research": "Telling skill from luck in a track record.",
-  "Valuation & Security Selection": "Pricing a single name — and how much of the answer is the inputs.",
+  "Valuation & Security Selection": "Pricing a single name - and how much of the answer is the inputs.",
   "AI & Markets": "Language models pointed at market text.",
 };
 
@@ -59,7 +59,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Attribution Playground",
     nav: "Attribution",
     blurb:
-      "Move portfolio and benchmark weights and watch Brinson-Fachler allocation, selection, and interaction effects update live — then see why single-period effects don't sum across periods.",
+      "Move portfolio and benchmark weights and watch Brinson-Fachler allocation, selection, and interaction effects update live - then see why single-period effects don't sum across periods.",
     takeaway: "Where active return actually comes from.",
   },
   {
@@ -101,7 +101,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Portfolio Stress Tester",
     nav: "Stress Test",
     blurb:
-      "Apply named historical shocks — 2008, 2020, the 2022 rates repricing — or build a custom scenario on a multi-asset book, then read P&L attribution by asset class and by factor.",
+      "Apply named historical shocks - 2008, 2020, the 2022 rates repricing - or build a custom scenario on a multi-asset book, then read P&L attribution by asset class and by factor.",
     takeaway: "Where a portfolio breaks under historical stress.",
   },
   {
@@ -111,7 +111,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Correlation Regimes",
     nav: "Correlations",
     blurb:
-      "Push a market from calm into stress and watch pairwise correlations converge toward one — the moment diversification quietly stops working, just when it's needed most.",
+      "Push a market from calm into stress and watch pairwise correlations converge toward one - the moment diversification quietly stops working, just when it's needed most.",
     takeaway: "Why diversification fails in a drawdown.",
   },
 
@@ -123,7 +123,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Resampled Efficient Frontier",
     nav: "Frontier",
     blurb:
-      "Add estimation error to expected returns and watch the textbook frontier dissolve into a cloud of plausible answers — then resample it back into something you'd actually hold.",
+      "Add estimation error to expected returns and watch the textbook frontier dissolve into a cloud of plausible answers - then resample it back into something you'd actually hold.",
     takeaway: "Why the optimizer's confidence is mostly noise.",
   },
   {
@@ -143,7 +143,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Currency Hedging for Canadians",
     nav: "FX Hedging",
     blurb:
-      "Dial the hedge ratio on a global book held in CAD and watch the FX effect and carry trade off across four currency regimes — from a loonie collapse to an expensive Fed hike cycle.",
+      "Dial the hedge ratio on a global book held in CAD and watch the FX effect and carry trade off across four currency regimes - from a loonie collapse to an expensive Fed hike cycle.",
     takeaway: "How much of a foreign return is really the loonie.",
   },
 
@@ -165,7 +165,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Rolling Factor Attribution",
     nav: "Factor Attribution",
     blurb:
-      "Run a track record through rolling 18-month regressions on market, rates, credit, and momentum factors. Split the return into exposure you could have bought and the alpha left over — then watch whether the loadings hold still or quietly drift.",
+      "Run a track record through rolling 18-month regressions on market, rates, credit, and momentum factors. Split the return into exposure you could have bought and the alpha left over - then watch whether the loadings hold still or quietly drift.",
     takeaway: "What risks are actually embedded in a track record.",
   },
   {
@@ -187,7 +187,7 @@ export const TOOLS: ToolMeta[] = [
     title: "DCF Sensitivity Explorer",
     nav: "DCF",
     blurb:
-      "Flex WACC and terminal growth on a discounted-cash-flow model and watch the implied value — and the whole valuation range — swing on a couple of assumptions.",
+      "Flex WACC and terminal growth on a discounted-cash-flow model and watch the implied value - and the whole valuation range - swing on a couple of assumptions.",
     takeaway: "How much of a valuation is just the discount rate.",
   },
   {
@@ -197,7 +197,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Comparable Company Analysis",
     nav: "Comps",
     blurb:
-      "Value a company off its peers' EV/EBITDA, then watch the implied share price swing on the choice of comp set alone — by more than any model assumption.",
+      "Value a company off its peers' EV/EBITDA, then watch the implied share price swing on the choice of comp set alone - by more than any model assumption.",
     takeaway: "Why the comp set is the whole argument.",
   },
   {
@@ -207,7 +207,7 @@ export const TOOLS: ToolMeta[] = [
     title: "Earnings Surprise & Drift",
     nav: "Earnings Drift",
     blurb:
-      "Sort names by earnings surprise and watch post-announcement drift play out — the decades-old anomaly that says the market doesn't price a surprise all at once.",
+      "Sort names by earnings surprise and watch post-announcement drift play out - the decades-old anomaly that says the market doesn't price a surprise all at once.",
     takeaway: "Does the market really price earnings in a day?",
   },
 

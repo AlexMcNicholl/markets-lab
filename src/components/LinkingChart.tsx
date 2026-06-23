@@ -13,7 +13,7 @@ import { LinkResult } from "../lib/linking";
 /**
  * Cumulative active return, two ways: the naive running sum of each period's
  * arithmetic active return vs. the compounded (true) active return. The two
- * lines start together and drift apart over the year — the end-of-year gap is
+ * lines start together and drift apart over the year - the end-of-year gap is
  * the linking residual the table then distributes back.
  */
 export default function LinkingChart({ result }: { result: LinkResult }) {

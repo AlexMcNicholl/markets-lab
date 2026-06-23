@@ -115,7 +115,7 @@ export default function BlackLitterman() {
           </>
         ) : (
           <>
-            With no views, the posterior <em>is</em> the market portfolio — every
+            With no views, the posterior <em>is</em> the market portfolio - every
             tilt is zero and active risk is{" "}
             <strong>{pct(result.activeRisk, 2)}%</strong>. This is the baseline a
             view has to overcome.
@@ -210,7 +210,7 @@ export default function BlackLitterman() {
         <p>
           Black-Litterman runs the optimizer backwards first. Given market-cap
           weights and a covariance matrix, it solves Π&nbsp;=&nbsp;δΣw for the{" "}
-          <em>equilibrium</em> excess returns — the returns you'd have to believe
+          <em>equilibrium</em> excess returns - the returns you'd have to believe
           for today's market weights to be optimal. That anchor is the "Eq.
           return" column, and it's why doing nothing reproduces the market
           portfolio exactly.
@@ -227,7 +227,7 @@ export default function BlackLitterman() {
             . Each view is blended with the equilibrium in proportion to its
             confidence, nudging the posterior "BL return" away from the anchor.
             Run those posterior returns back through the optimizer and the weights
-            tilt — every percentage point in the last column traces directly to a
+            tilt - every percentage point in the last column traces directly to a
             return the view moved.
           </p>
         )}

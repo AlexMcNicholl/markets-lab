@@ -37,10 +37,10 @@ export default function FactorAttribution() {
       lede={
         <>
           A four-year track record run through rolling {WINDOW}-month regressions
-          on four standard factors — market, rates, credit, and momentum. Pick a
+          on four standard factors - market, rates, credit, and momentum. Pick a
           manager below and watch their return split into the part you could have
           bought as <em>exposure</em> and the part left over as{" "}
-          <em>alpha</em> — then check whether the exposures held still or quietly
+          <em>alpha</em> - then check whether the exposures held still or quietly
           drifted.
         </>
       }
@@ -81,20 +81,20 @@ export default function FactorAttribution() {
         <strong className={signClass(a.totalReturn)}>{pct(a.totalReturn)}%</strong>{" "}
         a year. The factor model pins{" "}
         <strong className={signClass(a.explained)}>{pct(a.explained)}%</strong> of
-        that on exposure — most of all <strong>{a.topFactor.factor}</strong> (
-        {signed(a.topFactor.contribution, 1)}%/yr) — leaving{" "}
+        that on exposure - most of all <strong>{a.topFactor.factor}</strong> (
+        {signed(a.topFactor.contribution, 1)}%/yr) - leaving{" "}
         <strong className={signClass(a.alpha)}>{signed(a.alpha, 1)}%</strong> as
         alpha.{" "}
         {bigDrift ? (
           <>
             Its <strong>{a.topDrift.factor}</strong> loading swung from{" "}
             {pct(a.topDrift.driftStart, 2)} to {pct(a.topDrift.driftEnd, 2)} across
-            the window — the risk that built the record isn't the risk it runs now.
+            the window - the risk that built the record isn't the risk it runs now.
           </>
         ) : alphaShare >= 0.35 ? (
-          <>Strip the exposures and most of the return survives — the rare record where the alpha, not the factor bets, does the work.</>
+          <>Strip the exposures and most of the return survives - the rare record where the alpha, not the factor bets, does the work.</>
         ) : (
-          <>Strip the exposures and little is left — the return is the factor bets, not skill.</>
+          <>Strip the exposures and little is left - the return is the factor bets, not skill.</>
         )}
       </div>
 
@@ -172,8 +172,8 @@ export default function FactorAttribution() {
           <sub>t</sub> + ε<sub>t</sub>
         </div>
         <p>
-          The betas are the loadings — how much of each factor the manager is
-          really holding — and the intercept, annualized, is the alpha. Because
+          The betas are the loadings - how much of each factor the manager is
+          really holding - and the intercept, annualized, is the alpha. Because
           OLS forces the residuals to sum to zero, each loading times its factor's
           realized return adds up, with alpha, to the manager's return exactly: a
           clean bet-to-payoff reconciliation. The same regression run on a rolling{" "}
@@ -185,7 +185,7 @@ export default function FactorAttribution() {
           A single full-period regression gives you the <em>average</em> loading,
           and an average can hide a manager who started in one book and ended in
           another. A market beta that climbs from 0.3 to 1.1, or a momentum
-          loading that flips sign, averages out to something unremarkable — yet the
+          loading that flips sign, averages out to something unremarkable - yet the
           risk you'd be underwriting today is nothing like the risk that built the
           record. The rolling view is how you catch style drift before it catches
           you, and it's why diligence looks at the path of the loadings, not just

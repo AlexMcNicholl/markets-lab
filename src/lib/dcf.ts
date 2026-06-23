@@ -7,7 +7,7 @@
 //   TV = FCF_N · (1 + g) / (WACC − g)
 //
 // Equity value = EV − net debt; per share = equity / diluted shares. The hard
-// anchors — starting free cash flow, net debt, and share count — come straight
+// anchors - starting free cash flow, net debt, and share count - come straight
 // from each company's latest annual report (SEC EDGAR, see `source`). The
 // near-term growth rate is the one explicitly *assumed* input, and WACC and
 // terminal growth are the scenario "lens" the reader chooses. The whole point:
@@ -134,7 +134,7 @@ export interface Valuation {
   netDebt: number;
   equity: number; // equity value, $m
   perShare: number; // implied price, $
-  tvShare: number; // tvPV / ev — how much of the value lives past the forecast
+  tvShare: number; // tvPV / ev - how much of the value lives past the forecast
 }
 
 /** Value a company at a given WACC and terminal growth rate (both decimals). */
@@ -170,7 +170,7 @@ export function value(c: Company, wacc: number, g: number): Valuation {
 }
 
 // Each lens is a named market narrative that fixes a discount rate and a
-// terminal growth rate. The business underneath never changes — only the lens.
+// terminal growth rate. The business underneath never changes - only the lens.
 export interface Lens {
   id: string;
   label: string;

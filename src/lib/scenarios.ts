@@ -1,6 +1,6 @@
 // Industry-standard sector taxonomy and teaching scenarios for the Attribution
 // Playground. Sectors follow the full GICS classification (11 sectors); the
-// benchmark weights and returns are generic, illustrative figures — broadly the
+// benchmark weights and returns are generic, illustrative figures - broadly the
 // shape of a developed-market equity index, but not any real index or product.
 
 import { Sector } from "./attribution";
@@ -65,7 +65,7 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "neutral",
     label: "Benchmark-neutral",
-    blurb: "No bets at all — every effect is zero. The baseline to tilt from.",
+    blurb: "No bets at all - every effect is zero. The baseline to tilt from.",
     bets: {},
   },
   {

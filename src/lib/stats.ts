@@ -2,7 +2,7 @@
 // reproducible across renders, a standard-normal generator, and the
 // significance arithmetic behind the skill-vs-luck question.
 
-// mulberry32 — fast, deterministic 32-bit PRNG.
+// mulberry32 - fast, deterministic 32-bit PRNG.
 export function makeRng(seed: number): () => number {
   let a = seed >>> 0;
   return function () {

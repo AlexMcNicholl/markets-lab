@@ -1,6 +1,6 @@
 // Hand-drawn inline-SVG thumbnails for the home-page tool cards. Each hints at
 // the kind of output its tool produces. Drawn by hand (no charting library) so
-// they cost nothing at load and animate in via CSS — see the .mp-* rules and
+// they cost nothing at load and animate in via CSS - see the .mp-* rules and
 // the .tools.is-visible triggers in styles.css.
 
 const INK = "#1f4a5c";
@@ -121,7 +121,7 @@ function YieldCurvePreview() {
 
 function EfficientFrontierPreview() {
   // A frontier curve with a scatter of "plausible optimal" portfolios below it,
-  // plus the resampled point — the tool's whole argument in miniature.
+  // plus the resampled point - the tool's whole argument in miniature.
   const cloud = [
     [40, 50],
     [50, 44],
@@ -172,7 +172,7 @@ function EfficientFrontierPreview() {
 
 // Shown for projects that don't yet have a bespoke illustration, so a new
 // entry in the registry never renders an empty preview band. A quiet plotting
-// grid with a single accent point — clearly a placeholder for a figure.
+// grid with a single accent point - clearly a placeholder for a figure.
 function GenericPreview() {
   const cols = 6;
   const rows = 3;

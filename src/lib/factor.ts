@@ -1,4 +1,4 @@
-// Rolling Factor Attribution — decompose a manager's return stream into
+// Rolling Factor Attribution - decompose a manager's return stream into
 // exposures to four standard factors (market, rates, credit, momentum), both
 // over rolling 12-month windows (to expose style drift) and over the full
 // period (a clean bet → payoff reconciliation). Whatever the factors can't
@@ -30,7 +30,7 @@ export const WINDOW = 18;
 // long/short factor returns: a clear equity premium, modest positive rates and
 // credit carry, a small momentum premium. Vols are kept high relative to
 // idiosyncratic manager noise so an 18-month window can identify each loading
-// cleanly — otherwise the rolling betas would be dominated by estimation noise.
+// cleanly - otherwise the rolling betas would be dominated by estimation noise.
 interface FactorSpec {
   mean: number;
   vol: number;
@@ -56,7 +56,7 @@ function buildFactorReturns(): Record<FactorName, number[]> {
 export const FACTOR_RETURNS = buildFactorReturns();
 
 // A factor loading is either constant or a linear path from start → end over
-// the full track record — the latter is how a manager "drifts" into (or out
+// the full track record - the latter is how a manager "drifts" into (or out
 // of) a bet.
 type Loading = number | { start: number; end: number };
 
@@ -93,7 +93,7 @@ export const MANAGERS: Manager[] = [
     id: "stock-picker",
     label: "Pure stock-picker",
     blurb:
-      "Low, stable factor loadings and a steady skill premium — most of the return is genuinely unexplained by the factors.",
+      "Low, stable factor loadings and a steady skill premium - most of the return is genuinely unexplained by the factors.",
     loadings: { Market: 0.2, Momentum: 0.1 },
     alpha: 0.38,
     noise: 0.7,
@@ -103,7 +103,7 @@ export const MANAGERS: Manager[] = [
     id: "closet",
     label: "Closet indexer",
     blurb:
-      "A market beta of one and essentially no skill — the return is just the index in disguise, charged as active.",
+      "A market beta of one and essentially no skill - the return is just the index in disguise, charged as active.",
     loadings: { Market: { start: 0.97, end: 1.0 } },
     alpha: 0.0,
     noise: 0.5,
@@ -113,7 +113,7 @@ export const MANAGERS: Manager[] = [
     id: "rates",
     label: "Duration in disguise",
     blurb:
-      "Looks like an equity manager, but the return is carried by a large, persistent rates bet — leveraged duration dressed as alpha.",
+      "Looks like an equity manager, but the return is carried by a large, persistent rates bet - leveraged duration dressed as alpha.",
     loadings: { Market: 0.35, Rates: { start: 1.6, end: 2.0 }, Credit: 0.25 },
     alpha: 0.03,
     noise: 0.6,
@@ -123,7 +123,7 @@ export const MANAGERS: Manager[] = [
     id: "credit",
     label: "Spread harvester",
     blurb:
-      "Earns a steady return by sitting on credit-spread risk. In calm markets it reads as alpha — until spreads gap and the loading shows itself.",
+      "Earns a steady return by sitting on credit-spread risk. In calm markets it reads as alpha - until spreads gap and the loading shows itself.",
     loadings: { Credit: { start: 1.4, end: 1.6 }, Market: 0.4, Rates: 0.3 },
     alpha: 0.0,
     noise: 0.55,
@@ -226,7 +226,7 @@ export interface Contribution {
   factor: FactorName;
   /** Full-period loading. */
   beta: number;
-  /** Rolling beta in the first and last windows — the drift. */
+  /** Rolling beta in the first and last windows - the drift. */
   driftStart: number;
   driftEnd: number;
   /** Annualized factor return (%). */
@@ -243,7 +243,7 @@ export interface Analysis {
   totalReturn: number;
   explained: number;
   alpha: number;
-  /** Full-period R² — how much of the variance the four factors explain. */
+  /** Full-period R² - how much of the variance the four factors explain. */
   r2: number;
   /** Largest absolute contributor, and the largest loading swing. */
   topFactor: Contribution;

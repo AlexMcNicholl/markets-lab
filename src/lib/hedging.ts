@@ -1,4 +1,4 @@
-// Currency Hedging for Canadians — math and scenario data.
+// Currency Hedging for Canadians - math and scenario data.
 //
 // A Canadian investor holding a foreign (USD-denominated) equity book has two
 // return sources on top of the local equity return: the spot FX move and the
@@ -7,7 +7,7 @@
 //   total = localReturn + (1 − h) × fxMove + h × carryRate
 //
 // carryRate ≈ rCAD − rForeign (covered-interest parity). When US rates exceed
-// Canadian rates, carryRate is negative — hedging costs money.
+// Canadian rates, carryRate is negative - hedging costs money.
 
 export interface HedgeScenario {
   id: string;
@@ -15,7 +15,7 @@ export interface HedgeScenario {
   blurb: string;
   /** Equity return in the foreign (USD) currency, % */
   localReturn: number;
-  /** CAD perspective FX move: positive means CAD fell (USD rose) — good for unhedged */
+  /** CAD perspective FX move: positive means CAD fell (USD rose) - good for unhedged */
   fxMove: number;
   /** Annualised carry rate applied per unit of hedge; negative = cost */
   carryRate: number;
@@ -25,7 +25,7 @@ export const SCENARIOS: HedgeScenario[] = [
   {
     id: "flat-fx",
     label: "Flat FX",
-    blurb: "Calm year, no currency move — carry is the only variable that changes with the hedge ratio",
+    blurb: "Calm year, no currency move - carry is the only variable that changes with the hedge ratio",
     localReturn: 10.0,
     fxMove: 0.0,
     carryRate: -1.0,
@@ -33,7 +33,7 @@ export const SCENARIOS: HedgeScenario[] = [
   {
     id: "cad-fell",
     label: "CAD Fell",
-    blurb: "2015 style: oil collapse drove CAD down ~12% vs USD — a tailwind for unhedged Canadians",
+    blurb: "2015 style: oil collapse drove CAD down ~12% vs USD - a tailwind for unhedged Canadians",
     localReturn: 8.0,
     fxMove: 12.0,
     carryRate: -1.5,
@@ -41,7 +41,7 @@ export const SCENARIOS: HedgeScenario[] = [
   {
     id: "cad-rose",
     label: "CAD Rose",
-    blurb: "2017 style: oil recovery pushed CAD up ~8% vs USD — FX drag for unhedged Canadians",
+    blurb: "2017 style: oil recovery pushed CAD up ~8% vs USD - FX drag for unhedged Canadians",
     localReturn: 7.0,
     fxMove: -8.0,
     carryRate: -0.5,
@@ -49,7 +49,7 @@ export const SCENARIOS: HedgeScenario[] = [
   {
     id: "high-carry",
     label: "High Carry Cost",
-    blurb: "2022 style: Fed hiked aggressively, US rates far above Canadian — hedging was expensive",
+    blurb: "2022 style: Fed hiked aggressively, US rates far above Canadian - hedging was expensive",
     localReturn: -18.0,
     fxMove: 6.0,
     carryRate: -4.0,

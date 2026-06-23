@@ -45,13 +45,13 @@ const SHOCKS: CurveShock[] = [
   {
     id: "bull-steepener",
     label: "Bull steepener",
-    blurb: "Front end rallies hard, long end barely moves — the curve steepens.",
+    blurb: "Front end rallies hard, long end barely moves - the curve steepens.",
     shift: { 2: -60, 5: -35, 10: -15, 30: 5 },
   },
   {
     id: "bear-flattener",
     label: "Bear flattener",
-    blurb: "Front end sells off faster than the long end — the curve flattens.",
+    blurb: "Front end sells off faster than the long end - the curve flattens.",
     shift: { 2: 60, 5: 40, 10: 20, 30: 5 },
   },
   {
@@ -86,7 +86,7 @@ export default function YieldCurve() {
     [curve],
   );
 
-  // Mean key-rate move, in bp — the "level" the eye reaches for, set against the
+  // Mean key-rate move, in bp - the "level" the eye reaches for, set against the
   // P&L it fails to explain on a shape move.
   const avgShift =
     TENORS.reduce((s, t) => s + shock.shift[t], 0) / TENORS.length;
@@ -110,7 +110,7 @@ export default function YieldCurve() {
         <>
           Reshape the Government of Canada curve and reprice a $100mm bond book
           through its key-rate durations. The point: a parallel-shift mental
-          model hides most of the risk — the <em>shape</em> of the move is what
+          model hides most of the risk - the <em>shape</em> of the move is what
           drives the P&amp;L.
         </>
       }
@@ -267,7 +267,7 @@ export default function YieldCurve() {
           {DEFAULT_PORTFOLIO.map((p) => `${p.tenor}y ${p.krd.toFixed(1)}`).join(
             " · ",
           )}{" "}
-          — an effective duration of {result.effectiveDuration.toFixed(1)} years
+          - an effective duration of {result.effectiveDuration.toFixed(1)} years
           concentrated in the belly. Because that risk is decomposed by maturity,
           a steepener and a flattener of the same average size can produce
           opposite P&amp;L even though a single "duration" number looks unchanged.
@@ -276,8 +276,8 @@ export default function YieldCurve() {
         </p>
         <div className="callout">
           <strong>A note on precision:</strong> duration is a first-order
-          approximation. For large moves, convexity — the curvature of the
-          price-yield relationship — adds a positive second-order term this tool
+          approximation. For large moves, convexity - the curvature of the
+          price-yield relationship - adds a positive second-order term this tool
           deliberately omits to keep the curve-shape intuition front and centre.
         </div>
         <p>

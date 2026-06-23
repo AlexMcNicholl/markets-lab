@@ -1,6 +1,6 @@
 // Illustrative historical shock estimates and portfolio templates for the
 // Portfolio Stress Tester. Shock figures are approximate magnitudes for each
-// asset class in each episode — not reconstructed from any specific index or fund.
+// asset class in each episode - not reconstructed from any specific index or fund.
 
 export interface AssetClass {
   name: string;
@@ -29,7 +29,7 @@ export const STRESS_SCENARIOS: StressScenario[] = [
     id: "gfc-2008",
     label: "GFC 2008",
     blurb:
-      "Global Financial Crisis: broad equity collapse, credit freeze, commodity rout — bonds the only meaningful hedge.",
+      "Global Financial Crisis: broad equity collapse, credit freeze, commodity rout - bonds the only meaningful hedge.",
     shocks: {
       "Global Equities": -38,
       "Long-Duration Bonds": 12,
@@ -57,7 +57,7 @@ export const STRESS_SCENARIOS: StressScenario[] = [
     id: "rates-2022",
     label: "Rates 2022",
     blurb:
-      "2022 inflation shock: bonds lost alongside equities — the equity-bond correlation flipped and neither side hedged the other.",
+      "2022 inflation shock: bonds lost alongside equities - the equity-bond correlation flipped and neither side hedged the other.",
     shocks: {
       "Global Equities": -19,
       "Long-Duration Bonds": -25,
@@ -96,7 +96,7 @@ export const PORTFOLIOS: StressPortfolio[] = [
     id: "sixty-forty",
     label: "60/40 Classic",
     blurb:
-      "60% global equities, 40% long-duration bonds — the canonical balanced mandate.",
+      "60% global equities, 40% long-duration bonds - the canonical balanced mandate.",
     weights: {
       "Global Equities": 60,
       "Long-Duration Bonds": 40,

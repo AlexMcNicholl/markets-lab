@@ -35,7 +35,7 @@ export default function ComparableCompanies() {
         <>
           Value a company by what its peers trade at: apply the comp set's{" "}
           EV/EBITDA multiple to the target's own EBITDA, then bridge to an implied
-          share price. The financials never change here — only{" "}
+          share price. The financials never change here - only{" "}
           <em>which names</em> you call peers. Pick a comp set below and watch the
           implied price move on judgement alone.
         </>
@@ -88,13 +88,13 @@ export default function ComparableCompanies() {
         target is worth <strong>{usd(result.impliedPrice)}</strong> a share. Swap
         the peer group and the same financials imply anywhere from{" "}
         <strong>{usd(result.rangeLow)}</strong> to{" "}
-        <strong>{usd(result.rangeHigh)}</strong> — a {swing.toFixed(1)}× range, on
+        <strong>{usd(result.rangeHigh)}</strong> - a {swing.toFixed(1)}× range, on
         numbers that never moved.
       </div>
 
       <div className="output" style={{ border: "1px solid var(--rule)", marginTop: 0 }}>
         <h4>
-          What each peer implies for the target — dashed line is the {result.stat}{" "}
+          What each peer implies for the target - dashed line is the {result.stat}{" "}
           we apply ({usd(result.impliedPrice)})
         </h4>
         <CompChart result={result} />
@@ -159,7 +159,7 @@ export default function ComparableCompanies() {
           implied price&nbsp;= implied equity ÷ shares
         </div>
         <p>
-          Highlighted in gold are the <em>anchor</em> peers — the names sitting at
+          Highlighted in gold are the <em>anchor</em> peers - the names sitting at
           the median, which literally set the multiple. With the median, names at
           the extremes barely matter; with the mean, a single richly-valued outlier
           can drag the whole valuation up. Toggle{" "}
@@ -169,18 +169,18 @@ export default function ComparableCompanies() {
 
         <h3>Why the comp set is the whole argument</h3>
         <p>
-          A discounted-cash-flow model gets the scrutiny — endless debate over the
-          discount rate and terminal growth — but in a comps analysis the real
+          A discounted-cash-flow model gets the scrutiny - endless debate over the
+          discount rate and terminal growth - but in a comps analysis the real
           assumption is buried in the peer list. Move between the presets above:
           the <em>premium set</em> and the <em>skeptic's set</em> value identical
           financials more than two-to-one apart, a spread no single DCF input comes
           close to. That is why the first question to ask of any comp-based
           valuation is not what multiple they used, but who they decided to call a
-          peer — and, just as quietly, who they left out.
+          peer - and, just as quietly, who they left out.
         </p>
         <p>
           The intrinsic-value counterpart is the{" "}
-          <Link to="/dcf-sensitivity">DCF Sensitivity Explorer</Link> — a
+          <Link to="/dcf-sensitivity">DCF Sensitivity Explorer</Link> - a
           ten-year model on real companies where a half-point move in WACC or
           terminal growth moves the answer by as much as swapping the comp set
           does here.

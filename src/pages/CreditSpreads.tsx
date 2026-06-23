@@ -33,7 +33,7 @@ export default function CreditSpreads() {
       lede={
         <>
           A corporate bond's yield is the risk-free rate plus a <em>credit
-          spread</em> — but that spread is not all about default. Pick a bond
+          spread</em> - but that spread is not all about default. Pick a bond
           below and watch the spread split into what you'd statistically lose
           (expected loss), what you're paid to bear that risk (risk premium), and
           what you're paid for not being able to sell (liquidity).
@@ -85,7 +85,7 @@ export default function CreditSpreads() {
         <strong>{BPS(result.creditSpreadBps)} bps</strong> credit spread is led by{" "}
         <strong>{leader.label.toLowerCase()}</strong>. Only{" "}
         <strong>{BPS(el.bps)} bps</strong> ({Math.round(el.shareOfSpread * 100)}%)
-        actually covers expected default loss — the rest is the price of risk and
+        actually covers expected default loss - the rest is the price of risk and
         illiquidity.
       </div>
 
@@ -152,7 +152,7 @@ export default function CreditSpreads() {
           The catch is that the market charges far more than the expected loss.
           The <em>default risk premium</em> (<code>mult</code>) is the ratio of
           the risk-neutral default intensity the market prices to the real-world
-          one — investors demand several times the actuarial loss to bear default
+          one - investors demand several times the actuarial loss to bear default
           risk they can't diversify away. Whatever spread is still unexplained is
           attributed to <em>liquidity</em>: the discount for holding a bond you
           may not be able to sell in size without moving the price.
@@ -160,8 +160,8 @@ export default function CreditSpreads() {
 
         <h3>The credit-spread puzzle</h3>
         <p>
-          For investment-grade names, realised default losses are tiny — a few
-          basis points a year — yet spreads run to many tens or hundreds of basis
+          For investment-grade names, realised default losses are tiny - a few
+          basis points a year - yet spreads run to many tens or hundreds of basis
           points. Toggle between the high-grade and crisis presets: the spread can
           triple without the chance of default moving much at all. Most of what a
           high-grade bond pays is compensation for risk and illiquidity, not for

@@ -4,12 +4,12 @@
 // optimizer to back out the excess returns the market is implicitly pricing
 // (the equilibrium). Layer one or more directional views on top, each with a
 // confidence, and blend them with the equilibrium to get posterior expected
-// returns. Run those back through the optimizer and the weights tilt — by an
+// returns. Run those back through the optimizer and the weights tilt - by an
 // amount that scales with how confident the view is. That tilt is the payoff
 // the page reconciles, view by view.
 //
 // The universe, vols, and correlations are illustrative, broadly the shape of a
-// global multi-asset book — not any real index or product. Returns are excess
+// global multi-asset book - not any real index or product. Returns are excess
 // (over cash). Standard parameters: risk aversion δ = 2.5, scaling τ = 0.05
 // (He & Litterman, 1999).
 
@@ -18,7 +18,7 @@ export interface Asset {
   name: string;
   short: string; // compact label for the chart
   vol: number; // annualized volatility, decimal
-  w: number; // market-cap (equilibrium) weight, decimal — sum to 1
+  w: number; // market-cap (equilibrium) weight, decimal - sum to 1
 }
 
 // Six asset classes, market weights summing to 1.00.
@@ -121,7 +121,7 @@ export const PRESETS: BLPreset[] = [
   {
     id: "equilibrium",
     label: "Equilibrium",
-    blurb: "No views at all — the posterior is the market portfolio. Baseline.",
+    blurb: "No views at all - the posterior is the market portfolio. Baseline.",
     views: [],
   },
 ];

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 /**
  * Copies the current URL (which encodes the tool's scenario via the ?s=
- * parameter — see useSharedState) so a configured scenario can be shared.
+ * parameter - see useSharedState) so a configured scenario can be shared.
  */
 export default function CopyLinkButton() {
   const [copied, setCopied] = useState(false);

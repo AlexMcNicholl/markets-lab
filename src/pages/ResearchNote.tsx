@@ -26,7 +26,7 @@ export default function ResearchNote() {
   const pos = derivePositions(book).find((p) => p.noteSlug === slug);
 
   useEffect(() => {
-    const t = note ? `${note.ticker} — Research note` : "Research note";
+    const t = note ? `${note.ticker} - Research note` : "Research note";
     document.title = `${t} · Markets Lab`;
     return () => {
       document.title = "Markets Lab";
@@ -72,7 +72,7 @@ export default function ResearchNote() {
 
       {note.stub && (
         <div className="rp-note-stub">
-          Structured note — thesis and variables in brief, on the same skeleton
+          Structured note - thesis and variables in brief, on the same skeleton
           as the full CNQ write-up.
         </div>
       )}
@@ -109,7 +109,7 @@ export default function ResearchNote() {
 
         <h3>Key variables</h3>
         <p className="rp-note-subtle">
-          The handful of things the view actually rides on — and what I'd watch
+          The handful of things the view actually rides on - and what I'd watch
           to know it's working.
         </p>
         <ul className="rp-note-vars">
@@ -132,7 +132,7 @@ export default function ResearchNote() {
         <h3>What would change my mind</h3>
         <p className="rp-note-subtle">
           The sell rule, written down in advance. This is the senior part of the
-          note — a position without a kill condition is just a hope.
+          note - a position without a kill condition is just a hope.
         </p>
         <ul className="rp-note-kill">
           {pos.killCriteria.map((k, i) => (
@@ -142,7 +142,7 @@ export default function ResearchNote() {
 
         <div className="callout">
           <strong>Illustrative.</strong> A model position on a public name in a
-          synthetic-capital book. Public data only — not investment advice or a
+          synthetic-capital book. Public data only - not investment advice or a
           price target.
         </div>
       </div>

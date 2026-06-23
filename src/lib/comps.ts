@@ -10,7 +10,7 @@
 // The "multiple" is a central-tendency statistic (median or mean) of the chosen
 // peers. The whole argument of a comps analysis is which names go in the set:
 // the target's financials never change, but moving peers in and out swings the
-// statistic — and the price — by more than any single model assumption.
+// statistic - and the price - by more than any single model assumption.
 //
 // All figures are synthetic but plausible: one mid-cap target and a universe of
 // eight illustrative peers spanning a realistic multiple range. Not any real
@@ -31,7 +31,7 @@ export interface Peer {
   id: string;
   name: string;
   short: string; // compact label for the chart axis
-  /** Why this name does or doesn't belong — the judgement call behind the bet. */
+  /** Why this name does or doesn't belong - the judgement call behind the bet. */
   note: string;
   evEbitda: number; // EV/EBITDA multiple, x
 }
@@ -39,21 +39,21 @@ export interface Peer {
 // The peer universe, spanning a wide multiple range so set selection bites.
 export const PEERS: Peer[] = [
   { id: "vertex", name: "Vertex Global", short: "Vertex", evEbitda: 22.0,
-    note: "Hyper-growth, and several times the target's scale — a stretch." },
+    note: "Hyper-growth, and several times the target's scale - a stretch." },
   { id: "apex", name: "Apex Systems", short: "Apex", evEbitda: 18.0,
-    note: "High-growth pure play — the closest fast-growing comp." },
+    note: "High-growth pure play - the closest fast-growing comp." },
   { id: "meridian", name: "Meridian Software", short: "Meridian", evEbitda: 16.5,
     note: "Pure play, similar size and end-market." },
   { id: "northwind", name: "Northwind Tech", short: "Northwind", evEbitda: 15.0,
-    note: "Pure play, maturing growth — a clean comparable." },
+    note: "Pure play, maturing growth - a clean comparable." },
   { id: "cascade", name: "Cascade Digital", short: "Cascade", evEbitda: 14.0,
     note: "Pure play, similar margins to the target." },
   { id: "granite", name: "Granite Industrial", short: "Granite", evEbitda: 9.0,
-    note: "Adjacent end-market, slower growth — arguably not a peer." },
+    note: "Adjacent end-market, slower growth - arguably not a peer." },
   { id: "harbor", name: "Harbor Holdings", short: "Harbor", evEbitda: 8.0,
-    note: "Diversified conglomerate — a different business mix entirely." },
+    note: "Diversified conglomerate - a different business mix entirely." },
   { id: "summit", name: "Summit Legacy", short: "Summit", evEbitda: 7.0,
-    note: "Mature, low-growth — drags the set toward a value multiple." },
+    note: "Mature, low-growth - drags the set toward a value multiple." },
 ];
 
 export interface CompSet {
@@ -69,7 +69,7 @@ export const COMP_SETS: CompSet[] = [
   {
     id: "pure-play",
     label: "Pure-play peers",
-    blurb: "The four closest pure plays — similar business, size, and growth.",
+    blurb: "The four closest pure plays - similar business, size, and growth.",
     peerIds: ["apex", "meridian", "northwind", "cascade"],
   },
   {
@@ -159,7 +159,7 @@ export function valueComps(setId: string, stat: Stat): CompResult {
   const mults = peers.map((p) => p.evEbitda);
   const multiple = applyStat(mults, stat);
 
-  // Anchor = the peer(s) nearest the applied multiple — for an even-count median
+  // Anchor = the peer(s) nearest the applied multiple - for an even-count median
   // that's the two names straddling it, the ones literally setting the value.
   const dists = mults.map((m) => Math.abs(m - multiple));
   const minDist = Math.min(...dists);

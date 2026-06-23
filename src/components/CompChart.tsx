@@ -10,8 +10,8 @@ import {
 } from "recharts";
 import { CompResult } from "../lib/comps";
 
-// Same ink/teal/gold palette as the other tools. The anchor peers — the ones
-// setting the comp-set statistic — are picked out in gold, matching the dashed
+// Same ink/teal/gold palette as the other tools. The anchor peers - the ones
+// setting the comp-set statistic - are picked out in gold, matching the dashed
 // reference line that marks the price we actually apply.
 export const COMP_COLORS = {
   bar: "#2f6b80",
@@ -20,7 +20,7 @@ export const COMP_COLORS = {
 } as const;
 
 /**
- * Horizontal bars — one per peer — of the share price the target would carry if
+ * Horizontal bars - one per peer - of the share price the target would carry if
  * the whole set looked like that single name. The dashed line is the comp-set
  * statistic (median or mean) we actually apply, so the spread of the bars around
  * it shows how much the answer depends on which names are in the room.

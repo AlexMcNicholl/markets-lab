@@ -65,8 +65,8 @@ export default function Home() {
             </div>
             <h2>Research Portfolio</h2>
             <p className="flagship-lead">
-              A model book where every position earns its place — a thesis, a
-              size, a sell rule — then attribution grades the calls.
+              A model book where every position earns its place - a thesis, a
+              size, a sell rule - then attribution grades the calls.
             </p>
             <p className="flagship-loop num">
               thesis → sized position → risk → attribution → outcome

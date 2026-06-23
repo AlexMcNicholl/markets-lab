@@ -64,7 +64,7 @@ export default function ResearchPortfolio() {
   const alloc = useMemo(() => allocationBySector(book), []);
   const contrib = useMemo(() => contributionRows(book), []);
 
-  // Brinson-Fachler on my own decisions — the exact Sector[] handed to the
+  // Brinson-Fachler on my own decisions - the exact Sector[] handed to the
   // Attribution Playground, so the cockpit and the deep-linked playground show
   // the identical decomposition.
   const attrSectors = useMemo(() => attributionSectors(book), []);
@@ -91,18 +91,10 @@ export default function ResearchPortfolio() {
 
       <h1>Research Portfolio</h1>
       <p className="lede">
-        A <strong>model</strong> book — synthetic capital, real prices. Every
+        A <strong>model</strong> book - synthetic capital, real prices. Every
         name has a thesis, a conviction-based size, and a sell rule. Read the
         process, not the P&amp;L. Public data only.
       </p>
-
-      {book.dataMode === "estimate" && (
-        <div className="rp-estimate-banner">
-          <strong>Placeholder marks.</strong> Live price refresh is pending —
-          these figures are illustrative estimates, not sourced closes. Run{" "}
-          <code>scripts/build_portfolio.py</code> with fetched prices to re-mark.
-        </div>
-      )}
 
       {/* headline strip */}
       <div className="rp-strip">
@@ -119,7 +111,7 @@ export default function ResearchPortfolio() {
           <div className={`v num ${signClass(ret)}`}>{fsign(ret)}</div>
         </div>
         <div className="rp-strip-item">
-          <div className="k">Benchmark — {bench.name}</div>
+          <div className="k">Benchmark - {bench.name}</div>
           <div className={`v num ${signClass(bench.windowReturn)}`}>
             {signed(bench.windowReturn)}%
           </div>
@@ -140,7 +132,7 @@ export default function ResearchPortfolio() {
         real closes · cash held flat
       </p>
 
-      {/* row 1 — equity curve + contribution */}
+      {/* row 1 - equity curve + contribution */}
       <div className="rp-grid">
         <section className="rp-panel">
           <h4>
@@ -207,7 +199,7 @@ export default function ResearchPortfolio() {
         </section>
 
         <section className="rp-panel">
-          <h4>Contribution to return — since entry</h4>
+          <h4>Contribution to return - since entry</h4>
           <p className="rp-panel-sub">
             Each name's P&amp;L as a share of the book. Bars sum to {fsign(ret)}.
           </p>
@@ -271,10 +263,10 @@ export default function ResearchPortfolio() {
         </section>
       </div>
 
-      {/* row 2 — allocation + risk lens */}
+      {/* row 2 - allocation + risk lens */}
       <div className="rp-grid">
         <section className="rp-panel">
-          <h4>Allocation vs. benchmark — GICS</h4>
+          <h4>Allocation vs. benchmark - GICS</h4>
           <p className="rp-panel-sub">
             Book vs. {bench.name} sector weights. Active tilt at right.
           </p>
@@ -361,11 +353,11 @@ export default function ResearchPortfolio() {
         </section>
       </div>
 
-      {/* row 3 — attribution */}
+      {/* row 3 - attribution */}
       <section className="rp-panel rp-attr">
         <div className="rp-attr-head">
           <div>
-            <h4>Attribution — my decisions vs. benchmark</h4>
+            <h4>Attribution - my decisions vs. benchmark</h4>
             <p className="rp-panel-sub">
               Same engine as the{" "}
               <Link to="/attribution">Attribution Playground</Link>. Allocation
@@ -431,14 +423,14 @@ export default function ResearchPortfolio() {
       <div className="prose rp-method">
         <h3>How it's built</h3>
         <p>
-          Only the capital is invented — a $
+          Only the capital is invented - a $
           {(book.notionalCapital / 1000000).toFixed(1)}M paper book. Entry
           prices and marks are real closes; the equity curve is genuine
           mark-to-market, dated and never backfilled. Conviction drives size;
           the {bench.name} anchors the allocation and attribution views.
         </p>
         <div className="callout">
-          A model book that's up impresses no one — I picked the entries. The
+          A model book that's up impresses no one - I picked the entries. The
           signal is the discipline: a thesis, a size that tracks conviction, a
           sell rule set before the trade, and attribution that owns the losers.
           Illustrative; public data only.

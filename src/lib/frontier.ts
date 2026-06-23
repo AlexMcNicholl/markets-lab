@@ -1,5 +1,5 @@
 // Resampled efficient frontier (Michaud, 1998). The capital-market assumptions
-// below are generic and illustrative — broadly the shape of a global multi-asset
+// below are generic and illustrative - broadly the shape of a global multi-asset
 // menu, but not a forecast or any real product. The whole point of the tool is
 // the *instability* of mean-variance optimization under estimation error, not
 // the specific numbers.
@@ -95,7 +95,7 @@ function cholesky(m: number[][]): number[][] {
 /**
  * Minimum-variance portfolio that hits a target return: minimize wᵀΣw subject to
  * wᵀμ = target and wᵀ1 = 1. The closed-form solution is a blend of Σ⁻¹1 and
- * Σ⁻¹μ, so it always sums to one — but it stays unconstrained, free to short,
+ * Σ⁻¹μ, so it always sums to one - but it stays unconstrained, free to short,
  * which is what makes its answer swing so hard when μ moves.
  *
  * `invOnes` (= Σ⁻¹1) and `A` (= 1ᵀΣ⁻¹1) depend only on Σ, so the caller
@@ -167,7 +167,7 @@ export interface ResampleResult {
 /**
  * Re-estimate expected returns `draws` times from `years` of (simulated) data,
  * re-optimize each time, and collect the cloud of "optimal" portfolios. Only the
- * means are re-estimated — they dominate the instability — while the covariance
+ * means are re-estimated - they dominate the instability - while the covariance
  * is held at its true value. The mean estimate carries sampling error Σ/T, i.e.
  * a standard error of σ_i/√T per asset, so fewer years ⇒ a wider cloud.
  */

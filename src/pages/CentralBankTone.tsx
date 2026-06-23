@@ -58,7 +58,7 @@ export default function CentralBankTone() {
       lede={
         <>
           Score a real central-bank rate statement on a hawkish-to-dovish scale
-          with a transparent term lexicon — no model, no black box. Pick a
+          with a transparent term lexicon - no model, no black box. Pick a
           meeting below and watch the bank's own words split into the case for{" "}
           <em>tighter</em> policy and the case for <em>easier</em> policy, then
           track how the tone turns across the cycle.
@@ -113,8 +113,8 @@ export default function CentralBankTone() {
       </div>
 
       <div className="verdict">
-        The <strong>{active.date}</strong> {BANK_NAME[bank]} statement —{" "}
-        {active.descriptor.toLowerCase()}, rate to {active.rate} — reads{" "}
+        The <strong>{active.date}</strong> {BANK_NAME[bank]} statement -{" "}
+        {active.descriptor.toLowerCase()}, rate to {active.rate} - reads{" "}
         <strong className={signClass(score.index)}>{tone}</strong>
         {leader ? (
           <>
@@ -214,7 +214,7 @@ export default function CentralBankTone() {
           tone = (hawkish − dovish) ÷ (hawkish + dovish) × 100
         </div>
         <p>
-          The whole dictionary is on the page — this is the same transparent
+          The whole dictionary is on the page - this is the same transparent
           lexicon approach used as the baseline in central-bank communication
           research (Apel &amp; Blix Grimaldi) and financial-text sentiment
           (Loughran-McDonald), and the yardstick that LLM tone classifiers are
@@ -228,7 +228,7 @@ export default function CentralBankTone() {
           is really a sign of a hot economy a hawk would worry about; negations
           and forward guidance ("we do <em>not</em> expect to cut") slip through
           too. That gap is exactly where a language model earns its keep —
-          reading the sentence, not just the term — but it trades this page's
+          reading the sentence, not just the term - but it trades this page's
           full transparency for a judgement you have to trust. The lexicon is the
           baseline you grade that model against.
         </p>

@@ -1011,7 +1011,7 @@ table.data tr.is-leader td {
     transform: none;
   }
 }
-/* No hover lift, accent bar, or background shift — they read as not-yet-live. */
+/* No hover lift, accent bar, or background shift - they read as not-yet-live. */
 .tool-card.is-planned:hover {
   background: var(--paper);
 }
@@ -1160,7 +1160,7 @@ input[type="range"]:focus-visible,
 }
 
 /* ============================================================
-   Research Portfolio — flagship cockpit, cards, notes
+   Research Portfolio - flagship cockpit, cards, notes
    ============================================================ */
 
 /* Home featured block */

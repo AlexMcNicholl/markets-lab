@@ -228,7 +228,7 @@ export default function StressTester() {
         </p>
         <p>
           A 60/40 book weathers a typical equity selloff reasonably well because
-          long bonds rally — as they did in 2008 and 2020. In 2022, though, bonds
+          long bonds rally - as they did in 2008 and 2020. In 2022, though, bonds
           turned into a second source of loss: the inflation shock repriced
           equities and duration simultaneously. The equity-bond correlation
           flipped positive, and neither leg hedged the other. No optimizer
@@ -236,7 +236,7 @@ export default function StressTester() {
         </p>
         <p>
           Shock estimates are illustrative approximations of each episode's
-          direction and magnitude — not reconstructed from any specific index or
+          direction and magnitude - not reconstructed from any specific index or
           product.
         </p>
         <p>

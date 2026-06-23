@@ -17,7 +17,7 @@ interface EffectChartProps {
 }
 
 /**
- * Horizontal stacked bars — one row per GICS sector — so the eleven long
+ * Horizontal stacked bars - one row per GICS sector - so the eleven long
  * sector names stay readable while allocation / selection / interaction stack
  * into each sector's total contribution to active return.
  */

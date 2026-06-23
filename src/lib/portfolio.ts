@@ -1,4 +1,4 @@
-// Research Portfolio — the model book and the pure calcs that drive the cockpit.
+// Research Portfolio - the model book and the pure calcs that drive the cockpit.
 //
 // The book is synthetic in CAPITAL ($1M notional paper book) and real in
 // PRICES + REASONING. Every position has a dated entry and a real entry price;
@@ -8,7 +8,7 @@
 // This module is deliberately side-effect-free and unit-testable: it takes the
 // baked book (src/data/portfolio.json) and derives current weights from price
 // drift, per-name P&L contribution, the risk lens, and the Brinson-Fachler
-// sector inputs (handed straight to src/lib/attribution.ts — the same engine the
+// sector inputs (handed straight to src/lib/attribution.ts - the same engine the
 // Attribution Playground uses, so the two can't drift apart).
 
 import { Sector } from "./attribution";
@@ -80,10 +80,10 @@ export interface Position {
   conviction: Conviction;
   /** Conviction-driven target weight, as a fraction of notional. */
   targetWeight: number;
-  entryDate: string; // ISO — dated, no backfill
+  entryDate: string; // ISO - dated, no backfill
   entryPrice: number; // real close on the entry date
   currentPrice: number; // real close "as of" the book date
-  /** Real close on the book's inception date — the common attribution window start. */
+  /** Real close on the book's inception date - the common attribution window start. */
   windowStartPrice: number;
   /** Estimated equity beta vs. the benchmark (illustrative, stated). */
   beta: number;
@@ -205,7 +205,7 @@ export function contributionRows(book: Book): ContributionRow[] {
     label: p.ticker,
     contribution: p.contribution,
   }));
-  // Cash contributes nothing to return but is part of the book — show it so the
+  // Cash contributes nothing to return but is part of the book - show it so the
   // bars sum to the headline number with nothing swept under the rug.
   rows.push({ label: "Cash", contribution: 0, isCash: true });
   return rows.sort((a, b) => b.contribution - a.contribution);
@@ -266,7 +266,7 @@ export function allocationBySector(book: Book): AllocationRow[] {
 // ── Brinson-Fachler inputs (handed to src/lib/attribution.ts) ────────────────
 
 /**
- * Map the book onto the Sector[] shape the attribution engine consumes — one
+ * Map the book onto the Sector[] shape the attribution engine consumes - one
  * row per GICS sector, all figures in percent. Single-period over the common
  * window [inception → asOf]:
  *
@@ -276,7 +276,7 @@ export function allocationBySector(book: Book): AllocationRow[] {
  *   rb = benchmark sector return over the same window
  *
  * Portfolio weights are normalised over the invested sleeve (ex-cash) so they
- * sum to 100 like the benchmark — that's what makes the three effects sum to
+ * sum to 100 like the benchmark - that's what makes the three effects sum to
  * total active return exactly. Cash is a separate drag, reported in the risk
  * lens, not a Brinson sector. This is the exact array used both for the on-page
  * attribution panel and for the deep-link into /attribution, so the cockpit and

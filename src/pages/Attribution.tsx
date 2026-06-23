@@ -130,19 +130,19 @@ export default function Attribution() {
           Allocation rewards overweighting sectors that beat the overall
           benchmark; selection rewards picking the right names inside a sector;
           interaction is the cross-term, and it is the one most commentaries
-          quietly fold into selection — toggle <em>Fold interaction</em> above to
+          quietly fold into selection - toggle <em>Fold interaction</em> above to
           see the two-factor view. Summed across sectors, the effects equal total
-          active return exactly — a useful check that the decomposition is
+          active return exactly - a useful check that the decomposition is
           complete.
         </p>
 
         <h3>The catch nobody mentions in the pitch book</h3>
         <p>
           These effects are clean for one period, but they do <em>not</em> add up
-          across periods — returns compound while attribution effects are
+          across periods - returns compound while attribution effects are
           arithmetic. So four quarters of active return won't sum to the realised
           annual active return; the gap is the linking residual. Linking
-          algorithms — Carino, Menchero, GRAP — distribute exactly that residual
+          algorithms - Carino, Menchero, GRAP - distribute exactly that residual
           back onto each period's effects so a multi-period attribution still
           reconciles to performance. Getting it wrong is the most common error in
           home-grown attribution.

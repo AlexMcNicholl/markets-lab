@@ -36,7 +36,7 @@ const PRESETS: Preset[] = [
   {
     id: "y15",
     label: "15 years",
-    blurb: "A full cycle of data — and still a wide cloud.",
+    blurb: "A full cycle of data - and still a wide cloud.",
     years: 15,
   },
   {
@@ -48,7 +48,7 @@ const PRESETS: Preset[] = [
   {
     id: "perfect",
     label: "Perfect inputs",
-    blurb: "No estimation error at all — what the textbook quietly assumes.",
+    blurb: "No estimation error at all - what the textbook quietly assumes.",
     years: 100_000,
   },
 ];
@@ -81,7 +81,7 @@ export default function EfficientFrontier() {
           matrix into one confident set of weights. But those inputs are{" "}
           <em>estimates</em>. Feed the optimizer the estimation error you
           actually have, re-run it 500 times, and the single "optimal" answer
-          dissolves into a cloud — then average the cloud back into a portfolio
+          dissolves into a cloud - then average the cloud back into a portfolio
           you'd actually hold.
         </>
       }
@@ -104,7 +104,7 @@ export default function EfficientFrontier() {
 
       <div className="stats hero-stats">
         <div className="stat">
-          <div className="k">Optimizer's top bet — {top.short}</div>
+          <div className="k">Optimizer's top bet - {top.short}</div>
           <div className="v">{wpct(topW.textbook)}</div>
         </div>
         <div className="stat">
@@ -112,7 +112,7 @@ export default function EfficientFrontier() {
           <div className="v">{wpct(topW.resampled)}</div>
         </div>
         <div className="stat">
-          <div className="k">Widest swing — {wide.short}</div>
+          <div className="k">Widest swing - {wide.short}</div>
           <div className="v">{isPerfect ? "0pts" : `${swingPts.toFixed(0)}pts`}</div>
         </div>
       </div>
@@ -245,7 +245,7 @@ export default function EfficientFrontier() {
         </table>
         <div className="note">
           The cloud is 500 portfolios, each optimal for one re-estimate of the
-          inputs and then scored on the true ones — so it sits below the true
+          inputs and then scored on the true ones - so it sits below the true
           frontier. The optimizer's pick and the resampled (averaged) portfolio
           are marked.
         </div>
@@ -256,8 +256,8 @@ export default function EfficientFrontier() {
         <p>
           The optimizer minimizes portfolio variance subject to hitting a{" "}
           {TARGET}% target return while staying fully invested. That constrained
-          problem has a closed form — a fixed blend of two portfolios,{" "}
-          Σ<sup>−1</sup>1 and Σ<sup>−1</sup>μ — so the weights always sum to one
+          problem has a closed form - a fixed blend of two portfolios,{" "}
+          Σ<sup>−1</sup>1 and Σ<sup>−1</sup>μ - so the weights always sum to one
           but are otherwise free to go short:
         </p>
         <div className="formula">
@@ -266,7 +266,7 @@ export default function EfficientFrontier() {
         </div>
         <p>
           The catch is μ. An expected return estimated from <code>T</code> years
-          of data carries a standard error of about <code>σ / √T</code> — and
+          of data carries a standard error of about <code>σ / √T</code> - and
           with the volatilities of real assets, even a few decades barely move
           that error below the return premia themselves. So we draw 500 plausible
           estimates from that sampling distribution, re-optimize each, and look at
@@ -279,21 +279,21 @@ export default function EfficientFrontier() {
           on whichever asset's return happened to be estimated highest and shorts
           whichever came out lowest, so tiny input changes produce wildly
           different portfolios. Averaging the weights across all the resamples —
-          Michaud's resampled efficiency — cancels most of that noise and yields a
+          Michaud's resampled efficiency - cancels most of that noise and yields a
           smoother, more diversified portfolio that barely moves when the data
           does. It rarely sits exactly on the textbook frontier, but it is the one
           you can actually hold through the next estimate.
         </p>
         <div className="callout">
           <strong>A note on constraints:</strong> this version is unconstrained,
-          so the optimizer is free to short — which is why some weights run
+          so the optimizer is free to short - which is why some weights run
           negative and the swings look extreme. Real mandates add long-only and
           position limits that cap the damage, but they dampen the instability
           rather than remove it; the inputs are still estimates.
         </div>
         <p>
           <Link to="/black-litterman">Black-Litterman</Link> addresses the
-          estimation-error problem differently — instead of resampling, it
+          estimation-error problem differently - instead of resampling, it
           anchors the optimizer to market-implied returns and blends in views in
           proportion to your conviction. The FX dimension of a global allocation
           is in{" "}

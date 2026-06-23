@@ -28,7 +28,7 @@ export default function MultiPeriodLinking() {
       actions={<CopyLinkButton />}
       lede={
         <>
-          Single-period active return is arithmetic, but returns compound — so
+          Single-period active return is arithmetic, but returns compound - so
           adding up four quarters of <em>active</em> return doesn't equal the
           year's realised active return. Pick a year below and watch the gap
           open, then let Carino's algorithm distribute it back so every quarter
@@ -94,7 +94,7 @@ export default function MultiPeriodLinking() {
       </div>
 
       <div className="output" style={{ border: "1px solid var(--rule)", marginTop: 0 }}>
-        <h4>Cumulative active return — naive sum vs. compounded</h4>
+        <h4>Cumulative active return - naive sum vs. compounded</h4>
         <LinkingChart result={result} />
         <LinkingTable result={result} linked={linked} />
       </div>
@@ -128,7 +128,7 @@ export default function MultiPeriodLinking() {
         </p>
         <p>
           This is the multi-period companion to the{" "}
-          <Link to="/attribution">Attribution Playground</Link> — that tool
+          <Link to="/attribution">Attribution Playground</Link> - that tool
           decomposes one period cleanly; this one is what you need the moment you
           have more than one.
         </p>

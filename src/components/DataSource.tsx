@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 // can drop in beside its output. The goal across the site is the same one
 // Central-Bank Tone makes inline: nothing is hidden in a black box. A tool's
 // numbers are either pulled from a real, citable source or they're illustrative
-// — and which one it is gets stated plainly, never blurred. `provenance` is
+// - and which one it is gets stated plainly, never blurred. `provenance` is
 // required for exactly that reason: no tool can render this panel without
 // declaring where its inputs come from.
 
@@ -12,7 +12,7 @@ interface DataSourceProps {
   /**
    * Whether the inputs are pulled from a real, citable source or are
    * synthetic/illustrative. Drives the chip label so the distinction is never
-   * ambiguous — the honesty about it is the point.
+   * ambiguous - the honesty about it is the point.
    */
   kind: "sourced" | "illustrative";
   /** One honest line (or short block) on where the numbers come from. */

@@ -1,4 +1,4 @@
-// Central-Bank Tone Scoring — a transparent, dictionary-based hawkish/dovish
+// Central-Bank Tone Scoring - a transparent, dictionary-based hawkish/dovish
 // score for monetary-policy statements. No model, no API: every statement is
 // scored in the browser by matching a fixed lexicon of policy terms, the same
 // lexicon approach that LLM tone classifiers are benchmarked against (in the
@@ -6,7 +6,7 @@
 // central-bank communication index).
 //
 // The statement excerpts below are VERBATIM quotations from the central banks'
-// own published press releases (Bank of Canada and U.S. Federal Reserve) — both
+// own published press releases (Bank of Canada and U.S. Federal Reserve) - both
 // public-domain government communications. They are real bank data, not
 // synthetic text; only the excerpting is ours.
 
@@ -32,13 +32,13 @@ export interface LexiconEntry {
 }
 
 export const LEXICON: LexiconEntry[] = [
-  // Hawkish — explicit tightening signals
+  // Hawkish - explicit tightening signals
   { phrase: "interest rates will need to rise further", stance: "hawkish", weight: 3 },
   { phrase: "ongoing increases", stance: "hawkish", weight: 3 },
   { phrase: "raise the target range", stance: "hawkish", weight: 3 },
   { phrase: "increased its target", stance: "hawkish", weight: 3 },
   { phrase: "rise further", stance: "hawkish", weight: 3 },
-  // Hawkish — inflation-concern language
+  // Hawkish - inflation-concern language
   { phrase: "strongly committed", stance: "hawkish", weight: 2 },
   { phrase: "more persistent", stance: "hawkish", weight: 2 },
   { phrase: "excess demand", stance: "hawkish", weight: 2 },
@@ -56,13 +56,13 @@ export const LEXICON: LexiconEntry[] = [
   { phrase: "strengthen", stance: "hawkish", weight: 1 },
   { phrase: "widespread", stance: "hawkish", weight: 1 },
 
-  // Dovish — explicit easing signals
+  // Dovish - explicit easing signals
   { phrase: "no longer needs to be as restrictive", stance: "dovish", weight: 3 },
   { phrase: "lower the target range", stance: "dovish", weight: 3 },
   { phrase: "reduced its target", stance: "dovish", weight: 3 },
   { phrase: "reduce the policy rate", stance: "dovish", weight: 3 },
   { phrase: "cut the policy rate", stance: "dovish", weight: 3 },
-  // Dovish — easing / support language
+  // Dovish - easing / support language
   { phrase: "support economic growth", stance: "dovish", weight: 2 },
   { phrase: "support the flow of credit", stance: "dovish", weight: 2 },
   { phrase: "downward momentum", stance: "dovish", weight: 2 },
@@ -108,7 +108,7 @@ export const STATEMENTS: Record<Bank, Statement[]> = {
       id: "boc-2022-03",
       bank: "boc",
       date: "Mar 2022",
-      descriptor: "Liftoff — first hike of the cycle",
+      descriptor: "Liftoff - first hike of the cycle",
       rate: "0.50%",
       action: "hike",
       text: "The Bank of Canada today increased its target for the overnight rate to one half per cent. CPI inflation is currently at 5.1 per cent, as expected in January, and remains well above the Bank's target range. As the economy continues to expand and inflation pressures remain elevated, the Governing Council expects interest rates will need to rise further.",
@@ -118,7 +118,7 @@ export const STATEMENTS: Record<Bank, Statement[]> = {
       id: "boc-2023-07",
       bank: "boc",
       date: "Jul 2023",
-      descriptor: "Final hike — rate peaks at 5%",
+      descriptor: "Final hike - rate peaks at 5%",
       rate: "5.00%",
       action: "hike",
       text: "The Bank of Canada today increased its target for the overnight rate to 5 per cent. Global inflation is easing, with lower energy prices and a decline in goods price inflation, but robust demand and tight labour markets are causing persistent inflationary pressures in services. Underlying price pressures appear to be more persistent than anticipated. Excess demand and elevated core inflation are both proving more persistent.",
@@ -138,7 +138,7 @@ export const STATEMENTS: Record<Bank, Statement[]> = {
       id: "boc-2024-06",
       bank: "boc",
       date: "Jun 2024",
-      descriptor: "First cut — the pivot to easing",
+      descriptor: "First cut - the pivot to easing",
       rate: "4.75%",
       action: "cut",
       text: "The Bank of Canada today reduced its target for the overnight rate to 4.75 per cent. CPI inflation eased further in April, to 2.7 per cent. Three-month measures suggest continued downward momentum. With continued evidence that underlying inflation is easing, monetary policy no longer needs to be as restrictive. Governing Council has confidence that inflation will continue to move towards the 2 per cent target.",
@@ -170,7 +170,7 @@ export const STATEMENTS: Record<Bank, Statement[]> = {
       id: "fed-2022-03",
       bank: "fed",
       date: "Mar 2022",
-      descriptor: "Liftoff — first hike of the cycle",
+      descriptor: "Liftoff - first hike of the cycle",
       rate: "0.25–0.50%",
       action: "hike",
       text: "Indicators of economic activity and employment have continued to strengthen. Job gains have been strong in recent months, and the unemployment rate has declined substantially. Inflation remains elevated, reflecting supply and demand imbalances related to the pandemic, higher energy prices, and broader price pressures. The Committee decided to raise the target range for the federal funds rate to 1/4 to 1/2 percent and anticipates that ongoing increases in the target range will be appropriate.",
@@ -180,7 +180,7 @@ export const STATEMENTS: Record<Bank, Statement[]> = {
       id: "fed-2023-07",
       bank: "fed",
       date: "Jul 2023",
-      descriptor: "Final hike — rate peaks at 5.25–5.50%",
+      descriptor: "Final hike - rate peaks at 5.25–5.50%",
       rate: "5.25–5.50%",
       action: "hike",
       text: "Recent indicators suggest that economic activity has been expanding at a moderate pace. Job gains have been robust in recent months, and the unemployment rate has remained low. Inflation remains elevated. Tighter credit conditions for households and businesses are likely to weigh on economic activity, hiring, and inflation. The Committee decided to raise the target range for the federal funds rate to 5-1/4 to 5-1/2 percent. The Committee is strongly committed to returning inflation to its 2 percent objective.",
@@ -190,7 +190,7 @@ export const STATEMENTS: Record<Bank, Statement[]> = {
       id: "fed-2024-09",
       bank: "fed",
       date: "Sep 2024",
-      descriptor: "First cut — a 50 bp pivot to easing",
+      descriptor: "First cut - a 50 bp pivot to easing",
       rate: "4.75–5.00%",
       action: "cut",
       text: "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have slowed, and the unemployment rate has moved up but remains low. Inflation has made further progress toward the Committee's 2 percent objective but remains somewhat elevated. The Committee has gained greater confidence that inflation is moving sustainably toward 2 percent, and judges that the risks to achieving its employment and inflation goals are roughly in balance. The Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent.",

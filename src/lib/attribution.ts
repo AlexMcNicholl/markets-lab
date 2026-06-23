@@ -44,7 +44,7 @@ export interface AttributionResult {
  * Weights need not sum to 100: portfolio and benchmark returns are each
  * normalised by their own total weight, so the effects stay coherent while a
  * user drags sliders. When `foldInteraction` is true the cross-term is rolled
- * into selection (interaction reported as zero) — the two-factor convention
+ * into selection (interaction reported as zero) - the two-factor convention
  * many manager commentaries quietly use.
  */
 export function attribute(
