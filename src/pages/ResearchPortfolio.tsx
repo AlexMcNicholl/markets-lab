@@ -348,7 +348,8 @@ export default function ResearchPortfolio() {
             </div>
           </dl>
           <div className="note">
-            Beta is an illustrative weight-weighted estimate; cash is zero-beta.
+            Beta is illustrative, weighted by each position's size, with cash
+            counted as zero.
           </div>
         </section>
       </div>
