@@ -91,11 +91,9 @@ export default function ResearchPortfolio() {
 
       <h1>Research Portfolio</h1>
       <p className="lede">
-        A <strong>model</strong> book — synthetic in capital, real in its prices
-        and its reasoning. Every name carries a written thesis, a size that
-        follows conviction, a sell rule set in advance, and Brinson attribution
-        on my own calls. Read the process, not the P&amp;L. Public data only; not
-        investment advice.
+        A <strong>model</strong> book — synthetic capital, real prices. Every
+        name has a thesis, a conviction-based size, and a sell rule. Read the
+        process, not the P&amp;L. Public data only.
       </p>
 
       {book.dataMode === "estimate" && (
@@ -148,10 +146,6 @@ export default function ResearchPortfolio() {
           <h4>
             Equity curve <span className="rp-illus">model · illustrative</span>
           </h4>
-          <p className="rp-panel-sub">
-            Mark-to-market on real closes, entry → as of. Undeployed capital
-            sits in cash, so the line starts at notional.
-          </p>
           <div className="chart-wrap" style={{ height: 240 }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart
@@ -215,8 +209,7 @@ export default function ResearchPortfolio() {
         <section className="rp-panel">
           <h4>Contribution to return — since entry</h4>
           <p className="rp-panel-sub">
-            Each name's P&amp;L as a share of the book — losers as plainly as
-            winners. Bars sum to the headline {fsign(ret)}.
+            Each name's P&amp;L as a share of the book. Bars sum to {fsign(ret)}.
           </p>
           <div
             className="chart-wrap"
@@ -283,8 +276,7 @@ export default function ResearchPortfolio() {
         <section className="rp-panel">
           <h4>Allocation vs. benchmark — GICS</h4>
           <p className="rp-panel-sub">
-            Book weight against published {bench.name} sector weights (
-            {fmtDate(bench.weightsAsOf)}). Active tilt in the right column.
+            Book vs. {bench.name} sector weights. Active tilt at right.
           </p>
           <div className="rp-alloc">
             {alloc
@@ -333,18 +325,11 @@ export default function ResearchPortfolio() {
               <div className="rp-alloc-active num rp-dim">—</div>
             </div>
           </div>
-          <div className="note">
-            Bars are book weight; the gold tick is the benchmark weight. Right
-            column is the active over/underweight in points.
-          </div>
+          <div className="note">Gold tick = benchmark weight.</div>
         </section>
 
         <section className="rp-panel">
           <h4>Risk lens</h4>
-          <p className="rp-panel-sub">
-            What the book is actually exposed to — concentration, market
-            sensitivity, and dry powder.
-          </p>
           <dl className="rp-risk">
             <div>
               <dt>Top-5 concentration</dt>
@@ -371,8 +356,7 @@ export default function ResearchPortfolio() {
             </div>
           </dl>
           <div className="note">
-            Beta is an illustrative per-name estimate, weight-weighted; cash
-            carries zero beta and shows up as the buffer above.
+            Beta is an illustrative weight-weighted estimate; cash is zero-beta.
           </div>
         </section>
       </div>
@@ -383,11 +367,10 @@ export default function ResearchPortfolio() {
           <div>
             <h4>Attribution — my decisions vs. benchmark</h4>
             <p className="rp-panel-sub">
-              Brinson-Fachler over the common window (inception → as of), run
-              through the same engine as the{" "}
+              Same engine as the{" "}
               <Link to="/attribution">Attribution Playground</Link>. Allocation
-              is the bet on <em>where</em> to be; selection is the bet on{" "}
-              <em>what</em> to hold within a sector.
+              is the bet on <em>where</em> to be; selection on <em>what</em> to
+              hold.
             </p>
           </div>
           <Link to={attrLink} className="preset rp-attr-link">
@@ -427,10 +410,8 @@ export default function ResearchPortfolio() {
           </div>
         </div>
         <div className="note">
-          Single-period attribution assumes the current book held across the
-          window; the position cards below show each name's true, staggered
-          since-entry P&amp;L. Effects sum to total active return exactly — the
-          check that the decomposition is complete.
+          Single-period; effects sum to total active exactly. Cards below show
+          each name's staggered since-entry P&amp;L.
         </div>
       </section>
 
@@ -448,37 +429,19 @@ export default function ResearchPortfolio() {
 
       {/* methodology */}
       <div className="prose rp-method">
-        <h3>How the book is built — and what's real</h3>
+        <h3>How it's built</h3>
         <p>
-          Only the capital is invented: a $
-          {(book.notionalCapital / 1000000).toFixed(1)}M notional paper book.
-          Entry prices are the actual close on the dated entry; marks are the
-          close as of {fmtDate(book.asOf)}; the equity curve is genuine
-          mark-to-market. Entries are dated and never backfilled — that
-          constraint is what keeps a loser on the page as a loser.
-        </p>
-        <p>
-          <strong>Conviction drives size.</strong> High-conviction names carry
-          the top weights; a low-conviction hedge like a gold royalty stays
-          deliberately small — the same logic as the{" "}
-          <Link to="/black-litterman">Black-Litterman View Mixer</Link>, where a
-          stronger view earns a bigger tilt. Each position's framework link opens
-          the tool behind the valuation.
-        </p>
-        <p>
-          <strong>Benchmark.</strong> The {bench.name} anchors both the
-          allocation view and the attribution: published sector weights as of{" "}
-          {fmtDate(bench.weightsAsOf)}, with window returns on the matching
-          sector indices where they exist and the composite as a neutral proxy
-          elsewhere. A recognized standard, not an ad-hoc set — re-marked{" "}
-          {book.remarkCadence} so the "as of" never goes stale.
+          Only the capital is invented — a $
+          {(book.notionalCapital / 1000000).toFixed(1)}M paper book. Entry
+          prices and marks are real closes; the equity curve is genuine
+          mark-to-market, dated and never backfilled. Conviction drives size;
+          the {bench.name} anchors the allocation and attribution views.
         </p>
         <div className="callout">
-          <strong>The honest read:</strong> a model book that's up impresses no
-          one — I picked the entries. The signal is the discipline: a thesis on
-          each name, size that tracks conviction, a sell rule written before the
-          trade, and attribution that owns the losers. That's what survives a bad
-          month. Illustrative; public data only.
+          A model book that's up impresses no one — I picked the entries. The
+          signal is the discipline: a thesis, a size that tracks conviction, a
+          sell rule set before the trade, and attribution that owns the losers.
+          Illustrative; public data only.
         </div>
       </div>
     </div>

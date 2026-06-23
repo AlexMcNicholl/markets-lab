@@ -65,10 +65,8 @@ export default function Home() {
             </div>
             <h2>Research Portfolio</h2>
             <p className="flagship-lead">
-              The tools below each take one idea apart. This puts them to work: a
-              model book on real prices where every position has to justify
-              itself — a thesis, a size, a sell rule — and attribution that grades
-              the calls after the fact.
+              A model book where every position earns its place — a thesis, a
+              size, a sell rule — then attribution grades the calls.
             </p>
             <p className="flagship-loop num">
               thesis → sized position → risk → attribution → outcome
